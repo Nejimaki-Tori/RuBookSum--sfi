@@ -14,119 +14,111 @@
 \usepackage{algpseudocode}
 \usepackage[normalem]{ulem}
 \usepackage{graphicx}
+\usepackage{lmodern}
 \usepackage[hidelinks]{hyperref}
 
 \begin{document}
 
-\author{Д.\,А.~Григорьев\footnote{\label{msu}Московский государственный университет им.~М.\,В.~Ломоносова, Москва, Россия}\footnote{E-mail: dagrig14@yandex.ru} \and Д.\,В.~Худяков\footnoteref{msu}\footnote{E-mail: hydikovv17914@gmail.com} \and Д.\,И.~Чернышев\footnoteref{msu}\footnote{E-mail: chdanorbis@yandex.ru}}
+\author{D.\,A.~Grigoriev\footnote{\label{msu}Lomonosov Moscow State University, Moscow Center for Fundamental and Applied Mathematics, \\ Moscow, Russian Federation}\footnote{E-mail: dagrig14@yandex.ru} \and D.\,V.~Khudiakov\footnoteref{msu}\footnote{E-mail: hydikovv17914@gmail.com} \and D.\,I.~Chernyshev\footnoteref{msu}\footnote{E-mail: chdanorbis@yandex.ru}}
 
-\title{Реферирование художественной литературы посредством больших языковых моделей}
+\title{Literature summarization with large language models}
 
 \maketitle{}
 
 \begin{abstract}
-Работа посвящена автоматическому реферированию художественной литературы на русском языке.
-Был собран открытый корпус RuBookSum (600+ пар «книга-пересказ») на основе текстов из LibRuSec и пользовательских пересказов <<Народного Брифли>>.
-Исследуются четыре подхода к реферированию: базовый иерархический и <<чертёжный>> (Text-Blueprint) с построением плана в виде вопросно-ответных пар, 
-а также новые, предложенные в этой работе методы: иерархический с фильтрацией узлов по косинусному сходству эмбеддингов и модификация <<чертежного>> 
-метода с кластеризацией вопросов алгоритмом KMeans.
-Наилучшее качество показывает Qwen3-235B-A22B в <<чертёжном>> методе, тогда как иерархический с фильтрацией обеспечивает лучший баланс между
-временем и качеством генерации.
-
-\keywords{LLM, реферирование, литература, книги, краткий пересказ}
-
+The work is dedicated to automatic summarization of Russian literary fiction.
+An open corpus RuBookSum (600+ “book-summary” pairs) was compiled based on texts from LibRuSec and user-generated summaries from <<Народный Брифли>>.
+Four approaches to summarization are examined: the baseline hierarchical method and the “blueprint” (Text-Blueprint) approach, 
+which builds an outline in the form of question-answer pairs, as well as two new methods proposed in this work: 
+a hierarchical method with node filtering based on cosine similarity of embeddings, 
+and a modification of the blueprint approach with question clustering using the KMeans algorithm.
+The best quality is achieved by Qwen3-235B-A22B in the blueprint method, 
+while the hierarchical method with filtering provides the best balance between generation time and quality.
+\keywords{LLM, summarization, literature, books, brief retelling}
 \end{abstract}
 
 
 
 % ================= ВВЕДЕНИЕ =================
-\section*{Введение}
-Автоматическое реферирование текста - одна из ключевых задач в области обработки естественного языка. Суть этой задачи заключается в создании информативного реферата исходного текста с сохранением основного смысла содержания. 
-В последние годы, с появлением больших языковых моделей, резко возрос интерес к автоматизации реферирования в самых разных жанрах текстов, включая художественные произведения. 
-В отличие от научных, новостных или технических текстов, художественные произведения характеризуются высокой степенью стилистической и семантической сложности. 
-Нелинейность повествования, образность, метафоричность и стилистические приёмы делают задачу написания краткого содержания особенно трудоёмкой. 
-Ограниченное контекстное окно современных моделей дополнительно осложняет работу с длинными произведениями.
+\section*{Introduction}
+Automatic text summarization is one of the key tasks in natural language processing. The goal is to create an informative summary of the source text while preserving its main meaning.
+In recent years, with the advent of large language models (LLMs), interest in automating summarization has increased across many genres, including fiction.
+Unlike scientific, news, or technical texts, fiction is characterized by high stylistic and semantic complexity.
+Non-linear storytelling, imagery, metaphor, and stylistic devices make short synopsis writing especially challenging.
+The limited context window of modern models further complicates processing long works.
 
-На текущий момент существует не так много наборов данных, фокусирующихся на задаче художественного реферирования текста, 
-к тому же ключевые открытые корпуса сконцентрированы на нерусскоязычном материале. BookSum \cite{BookSum} - один из первых и наиболее известных англоязычных наборов данных
-для абстрактивного реферирования художественных произведений. Он состоит из книг, пьес и рассказов, сопровождаемых рефератами разного уровня сложности (уровень абзацев, 
-уровень глав, уровень книги). 
-Echoes from Alexandria \cite{alexandria} - многоязычный корпус художественной литературы. Включает тексты на пяти языках: английском, немецком, французском, итальянском и испанском.
-Fables \cite{fables} - ручной корпус, предназначенный для оценки фактологической достоверности рефератов к художественным книгам. 
-Он включает 3 158 утверждений, извлечённых из созданных языковыми моделями рефератов к 26 книгам.
-Каждое утверждение оценивается по реферату, полученному от различных моделей и анализируются экспертами. 
-По результатам FABLES выявлено, что даже продвинутые модели (например, Claude) допускают до 20-30\% фактологических ошибок, включая искажение
-причинно-следственных связей, неверную характеристику персонажей и смещение
-акцента на малозначимые детали.
-рём критериям: соответствие событиям оригинала, логическая корректность и отсутствие искажений.
+At present moment there are not many datasets focusing specifically on summarizing fiction, and the key open datasets concentrate on non-Russian material.
+BookSum \cite{BookSum} is one of the first and best-known English-language datasets for abstractive summarization of narrative works. 
+It contains books, plays, and short stories paired with summaries of varying granularity (paragraph level, chapter level, book level).
+Echoes from Alexandria \cite{alexandria} is a multilingual corpus of fiction, including five languages: English, German, French, Italian, and Spanish.
+FABLES \cite{fables} is a hand-curated corpus designed to evaluate factual faithfulness of summaries for book-length fiction.
+It includes 3,158 claims extracted from LLM-generated summaries for 26 books.
+Each claim is evaluated across model outputs by experts.
+According to FABLES, even advanced models (e.g., Claude) commit 20–30\% factual errors, including distorted
+causal relations, incorrect characterization of protagonists, and overemphasis on minor details,
+judged by three criteria: agreement with original events, logical correctness, and absence of distortions.
 
-Теоретически автоматическое реферирование может выполняться двумя основными способами: экстрактивным реферированием (выбор ключевых фрагментов текста) и абстрактивным (генерация нового текста на основе содержания оригинала). 
-Обычно для художественной прозы выбирается абстрактивное реферирование: 
-ключевые смыслы и сюжетные связи распределены по всему тексту, поэтому экстрактивная выборка предложений даёт фрагментарный, 
-стилистически неоднородный результат и не восстанавливает сюжет, в связи с чем был выбран второй способ реферирования.
+In theory, automatic summarization can be performed in two main ways: extractive (selecting key text fragments) and abstractive (generating new text based on the source).
+For prose, abstractive summarization is typically chosen:
+key meanings and plot links are distributed throughout the text, so extractive sentence selection yields a fragmented,
+stylistically uneven result and does not reconstruct the plot, therefore abstractive approach was chosen.
 
-Актуальность темы обусловлена растущей потребностью в инструментах, способных
-автоматически создавать краткие, содержательные и стилистически корректные рефераты к художественным текстам.
-Цель данной работы - предоставить подобные инструменты, с целью чего были решены следующие задачи:
+The topic is motivated by the growing need for tools capable of automatically producing concise, informative, and stylistically appropriate synopses for works of fiction.
+The goal of this work is to provide such tools, thus, following is proposed:
 \begin{enumerate}
-  \item Был создан новый набор данных для русского языка, включающий в себя художественные произведения и пересказы к ним;
-  \item Были предложены новые методы реферирования текстов, предлагающие альтернативу существующим и существенно уменьшающих время, требующиеся для создания краткого пересказа книги.
+  \item New Russian-language dataset that includes literary works and their synopses;
+  \item New summarization methods that offer alternatives to existing ones and substantially reduce the time required to produce a short synopsis of a book.
 \end{enumerate}
 
-Код и данные работы выложены в открытый доступ\footnote{https://github.com/Nejimaki-Tori/BoookSum}.
+Code and data are publicly available\footnote{\label{git}\url{https://github.com/Nejimaki-Tori/BookSum}}.
 
 % ================= НАБОР ДАННЫХ =================
 
-\section{Набор данных}
-На момент начала исследования не существовало открытых и репрезентативных корпусов, предназначенных специально для задачи реферирования художественных текстов на русском языке. 
-С целью проведения экспериментов и оценки различных подходов к генерации рефератов был создан собственный корпус, состоящий из художественных текстов и соответствующих кратких пересказов. 
-В качестве источника рефератов был выбран ресурс «Народный Брифли»~\cite{Briefly} - платформа, где пользователи публикуют краткие пересказы литературных произведений. 
+\section{Dataset}
+At the start of the study, there were no open and representative corpora designed specifically for summarizing fiction in Russian.
+To run experiments and evaluate different approaches, we created our own corpus consisting of works of fiction and corresponding short synopses.
+As the source of synopses we used the “Narodny Briefly” platform \cite{Briefly} where users publish short summaries of literary works.
 
-Пересказы представляют произвольные тексты, созданные пользователями на основе исходных материалов художественного произведения. Они варьируются по объему - от нескольких предложений,
-до нескольких абзацев и стилю - некоторые пересказы дословно воспроизводят ключевые фразы произведения, в то время как другие используют более свободную форму изложения. Некоторые
-охватывают все произведение целиком, тогда как другие делят содержание на отдельные главы. 
-Как правило, содержат основные факты и выводы, следующие из исходного текста, но могут содержать комментарии автора пересказа.
+The synopses are user-generated texts based on the original works. They vary in length—from a few sentences to several paragraphs—and in style: some reproduce key phrases verbatim, 
+while others use freer narration. Some cover the whole work, others split content by chapter.
+Usually they contain the main facts and conclusions from the source text, but may include the author’s commentary.
 
-Художественные тексты были отобраны из электронной библиотеки LibRuSec \cite{librusec} - одного из крупнейших русскоязычных ресурсов художественной литературы. 
-Отбор произведений осуществлялся на основании наличия реферата на выбранном ресурсе \cite{Briefly}. Каждый текст проходил автоматическую предварительную обработку: удалялась метаинформация (например, заголовки, описания глав и технические вставки), 
-после чего текст форматировался в единый стандартизированный вид, подходящий для дальнейшего использования в моделях. 
+The book texts were selected from the LibRuSec electronic library \cite{librusec}, one of the largest Russian-language fiction resources.
+Works were selected for which a synopsis existed on chosen source\cite{Briefly}. Each text underwent automatic preprocessing: meta-information (e.g., titles, chapter descriptions, technical inserts) was removed,
+then the text was formatted into a unified, standardized form suitable for use with models.
 
-Чтобы более точно связать книги с их рефератами использовалось семантическое сходство: текст имени автора, записанный на Брифли \cite{Briefly} и автора с LibRuSec \cite{librusec} переводился в эмбеддинги с использованием библиотеки SentenceTransformer
-с помощью языковой модели\footnote{https://huggingface.co/deepvk/USER-bge-m3}
-и сравнивался по косинусному сходству.
-\begin{figure}[!htbp]
-    \centering
-    \includegraphics[width=0.8\linewidth]{figures/genres_pie.png}
-    \caption{Распределение текстов по жанрам (топ 10 жанров)}
-    \label{fig:genres}
-\end{figure}
+To better link books with their synopses, semantic similarity was used: the author name text from Briefly \cite{Briefly} and from LibRuSec \cite{librusec} was embedded via SentenceTransformer
+with the model\footnote{\label{encoder}\url{https://huggingface.co/deepvk/USER-bge-m3}}
+and compared using cosine similarity.
 
-\begin{table}[ht]
-\centering
-\caption{Обзор датасетов}
-\label{tab:dataset_info}
+\tab{tab:dataset_info}{Dataset overview}{
 \begin{tabular}{l|cccc}
-\toprule
-\textbf{Датасет} & \makecell{Число документов} & \makecell{Средняя длина \\ документа \\ (\# слов)} & \makecell{Средняя длина \\ реферата \\ (\# слов)} & \makecell{Степень сжатия \\ (длина реферата \\/ длина текста)} \\
-\midrule
+\hline
+\textbf{Dataset} & \makecell{Number of \\ documents} & \makecell{Avg. document \\ length \\ (\# words)} & \makecell{Avg. summary \\ length \\ (\# words)} & \makecell{Compression ratio \\ (summary length \\/ text length)} \\
+\hline
 \textbf{RuBookSum}  & 634 & 35052.64 & 700.77 & 8.43\% \\
 \hline
 BookSum    & 405 & 112885.15 & 1167.20 & 0.79\% \\
 Gazeta     & 60964 & 632.77 & 41.94 & 6.99\% \\
-\bottomrule
+\hline
 \end{tabular}
-\end{table}
+}
 
-Тексты рефератов проходили автоматическую очистку от HTML‑тегов, комментариев и служебных пометок с помощью LLM~Meta--Llama~3--70B--Instruct. 
-Затем производился поиск по датасету LibRuSec и собиралась коллекция, состоящая из пар "текст книги - реферат".
-\\Получившийся корпус включает в себя:
+The synopses were automatically cleaned of HTML tags, comments, and service markers using LLM Meta-\allowbreak Llama 3-\allowbreak 70B-\allowbreak Instruct.
+Then LibRuSec was searched and a collection of “book text – synopsis” pairs was formed.
+\\The resulting corpus includes:
 \begin{itemize}
-  \item более 600 очищенных пользовательских пересказов с ресурса «Народный Брифли» \cite{Briefly};
-  \item более 40 различных жанров;
-  \item исходные произведения из электронной библиотеки LibRuSec \cite{librusec}.
+  \item 600+ cleaned user synopses from “Narodny Briefly” \cite{Briefly};
+  \item 40+ different genres;
+  \item source works from the LibRuSec electronic library \cite{librusec}.
 \end{itemize}
-
-На рисунке \ref{fig:genres} показано распределение жанров текстов в коллекции. В таблице \ref{tab:dataset_info} приведена общая информация о датасете в сравнении с аналогами.
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.8\linewidth]{figures/genres_pie.png}
+    \caption{Distribution of texts by genres (top 10 genres)}
+    \label{fig:genres}
+\end{figure}
+Figure \ref{fig:genres} shows the genre distribution in the collection. Table \tabref{tab:dataset_info} gives dataset statistics versus analogs.
 
 % ================= МЕТОДОЛОГИЯ =================
 \section{Методология}
@@ -498,6 +490,11 @@ yagpt5lite                   & 34.17 & 14.08 & 99.70 & 27.26 \\
 Однако для некоторых типов текстов и методов (например, базовый чертёжный) более компактные модели, такие как RuadaptQwen3-\allowbreak 32B-\allowbreak Instruct-\allowbreak v2, 
 могут демонстрировать конкурентоспособное качество при меньших вычислительных затратах. 
 Таким образом, выбор модели следует определять исходя из баланса между доступными ресурсами, требованиями к качеству и характером обрабатываемых текстов.
+
+\section*{Благодарности}
+Исследование выполнено за счет гранта Российского научного фонда № 25-11-00191, \\https://rscf.ru/project/25-11-00191/
+
+Работа выполнялась с использованием суперкомпьютера «МГУ-270» МГУ имени М.В. Ломоносова.
 % ================= ЛИТЕРАТУРА =================
 
 
