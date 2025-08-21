@@ -1,4 +1,3 @@
-\PassOptionsToPackage{russian,english,main=russian}{babel}
 \documentclass{superfri}
 \usepackage[T2A]{fontenc}
 \usepackage[utf8]{inputenc}
@@ -18,7 +17,7 @@
 \usepackage[hidelinks]{hyperref}
 
 \begin{document}
-
+\raggedbottom
 \author{D.\,A.~Grigoriev\footnote{\label{msu}Lomonosov Moscow State University, Moscow Center for Fundamental and Applied Mathematics, \\ Moscow, Russian Federation}\footnote{E-mail: dagrig14@yandex.ru} \and D.\,V.~Khudiakov\footnoteref{msu}\footnote{E-mail: hydikovv17914@gmail.com} \and D.\,I.~Chernyshev\footnoteref{msu}\footnote{E-mail: chdanorbis@yandex.ru}}
 
 \title{Literature summarization with large language models}
@@ -27,8 +26,8 @@
 
 \begin{abstract}
 The work is dedicated to automatic summarization of Russian literary fiction.
-An open corpus RuBookSum (600+ “book-summary” pairs) was compiled based on texts from LibRuSec and user-generated summaries from <<Народный Брифли>>.
-Four approaches to summarization are examined: the baseline hierarchical method and the “blueprint” (Text-Blueprint) approach, 
+An open corpus RuBookSum (600+ "book-summary" pairs) was compiled based on texts from LibRuSec and user-generated summaries from <<Народный Брифли>>.
+Four approaches to summarization are examined: the baseline hierarchical method and the "blueprint" (Text-Blueprint) approach, 
 which builds an outline in the form of question-answer pairs, as well as two new methods proposed in this work: 
 a hierarchical method with node filtering based on cosine similarity of embeddings, 
 and a modification of the blueprint approach with question clustering using the KMeans algorithm.
@@ -77,9 +76,9 @@ Code and data are publicly available\footnote{\label{git}\url{https://github.com
 \section{Dataset}
 At the start of the study, there were no open and representative corpora designed specifically for summarizing fiction in Russian.
 To run experiments and evaluate different approaches, we created our own corpus consisting of works of fiction and corresponding short synopses.
-As the source of synopses we used the “Narodny Briefly” platform \cite{Briefly} where users publish short summaries of literary works.
+As the source of synopses we used the "Narodny Briefly" platform \cite{Briefly} where users publish short summaries of literary works.
 
-The synopses are user-generated texts based on the original works. They vary in length—from a few sentences to several paragraphs—and in style: some reproduce key phrases verbatim, 
+The synopses are user-generated texts based on the original works. They vary in length-from a few sentences to several paragraphs-and in style: some reproduce key phrases verbatim, 
 while others use freer narration. Some cover the whole work, others split content by chapter.
 Usually they contain the main facts and conclusions from the source text, but may include the author’s commentary.
 
@@ -105,10 +104,10 @@ Gazeta     & 60964 & 632.77 & 41.94 & 6.99\% \\
 }
 
 The synopses were automatically cleaned of HTML tags, comments, and service markers using LLM Meta-\allowbreak Llama 3-\allowbreak 70B-\allowbreak Instruct.
-Then LibRuSec was searched and a collection of “book text – synopsis” pairs was formed.
+Then LibRuSec was searched and a collection of "book text – synopsis" pairs was formed.
 \\The resulting corpus includes:
 \begin{itemize}
-  \item 600+ cleaned user synopses from “Narodny Briefly” \cite{Briefly};
+  \item 600+ cleaned user synopses from "Narodny Briefly" \cite{Briefly};
   \item 40+ different genres;
   \item source works from the LibRuSec electronic library \cite{librusec}.
 \end{itemize}
@@ -121,33 +120,33 @@ Then LibRuSec was searched and a collection of “book text – synopsis” pair
 Figure \ref{fig:genres} shows the genre distribution in the collection. Table \tabref{tab:dataset_info} gives dataset statistics versus analogs.
 
 % ================= МЕТОДОЛОГИЯ =================
-\section{Методология}
-\subsection{Базовые и модифицированные стратегии.}
+\section{Methodology}
+\subsection{Baseline and modified strategies.}
 
-\subsubsection{Иерархический метод. (Algorithm 1)}
-Суть этого метода \cite{hierarchical} заключается в том, что текст разбивается на фрагменты (чанки), для каждого из
-которых отдельно генерируется локальный реферат. 
-Эти фрагменты затем объединяются в группы, и из полученных рефератов снова формируется краткое содержание
-следующего уровня. Последний уровень представляет собой итоговый реферат всего произведения.
+\subsubsection{Hierarchical method (Algorithm 1).}
+This method \cite{hierarchical} splits the text into fragments (chunks) and
+generates a local summary for each chunk.
+These fragments are then grouped, and summaries are merged into higher-level synopses.
+The last level yields the final book-level summary.
 
-\subsubsection{Иерархический метод с фильтрацией узлов. (Algorithm 2)}
-Классический иерархический метод строит итоговый реферат путём многослойного объединения промежуточных рефератов, полученных из отдельных фрагментов текста. 
-Однако в литературных произведениях часто встречаются фрагменты, которые не оказывают большого влияния на развитие сюжета и содержат множество избыточных
-повторов и второстепенной информации. Эти фрагменты при генерации итогового реферата могут снижать её информативность, а в некоторых случаях даже мешать модели на этапе реферирования отдельных фрагментов.
+\subsubsection{Hierarchical method with node filtering (Algorithm 2).}
+The classical hierarchical method constructs the final summary through a multi-layered combination of intermediate obtained derived from individual text segments.
+However, literary works often contain segments that have little impact on plot development and include numerous redundant repetitions and minor details. 
+During the generation of the final summary, these segments can reduce its informativeness and, in some cases, even interfere with the model at the stage of summarizing individual fragments.
 
-Чтобы решить эту проблему, в метод была имплементирована фильтрация узлов по семантической близости. 
-Для исключения малоинформативных или дублирующих фрагментов на каждом уровне иерархии выполняется глобальная проверка семантической близости между всеми промежуточными рефератами. 
-Фрагменты, близкие по косинусной мере с предыдущими, считаются избыточными и не используются при составлении реферата на текущем уровне.
-Эмбеддинги получаются с помощью SentenceTransformer (модель USER-bge-m3) и при вычислении на GPU обеспечивается высокая скорость обработки.
-Эта модификация направлена на ускорение генерации за счет удаления потенциально излишних частей информации, что повышает плотность полезной информации в итоговых рефератах. 
+To address this issue, a node filtering mechanism based on semantic similarity was implemented into the method.
+To eliminate low-informative or redundant fragments, a global check of semantic similarity between all intermediate summaries is performed at each hierarchy level.
+Fragments that are close in cosine similarity to previous ones are considered redundant and are not used for compiling the summary at the current level.
+Embeddings are obtained using SentenceTransformer (the USER-bge-m3 model), and processing is performed at high speed on a GPU.
+This modification aims to accelerate generation by removing potentially superfluous parts of information, thereby increasing the density of useful information in the final summaries.
 
 \noindent
 \begin{minipage}[t]{0.49\textwidth}
   \begin{algorithm}[H]
-  \caption{Иерархический метод}
+  \caption{Hierarchical method}
     \begin{algorithmic}
-      \Require $W$ - контекстное окно модели, $D$ - входной текст, длиной $L \gg W$, $p_\theta$ - модель, $C$ - длина чанка
-      \State Разбить $D$ на чанки $c_1\dots c_{\lceil \frac{L}{C} \rceil}$
+      \Require $W$ - model context window, $D$ - input text of length $L \gg W$, $p_\theta$ - model, $C$ - chunk length
+      \State Split $D$ into chunks $c_1\dots c_{\lceil \frac{L}{C} \rceil}$
       \For{$c_i=c_1\dots c_{\lceil \frac{L}{C} \rceil}$}
         \State $S_0 \gets SummarizeChunk(p_\theta, c_i)$\
       \EndFor
@@ -164,19 +163,19 @@ Figure \ref{fig:genres} shows the genre distribution in the collection. Table \t
 \end{minipage}\hfill
 \begin{minipage}[t]{0.49\textwidth}
   \begin{algorithm}[H]
-    \caption{Иерархический метод с фильтрацией}
+    \caption{Hierarchical method with filtering}
     \begin{algorithmic}
-      \Require $W$ - контекстное окно модели, $D$ - входной текст, длиной $L \gg W$, $p_\theta$ - модель, $\theta$ - порог сходства, $C$ - длина чанка
-      \State Разбить $D$ на чанки $c_1\dots c_{\lceil \frac{L}{C} \rceil}$
+      \Require $W$ - model context window, $D$ - input text of length $L \gg W$, $p_\theta$ - model, $\theta$ - similarity threshold, $C$ - chunk length
+      \State Split $D$ into chunks $c_1\dots c_{\lceil \frac{L}{C} \rceil}$
       \State $S_0 \gets \{c_1\dots c_{\lceil \frac{L}{C} \rceil}\}$
       \Repeat
         \For{$s_i \in S_l$}
           \State $e_i \gets Encoder(s_i)$
-          \State $M_{ij} \gets \dfrac{\mathbf{e}_i\cdot \mathbf{e}_j}{\|\mathbf{e}_i\|\,\|\mathbf{e}_j\|}$\Comment{Матрица эмбеддингов}
-          \State{Вычисляется максимальное сходство}
-        \State{с предыдущими рефератами.}
+          \State $M_{ij} \gets \dfrac{\mathbf{e}_i\cdot \mathbf{e}_j}{\|\mathbf{e}_i\|\,\|\mathbf{e}_j\|}$\Comment{Embedding matrix}
+          \State Compute the maximum similarity
+        \State with previous summaries.
           \State $m_j=\max_{i<j} M_{ji}$
-          \State $S_l \gets \{s_i \mid m_i < \theta$ \textbf{ or } $i = 0 \}$ \Comment{Фильтрация}
+          \State $S_l \gets \{s_i \mid m_i < \theta$ \textbf{ or } $i = 0 \}$ \Comment{Filtering}
         \EndFor
         \State $Groups \gets GroupSummaries(S_l)$
         \State $\ell \gets \ell + 1$
@@ -190,40 +189,37 @@ Figure \ref{fig:genres} shows the genre distribution in the collection. Table \t
 \end{minipage}
 
 \vspace{0.4em}
-\subsubsection{«Чертёжный» метод (Text‑Blueprint). (Algorithm 3)}
-Данный метод \cite{blueprint} по сути является модификацией иерархического и ориентирован на построение промежуточного
-плана реферата перед генерацией текста. 
-План формируется в виде набора вопросно-ответных пар, что повышает управляемость генерации и обеспечивает структурированность результата.
-Сначала модель формирует список вопросов, отражающих ключевые события, темы
-и персонажей текста. Далее к каждому вопросу автоматически подбирается краткий
-ответ. Эта структура служит планом, по которому генерируется итоговый реферат.
+\subsubsection{Text-Blueprint (Algorithm 3).}
+This method \cite{blueprint} is essentially a modification of the hierarchical approach and focuses on building an intermediate plan before text generation.
+The outline is formed as a set of question-answer pairs, which enhances the controllability of the generation process and ensures the structured nature of the result.
+First the model creates a list of questions reflecting key events, themes, and characters. Then short answers are automatically generated for each question.
+This structure serves as a blueprint used to produce the final synopsis.
 
 
-\subsubsection{«Чертёжный» метод с кластеризацией вопросов. (Algorithm 4)}
-Базовая реализация «чертёжного» метода предполагает генерацию вопросно-ответного
-плана для каждого фрагмента текста и каждого уровня объединения рефератов. Однако при работе с художественными текстами вопросы, генерируемые для каждого чанка,
-могут пересекаться и порождать противоречивые ответы,  то в свою очередь сбивает агрегацию текста моделью, делая реферат менее структурированным
-и содержательно полным. К тому же, генерация плана на каждом шаге алгоритма существенно замедляет его работу и использует дополнительные мощности языковых моделей.
-Для снижения числа запросов к модели и повышения структурности, была добавлена кластеризация вопросов с использованием SentenceTransformers и алгоритма K-means.
+\subsubsection{Blueprint method with question clustering (Algorithm 4).}
+The baseline blueprint implementation generates a question-answer plan for each fragment and at each aggregation level. 
+With fiction, however, questions produced for different chunks may overlap and yield conflicting answers, which in turn confuses aggregation, making the synopsis less structured and complete. 
+Moreover, generating a plan at every step slows the method and consumes extra LLM time.
+To reduce model calls and improve structure, we added clustering of questions using SentenceTransformers and K-means.
 
 \noindent
 \begin{minipage}[t]{0.49\textwidth}
   \begin{algorithm}[H]
-    \caption{<<Чертежный>> метод}
+    \caption{Blueprint method}
     \begin{algorithmic}
-      \Require $W$ - контекстное окно модели, $D$ - входной текст, длиной $L \gg W$, $p_\theta$ - модель, $C$ - длина чанка, $R$ - ограничение по длине
-      \State Разбить $D$ на чанки $c_1\dots c_{\lceil \frac{L}{C} \rceil}$
+      \Require $W$ - model context window, $D$ - input text of length $L \gg W$, $p_\theta$ - model, $C$ - chunk length, $R$ - length limit
+      \State Split $D$ into chunks $c_1\dots c_{\lceil \frac{L}{C} \rceil}$
       \For{$c_i=c_1\dots c_{\lceil \frac{L}{C} \rceil}$}
         \State $b_i \gets GenerateBlueprint(p_\theta, c_i)$\
-        \State $S_0 \gets \{SummarizeWithBp(p_\theta, b_i, c_i)\}$\
+        \State $S_0 \gets \{SumWithBp(p_\theta, b_i, c_i)\}$\
       \EndFor
-      \Repeat \Comment{Объединение рефератов}
+      \Repeat \Comment{Merging summaries}
         \State $Groups \gets GroupSummaries(S_l)$
         \State $\ell \gets \ell + 1$
         \For{$g \in Groups$}
           \If{$Length(g) > R$}
             \State $b_i \gets GenerateBlueprint(p_\theta, g)$\
-            \State $S_l \gets \{SummarizeWithBp(p_\theta, b_i, g)\}$\
+            \State $S_l \gets \{SumWithBp(p_\theta, b_i, g)\}$\
           \Else
             \State $S_l \gets \{g\}$\
           \EndIf
@@ -235,10 +231,10 @@ Figure \ref{fig:genres} shows the genre distribution in the collection. Table \t
 \end{minipage}\hfill
 \begin{minipage}[t]{0.49\textwidth}
   \begin{algorithm}[H]
-  \caption{<<Чертежный>> метод с кластеризацией}
+  \caption{Blueprint method with clustering}
       \begin{algorithmic}
-        \Require $W$ - контекстное окно модели, $D$ - входной текст, длиной $L \gg W$, $p_\theta$ - модель, $C$ - длина чанка, $R$ - ограничение по длине
-        \State Разбить $D$ на чанки $c_1\dots c_{\lceil \frac{L}{C} \rceil}$
+        \Require $W$ - model context window, $D$ - input text of length $L \gg W$, $p_\theta$ - model, $C$ - chunk length, $R$ - length limit
+        \State Split $D$ into chunks $c_1\dots c_{\lceil \frac{L}{C} \rceil}$
         \For{$c_i=c_1\dots c_{\lceil \frac{L}{C} \rceil}$}
           \State $b_i \gets GenerateBlueprint(p_\theta, c_i)$
           \State $Q \gets \{ExtractQuestions(p_\theta, b_i)\}$
@@ -248,108 +244,95 @@ Figure \ref{fig:genres} shows the genre distribution in the collection. Table \t
           \State $K \gets KMeans(E)$
           \For{$k_i \in K$}
             \State $q_i \gets Generalize(p_\theta, k_i)$
-            \State $Q \gets \{q_i\}$ \Comment{Собирается общий план}
+            \State $Q \gets \{q_i\}$ \Comment{Build a global plan}
           \EndFor
           \For{$c_i=c_1\dots c_{\lceil \frac{L}{C} \rceil}$}
             \State $S_0 \gets \{SumWithBp(p_\theta, b_i, c_i)\}$\
           \EndFor
         \EndFor
-        \State \textbf{Объединение рефератов} аналогично <<Чертежному методу>> с тем отличием что здесь в качестве чертежа используется один глобальный план Q
+        \State \textbf{Merge summaries} as in the Blueprint method, except the blueprint here is the single global plan $Q$.
       \end{algorithmic}
   \end{algorithm}
 \end{minipage}
 
-Такой подход позволяет уменьшить число обращений к LLM, что позволяет ускорить скорость генераций, как будет показано в таблице \ref{tab:results_models}.
-
 % ================= МЕТРИКИ =================
 
-\section{Метрики}
+\section{Metrics}
 
-Для объективного сравнения описанных подходов и моделей в задаче реферирования художественных текстов использовались четыре группы метрик.
+For an objective comparison of the described approaches and models in the task of summarizing literary texts, four groups of metrics were used.
 
-\textbf{ROUGE-L} \cite{rouge} - основана на длине наибольшей общей подпоследовательности (LCS) между сгенерированным рефератом $S$ и эталонным $R$.
-Вычисляется по формуле \eqref{rouge} с использованием формул \eqref{r_p} и \eqref{r_r}:
-\begin{equation}\label{r_p}
+\textbf{ROUGE-L} \cite{rouge} - based on the length of the longest common subsequence (LCS) between the generated summary $S$ and the reference $R$.
+\begin{equation}
   \text{Precision} = \frac{\mathrm{LCS}(S,R)}{|S|},\quad
 \end{equation}
-\begin{equation}\label{r_r}
+\begin{equation}
   \text{Recall} = \frac{\mathrm{LCS}(S,R)}{|R|}
 \end{equation}
-\begin{equation}\label{rouge}
-  \text{ROUGE‑L} = \frac{2\;\text{Precision}\;\cdot\;\text{Recall}}{\text{Precision} + \text{Recall}}
+\begin{equation}
+  \text{ROUGE-L} = \frac{2\;\text{Precision}\;\cdot\;\text{Recall}}{\text{Precision} + \text{Recall}}
 \end{equation}
 
-\textbf{BERTScore} \cite{bertscore} - семантическое качество на уровне токенов. Для каждой пары токенов предсказания и эталона вычисляется косинусное сходство их эмбеддингов в модели USER‑bge‑m3. Затем:
-\begin{equation}\label{precision}
+\textbf{BERTScore} \cite{bertscore} - semantic quality at token level. For every token pair from prediction and reference we compute cosine similarity of their embeddings in USER-bge-m3. Then:
+\begin{equation}
 P = \frac{1}{|S|}\sum_{t\in S}\max_{u\in R}\!\mathrm{sim}(e_t, e_u),\quad
 \end{equation}
 
-\begin{equation}\label{recall}
+\begin{equation}
 R = \frac{1}{|R|}\sum_{u\in R}\max_{t\in S}\!\mathrm{sim}(e_u, e_t)\\
 \end{equation}
 
-\begin{equation}\label{f}
+\begin{equation}
 \text{BERTScore} = \frac{2\,P\,R}{P+R}
 \end{equation}
 
-В формулах  \eqref{precision}, \eqref{recall} и \eqref{f} \(S\) - эталонный текст, \(R\) - сгенерированный; каждое предложение кодируется эмбеддингом модели USER‑bge‑m3, 
-после чего вычисляется косинусное сходство.  
+where \(S\) is the reference text and \(R\) is the generated one; each sentence is encoded by USER-bge-m3,
+followed by cosine similarity.
 
-\textbf{Полнота покрытия ключевых вопросов (Coverage)} - доля заранее сгенерированных по эталонному тексту вопросов с помощью модели Qwen3-\allowbreak 235B-\allowbreak A22B \cite{qwen3},
-на которые модель «отвечает» в реферате:
-\begin{equation}\label{coverage}
-  \text{Coverage} = \frac{\#\{q_i\colon P(\text{“да”}\mid q_i,S)\!>\!0.75\}}{N}
+\textbf{Coverage of key questions (Coverage)} - the proportion of pre-generated questions (from the reference) using Qwen3-235B-A22B \cite{qwen3}
+to which the model "answers" in its summary:
+\begin{equation}
+  \text{Coverage} = \frac{\#\{q_i\colon P(\text{yes}\mid q_i,S)\!>\!0.75\}}{N},
 \end{equation}
-В формуле \eqref{coverage} $N$ - общее число вопросов, а $P(\text{“да”}\mid q_i,S)$ - вероятность наличия ответа на вопрос $q_i$ в тексте $S$, 
-полученная с помощью LLM (Qwen3-\allowbreak 235B-\allowbreak A22B \cite{qwen3}).
+where $N$ is the total number of questions and $P(\text{yes}\mid q_i,S)$ is the probability that the answer to $q_i$ is present in $S$,
+obtained with an LLM (Qwen3-235B-A22B \cite{qwen3}).
 
-\textbf{Совпадение ответов (AnswerSimilarity)} - среднее семантическое сходство между сгенерированными ответами $a_i^{\text{pred}}$ и эталонными $a_i^{\text{ref}}$ на те же ключевые вопросы:
-\begin{equation}\label{sims}
+\textbf{Answer similarity (AnswerSimilarity)} - the average semantic similarity between generated answers $a_i^{\text{pred}}$ and reference answers $a_i^{\text{ref}}$ to the same key questions:
+\begin{equation}
   \text{AnswerSimilarity} = \frac{1}{N}\sum_{i=1}^N \mathrm{sim}\bigl(a_i^{\text{pred}},\,a_i^{\text{ref}}\bigr)
 \end{equation}
-В формуле \eqref{sims} $\mathrm{sim}$ - косинусное сходство эмбеддингов, полученных через USER‑bge‑m3.
+Here $\mathrm{sim}$ is cosine similarity of embeddings computed with USER-bge-m3.
 
+\section{Experimental setup}
 
-Использование нескольких метрик, учитывающих как поверхностное совпадение текста, так и глубокое семантическое сходство (BERTScore, AnswerSimilarity), 
-а также степень охвата заранее заданных вопросов (Coverage), обеспечивает всестороннюю и устойчивую оценку качества рефератов.
+All measurements were performed on the test portion of the dataset, selecting sources such that input texts did not exceed 800{,}000 characters.
+For all methods the summaries were limited to 500 words maximum.
 
-\section{Параметры экспериментов}
+The input text was split into fixed-size chunks of 2{,}000 tokens.
+Tokenization used \texttt{AutoTokenizer} from \texttt{DeepPavlov/rubert-base-cased} with default settings.
+To ensure reproducibility the random seed is fixed ($random\_seed = 42$).
 
-Все представленные в работе измерения выполнены на тестовой части датасета, 
-отобранных так, чтобы исходные тексты не превышали по длине 800\,000 символов. 
-Для всех методов генерируемые рефераты ограничивались максимумом в 500 слов.
+In the \textbf{hierarchical method with node filtering}, a matrix of cosine similarities between the embeddings of the intermediate summaries is computed at each level to assess their redundancy.
+A similarity threshold is set at $\theta=0.85$: if for a summary $S_j$ there existed a previous summary $S_i$ with a cosine similarity above this threshold, then $S_j$ is discarded as redundant. 
+This choice of threshold provides a compromise between preserving meaningful information and eliminating duplication, which empirically led to a noticeable reduction in the volume of intermediate representations without significant degradation in quality.
 
-Текст на вход разбивался на чанки фиксированного размера в 2000 токенов. 
-Токенизация выполнялась с помощью \texttt{AutoTokenizer} модели \texttt{DeepPavlov/rubert-base-cased} в стандартном режиме.
-Для воспроизводимости всех случайных процедур использовался фиксированный seed ($random\_seed = 42$).
-
-В \textbf{иерархическом методе с фильтрацией узлов} для оценки избыточности промежуточных рефератов на каждом уровне вычислялась матрица косинусных сходств между их эмбеддингами.
-Порог схожести был установлен равным $\theta=0.85$: если для реферата $S_j$ существует предыдущий $S_i$ с косинусным сходством выше этого порога, 
-то $S_j$ отбрасывается как избыточный. Такой выбор порога обеспечивает компромисс между сохранением значимой информации и устранением дублирования, 
-что эмпирически привело к заметному уменьшению объёма промежуточных представлений без существенной деградации качества.
-
-В \textbf{чертёжном методе с кластеризацией вопросов} количество кластеров для K-means выбирается по эвристике, подобранной эмпирически, представленной в формуле \eqref{num_cl}:
-\begin{equation}\label{num_cl}
-  n_{\text{clusters}} = \max\!\left(2,\; \left\lceil \sqrt{N_{\text{questions}}} \right\rceil\right)
+In the \textbf{blueprint method} with question clustering, the number of clusters for KMeans is chosen using a heuristically derived rule:
+\begin{equation}
+n_{\text{clusters}} = \max!\left(2,; \left\lceil \sqrt{N_{\text{questions}}} \right\rceil\right)
 \end{equation}
+where $N_{\text{questions}}$ is the total number of questions generated across all chunks before clustering.
 
-где $N_{\text{questions}}$ - общее число сгенерированных вопросов по всем чанкам до кластеризации. 
-Гарантируется минимум в два кластера, что позволяет даже при небольших наборах вопросов получать структурированное чертёжное представление.
-
-Временные показатели измерялись как среднее значение (в секундах) времени генерации одной книги по каждому методу для 100 книг. 
-В случае всех четырех методов учитывалось суммарное время всех этапов (включая генерацию промежуточных рефератов / планов, фильтрацию и финальную агрегацию).
-
+Processing times were measured as the average value (in seconds) of the generation time per book for each method across 100 books.
 % ================= РЕЗУЛЬТАТЫ =================
 
-\section{Результаты}
+\section{Results}
 
-\subsection{Используемые модели.}
-В экспериментах использовались следующие большие языковые модели: 
-RuadaptQwen2.5-\allowbreak 7B-\allowbreak Lite-\allowbreak Beta \cite{ruadapt}, 
-RuadaptQwen3-\allowbreak 32BInstruct-v2 \cite{ruadapt}, 
-DeepSeek V3 \cite{deepseek}, 
-Qwen3-\allowbreak 235B-\allowbreak A22B \cite{qwen3}, 
-tpro \cite{tpro} и yagpt5lite \cite{yagpt}.
+\subsection*{Models used.}
+The following LLMs were used:
+RuadaptQwen2.5-7B-Lite-Beta \cite{ruadapt},
+RuadaptQwen3-32BInstruct-v2 \cite{ruadapt},
+DeepSeek V3 \cite{deepseek},
+Qwen3-235B-A22B \cite{qwen3},
+tpro \cite{tpro} and yagpt5lite \cite{yagpt}.
 
 \tab{tab:results_models}{Результаты по методам и моделям}{
 \centering
@@ -357,11 +340,11 @@ tpro \cite{tpro} и yagpt5lite \cite{yagpt}.
 \setlength{\tabcolsep}{4pt}
 \begin{tabular}{ll|c|c|c|c}
 \toprule
-Модель & Метрики &
-\makecell{Иерархический} &
-\makecell{Чертежный} &
-\makecell{Иерархический \\ с фильтрацией} &
-\makecell{Чертежный \\ с кластеризацией} \\
+Model & Metrics &
+\makecell{Hierarchical} &
+\makecell{Blueprint} &
+\makecell{Hierarchical \\ with filtering} &
+\makecell{Blueprint \\ with clustering} \\
 \hline
 \multirow{5}{*}{DeepSeek V3}
  & bertscore  & \uline{60.0 ± 3.1} & 58.0 ± 4.0 & 60.0 ± 2.9 & 58.4 ± 3.6 \\
@@ -405,60 +388,58 @@ tpro \cite{tpro} и yagpt5lite \cite{yagpt}.
 \end{tabular}
 }
 
-\subsection{Полученные результаты.}
-В таблице \ref{tab:results_models} представлены сравнительные метрики качества автоматического пересказа книг разными моделями и методами обработки. Для каждой комбинации модели и метода измерялись BERTScore, ROUGEL, Answer Coverage и 
-Similarity, а также время генерации (среднее) на 100 примерах, одинаковых для всех замеров. Лучше всего себя показала модель Qwen3-\allowbreak 235B-\allowbreak A22B: она продемонстрировала самые высокие показатели в покрытие вопросов и сходстве ответов.
-В то же время важно отметить, что среди всех методов лучшим образом в соотношение качество и время обработки себя показывает иерархический метод с фильтрацией узлов. Он позволяет существенно ускорить время обработки (например, почти в два раза для модели DeepSeek V3), и по сравнению с 
-чертежным методом, который в среднем показывал лучшие результаты, не сильно отстает по показателям. Исключением стала лишь модель Qwen3-\allowbreak 235B-\allowbreak A22B, так как она показала лучший результат среди всех моделей на базовом чертежном методе.
-Эксперименты показали, что иерархический метод с фильтрацией узлов обеспечивает наилучший компромисс между скоростью и качеством генерации.
+\subsection{Findings.}
+Table \tabref{tab:results_models} reports comparative metrics of automatic book summarization across models and methods. 
+The best overall performance was achieved by Qwen3-235B-A22B: it delivered the highest coverage and answer similarity.
+At the same time, among methods the hierarchical approach with node filtering offered the best quality–time trade-off. It significantly sped up processing (e.g., almost 2× faster for DeepSeek V3), and compared to
+the blueprint method-which on average achieved the best metrics-it lagged only slightly. The exception was Qwen3-235B-A22B, which achieved its top results with the baseline blueprint.
+Experiments show that the hierarchical method with filtering provides the best compromise between speed and quality.
 
-\subsection{Анализ и сравнение результатов.}
-Разброс значений метрики QA можно проиллюстрировать на примере работы одной и той же модели (DeepSeek V3) в рамках иерархического метода.
-В качестве иллюстрации взяты два реферата к произведениям <<И грянул гром>> и <<Кастрюк>>. 
-В первом случае модель получила высокий результат, ответив на все, кроме одного вопроса; во втором
-реферате содержались ответы только на два вопроса из одиннадцати, что привело к низкому показателю. На рисунке \ref{fig:refs} показаны два реферата. 
-Для краткости в них выделены только основные моменты, которые
-повлияли на итоговую метрику. 
-Сравнение показывает возможную причину столь значительного расхождения: реферат к рассказу <<Кастрюк>> содержит большое количество лирических отступлений и художественных деталей,
-из-за чего суть произведения сложно уловить и модель отвлекается от фиксации главных фактов,
-тогда как в "И грянул гром" события изложены последовательно и структурировано, 
-а основные элементы сюжета чётко перечислены, что существенно упрощает задачу поиска важной информации.
-В текстах выделены жирным шрифтом фрагменты, которые несут в себе важную сюжетную информацию, а подчеркнутый текст - то, что можно было бы опустить.
+\subsection{Analysis and comparison.}
+
+The spread of QA metrics can be illustrated using the same model (DeepSeek V3) within the hierarchical method.
+Two summaries were chosen for the analysis: "A Sound of Thunder" and "Kastrjuk".
+In the first case the model scored high, answering all but one question; in the second
+the synopsis contained answers to only two out of eleven, leading to a low score. 
+Figure \ref{fig:refs} shows the two synopses. For brevity we highlighted only the main points that affected the final metric.
+The "Kastrjuk" synopsis contains many lyrical digressions and stylistic details, making it hard to capture the essence, so the model gets distracted from key facts, 
+whereas in "A Sound of Thunder" events are presented sequentially and clearly, with core plot elements explicitly listed, simplifying retrieval of important information.
+In the texts, bold marks plot-relevant fragments, while underlines indicate content that could be omitted.
 
 \begin{figure}[ht!]
   \centering
   \includegraphics[width=0.9\textwidth]{figures/two_ref.png}
-  \caption{Сравнение лучшего и худшего сгенерированного реферата}
+  \caption{Comparison of the best and worst generated synopses}
   \label{fig:refs}
 \end{figure}
 
 \begin{figure}[ht!]
   \centering
   \includegraphics[width=0.9\textwidth]{figures/three_ref.png}
-  \caption{Сравнение моделей при генерации рефератов по чертежному методу}
+  \caption{Model comparison for blueprint-based synopses}
   \label{fig:bl_ref}
 \end{figure}
 
-Переходя к сравнению между моделями, можно отметить, что в целом DeepSeek V3 показывает лучшие показатели, чем модели меньшей категории, однако, если сравнивать чертежный метод, то в 30\% случаев модель 
-RuadaptQwen3-\allowbreak 32B-\allowbreak Instruct-\allowbreak v2 показывает лучшие результаты, а tpro в 43\%. Для сравнения можно взять реферат по произведению <<И грянул гром>>, созданную с использованием чертежного метода, 
-небольшие вырезки которой приведены на рисунке \ref{fig:bl_ref}.
-В то время как реферат, созданный моделью DeepSeek V3 больше похожа на перечисление основных событий через нумерованный список,
-текст у моделей RuadaptQwen3-\allowbreak 32B-\allowbreak Instruct-\allowbreak v2 и tpro является связным пересказом текста, раскрывающим все основные события сюжета.
+Comparing models, DeepSeek V3 generally outperforms smaller models; however, within the blueprint method, in 30\% of cases
+RuadaptQwen3-32B-Instruct-v2 performs best, and tpro in 43\%. For reference, consider the synopsis for "A Sound of Thunder" generated with the blueprint method,
+with small excerpts shown in Figure \ref{fig:bl_ref}.
+While the DeepSeek V3 synopsis resembles a numbered list of main events,
+the outputs from RuadaptQwen3-32B-Instruct-v2 and tpro are cohesive narratives that cover the key plot points.
 
-Следует отметить, что лучшего результата удалось добиться именно чертежным методом с помощью большой модели Qwen3-\allowbreak 235B-\allowbreak A22B, 
-как было показано в таблице \ref{tab:results_models}. Для сравнения качества рефератов можно взять рассказ <<Барбос и Жулька>> - в иерархическом методе
-модель Qwen3-\allowbreak 235B-\allowbreak A22B посчитала, что <<Жулька>> - не собака, а лошадь. Также, например, DeepSeek V3 более строго следует шаблону чертежного метода и вместо связного текста пересказа получается нумерованный список
-пунктов с ключевыми событиями и главными героями. Однако Qwen3-\allowbreak 235B-\allowbreak A22B пишет обычный текст, без списков. Таким образом, чертежный метод без модификаций позволил достичь наилучшего результата с использованием лучшей доступной моделью - 
-Qwen3-\allowbreak 235B-\allowbreak A22B.
+Note that the best result overall was achieved by the blueprint method with the large model Qwen3-235B-A22B,
+as shown in Table \tabref{tab:results_models}. For comparison, on the story "Barbos and Zhulka",
+the hierarchical method with Qwen3-235B-A22B misclassified "Zhulka" as a horse rather than a dog. Also, DeepSeek V3 tends to strictly follow the blueprint template and produces a numbered list
+of key events and main characters, rather than a flowing synopsis, whereas Qwen3-235B-A22B writes plain text.
+Thus, the unmodified blueprint method delivered the best results when using the strongest available model - Qwen3-235B-A22B.
 
-\subsection{Замеры времени.}
-Проводились первоначальные замеры скорости работы методов на небольших текстах, полученные результаты в секундах (среднее по трём запускам) представлены в таблице~\tabref{tab:timing}.
-Результаты подтверждают, что модификации позволяют повысить скорость генерации.
+\subsection{Time measurements.}
+The results in seconds (average of three runs) are in Table \tabref{tab:timing}.
+They confirm that modifications speed up generation.
 
-\tab{tab:timing}{Время генерации рефератов (в секундах) для текста размером 81{,}049 символов (11 чанков). Усреднено по трём запускам.}{
+\tab{tab:timing}{Generation time (seconds) for a text of 81{,}049 characters (11 chunks).}{
   \small
 \begin{tabular}{lcccc}
-\textbf{Модель} & \makecell{Иерархический} & \makecell{Иерархический\\с фильтрацией} & \makecell{Чертежный} & \makecell{Чертежный\\с кластеризацией} \\
+\textbf{Model} & \makecell{Hierarchical} & \makecell{Hierarchical\\with filtering} & \makecell{Blueprint} & \makecell{Blueprint\\with clustering} \\
 \hline
 DeepSeek V3                  & 237.83 & 72.42 & 292.80 & 268.75 \\
 Qwen3-235B-A22B              & 113.24 & 39.45 & 215.63 & 145.20 \\
@@ -471,30 +452,29 @@ yagpt5lite                   & 34.17 & 14.08 & 99.70 & 27.26 \\
 \end{tabular}
 }
 
-Интересно отметить, что сверхкрупные модели, такие как Qwen3-235B-A22B и DeepSeek V3, продемонстрировали более высокую скорость работы, 
-чем некоторые модели с размером 32B.
-Ключевая причина этого заключается в использовании архитектуры MoE (Mixture of Experts):
-во время генерации активна лишь ограниченная часть параметров (например, порядка 30 млрд вместо всех 600 млрд),
-кроме того, такие модели, как правило, дополнительно оптимизированы для повышения производительности.
+Interestingly, ultra-large models such as Qwen3-235B-A22B and DeepSeek V3 showed higher speed
+than some 32B models.
+A key reason is the Mixture-of-Experts (MoE) architecture:
+during generation only a subset of parameters is active (e.g., ~30B out of ~600B),
+and such models are typically optimized further for throughput.
 
 % ================= ЗАКЛЮЧЕНИЕ =================
 
-\section*{Заключение}
-В заключение, был создан первый открытый датасет, объединяющий тексты книг и рефератов к ним с открытого ресурса <<Народный Брифли>> \cite{Briefly}. 
-В работе предложены два улучшенных подхода к реферированию художественных текстов с использованием LLM: иерархический с фильтрацией и чертёжный с кластеризацией. 
-Иерархический метод с фильтрацией позволяет ускорить генерацию при минимальной потере качества, 
-что делает этот метод пригодным для обработки длинных произведений в условиях ограниченного контекста моделей.  
+\section*{Conclusion}
+We presented the first open dataset that pairs book texts with their synopses from the “Narodny Briefly” resource \cite{Briefly}.
+We proposed two improved LLM-based approaches to summarizing fiction: hierarchical with filtering and blueprint with clustering.
+The hierarchical method with filtering speeds up generation with minimal quality loss,
+making it suitable for long works under limited model context.
 
-Сравнительный анализ показал, что крупные модели, такие как DeepSeek~V3 и Qwen3-\allowbreak 235B-\allowbreak A22B, в большинстве случаев обеспечивают более высокое покрытие QA и 
-большую полноту рефератов по сравнению с компактными моделями, особенно в иерархическом и чертёжном методах. 
-Однако для некоторых типов текстов и методов (например, базовый чертёжный) более компактные модели, такие как RuadaptQwen3-\allowbreak 32B-\allowbreak Instruct-\allowbreak v2, 
-могут демонстрировать конкурентоспособное качество при меньших вычислительных затратах. 
-Таким образом, выбор модели следует определять исходя из баланса между доступными ресурсами, требованиями к качеству и характером обрабатываемых текстов.
+Our comparative analysis shows that large models such as DeepSeek V3 and Qwen3-235B-A22B generally deliver higher QA coverage and
+more complete synopses than compact models, especially with hierarchical and blueprint methods.
+However, for certain text types and methods (e.g., baseline blueprint), more compact models such as RuadaptQwen3-32B-Instruct-v2
+can be competitive at lower compute cost.
+Thus, model choice should balance available resources, quality requirements, and the nature of the processed texts.
 
-\section*{Благодарности}
-Исследование выполнено за счет гранта Российского научного фонда № 25-11-00191, \\https://rscf.ru/project/25-11-00191/
-
-Работа выполнялась с использованием суперкомпьютера «МГУ-270» МГУ имени М.В. Ломоносова.
+\section*{Acknowledgements}
+The study was supported by grant No. 25-11-00191 from the Russian Science Foundation.
+The work was carried out using the supercomputer "MSU-270" of the Lomonosov Moscow State University.
 % ================= ЛИТЕРАТУРА =================
 
 

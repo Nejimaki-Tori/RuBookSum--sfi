@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.7.29)  19 AUG 2025 17:44
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.7.29)  21 AUG 2025 15:28
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -46,12 +46,7 @@ LaTeX Encoding Info:    Ignoring declaration for text command \SS (encoding ?) o
 *
 (C:\Users\dagri\AppData\Local\Programs\MiKTeX\tex/latex/arabi\bblopts.cfg
 File: bblopts.cfg 2005/09/08 v0.1 add Arabic and Farsi to "declared" options of babel
-)
-Package babel Info: Main language set with 'main='. Except if you have
-(babel)             problems, prefer the default mechanism for setting
-(babel)             the main language, i.e., as the last declared.
-(babel)             Reported on input line 4202.
- (C:\Users\dagri\AppData\Local\Programs\MiKTeX\tex/latex/babel-english\english.ldf
+) (C:\Users\dagri\AppData\Local\Programs\MiKTeX\tex/latex/babel-english\english.ldf
 Language: english 2017/06/06 v3.3r English support from the babel system
  (C:\Users\dagri\AppData\Local\Programs\MiKTeX\tex/generic/babel/locale/en\babel-english.tex
 Package babel Info: Importing font and identification data for english
@@ -63,21 +58,150 @@ Package babel Info: Hyphen rules for 'australian' set to \l@ukenglish
 (babel)             (\language73). Reported on input line 105.
 Package babel Info: Hyphen rules for 'newzealand' set to \l@ukenglish
 (babel)             (\language73). Reported on input line 108.
-) (C:\Users\dagri\AppData\Local\Programs\MiKTeX\tex/latex/babel-english\english.ldf
-Language: english 2017/06/06 v3.3r English support from the babel system
-) (C:\Users\dagri\AppData\Local\Programs\MiKTeX\tex/latex/babel-russian\russianb.ldf
-File: russianb.ldf 2021/01/10 1.3m Russian support for the Babel system
-Language: russian 2020/09/09 1.3k Russian support for the Babel system
- (C:\Users\dagri\AppData\Local\Programs\MiKTeX\tex/generic/babel/locale/ru\babel-russian.tex
-Package babel Info: Importing font and identification data for russian
-(babel)             from babel-ru.ini. Reported on input line 12.
+)) (C:\Users\dagri\AppData\Local\Programs\MiKTeX\tex/latex/url\url.sty
+\Urlmuskip=\muskip17
+Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
+) (C:\Users\dagri\AppData\Local\Programs\MiKTeX\tex/latex/totcount\totcount.sty
+Package: totcount 2011/01/25 v1.2 package for gettingthe total value of LaTeX counters
+ (C:\Users\dagri\AppData\Local\Programs\MiKTeX\tex/latex/graphics\keyval.sty
+Package: keyval 2022/05/29 v1.15 key=value parser (DPC)
+\KV@toks@=\toks17
+))
+\c@table@totc=\count285
+\c@figure@totc=\count286
+ (C:\Users\dagri\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graphicx.sty
+Package: graphicx 2024/12/31 v1.2e Enhanced LaTeX Graphics (DPC,SPQR)
+ (C:\Users\dagri\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graphics.sty
+Package: graphics 2024/08/06 v1.4g Standard LaTeX Graphics (DPC,SPQR)
+ (C:\Users\dagri\AppData\Local\Programs\MiKTeX\tex/latex/graphics\trig.sty
+Package: trig 2023/12/02 v1.11 sin cos tan (DPC)
+) (C:\Users\dagri\AppData\Local\Programs\MiKTeX\tex/latex/graphics-cfg\graphics.cfg
+File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
 )
-
-Package babel Warning: No Cyrillic font encoding has been loaded so far.
-(babel)                A font encoding should be declared before babel.
-(babel)                Default `T2A' encoding will be loaded  on input line 78.
-
-(C:\Users\dagri\AppData\Local\Programs\MiKTeX\tex/latex/cyrillic\t2aenc.def
+Package graphics Info: Driver file: pdftex.def on input line 106.
+ (C:\Users\dagri\AppData\Local\Programs\MiKTeX\tex/latex/graphics-def\pdftex.def
+File: pdftex.def 2024/04/13 v1.2c Graphics/color driver for pdftex
+))
+\Gin@req@height=\dimen150
+\Gin@req@width=\dimen151
+) (C:\Users\dagri\AppData\Local\Programs\MiKTeX\tex/latex/epstopdf-pkg\epstopdf.sty
+Package: epstopdf 2020-01-24 v2.11 Conversion with epstopdf on the fly (HO)
+ (C:\Users\dagri\AppData\Local\Programs\MiKTeX\tex/generic/infwarerr\infwarerr.sty
+Package: infwarerr 2019/12/03 v1.5 Providing info/warning/error messages (HO)
+) (C:\Users\dagri\AppData\Local\Programs\MiKTeX\tex/latex/grfext\grfext.sty
+Package: grfext 2019/12/03 v1.3 Manage graphics extensions (HO)
+ (C:\Users\dagri\AppData\Local\Programs\MiKTeX\tex/generic/kvdefinekeys\kvdefinekeys.sty
+Package: kvdefinekeys 2019-12-19 v1.6 Define keys (HO)
+)) (C:\Users\dagri\AppData\Local\Programs\MiKTeX\tex/latex/kvoptions\kvoptions.sty
+Package: kvoptions 2022-06-15 v3.15 Key value format for package options (HO)
+ (C:\Users\dagri\AppData\Local\Programs\MiKTeX\tex/generic/ltxcmds\ltxcmds.sty
+Package: ltxcmds 2023-12-04 v1.26 LaTeX kernel commands for general use (HO)
+) (C:\Users\dagri\AppData\Local\Programs\MiKTeX\tex/latex/kvsetkeys\kvsetkeys.sty
+Package: kvsetkeys 2022-10-05 v1.19 Key value parser (HO)
+)) (C:\Users\dagri\AppData\Local\Programs\MiKTeX\tex/generic/pdftexcmds\pdftexcmds.sty
+Package: pdftexcmds 2020-06-27 v0.33 Utility functions of pdfTeX for LuaTeX (HO)
+ (C:\Users\dagri\AppData\Local\Programs\MiKTeX\tex/generic/iftex\iftex.sty
+Package: iftex 2024/12/12 v1.0g TeX engine tests
+)
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+) (C:\Users\dagri\AppData\Local\Programs\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-base.sty
+Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
+Package grfext Info: Graphics extension search list:
+(grfext)             [.pdf,.png,.jpg,.mps,.jpeg,.jbig2,.jb2,.PDF,.PNG,.JPG,.JPEG,.JBIG2,.JB2,.eps]
+(grfext)             \AppendGraphicsExtensions on input line 504.
+ (C:\Users\dagri\AppData\Local\Programs\MiKTeX\tex/latex/00miktex\epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
+))) (C:\Users\dagri\AppData\Local\Programs\MiKTeX\tex/latex/tools\indentfirst.sty
+Package: indentfirst 2023/07/02 v1.03 Indent first paragraph (DPC)
+) (C:\Users\dagri\AppData\Local\Programs\MiKTeX\tex/latex/enumitem\enumitem.sty
+Package: enumitem 2025/02/06 v3.11 Customized lists
+\labelindent=\skip51
+\enit@outerparindent=\dimen152
+\enit@toks=\toks18
+\enit@inbox=\box53
+\enit@count@id=\count287
+\enitdp@description=\count288
+) (C:\Users\dagri\AppData\Local\Programs\MiKTeX\tex/latex/changepage\changepage.sty
+Package: changepage 2009/10/20 v1.0c check page and change page layout
+\c@cp@cntr=\count289
+\cp@tempcnt=\count290
+) (C:\Users\dagri\AppData\Local\Programs\MiKTeX\tex/latex/fancyvrb\fancyvrb.sty
+Package: fancyvrb 2025/07/28 4.6 verbatim text (tvz,hv)
+\FV@CodeLineNo=\count291
+\FV@InFile=\read3
+\FV@TabBox=\box54
+\c@FancyVerbLine=\count292
+\FV@StepNumber=\count293
+\FV@OutFile=\write3
+) (C:\Users\dagri\AppData\Local\Programs\MiKTeX\tex/latex/cite\cite.sty
+LaTeX Info: Redefining \cite on input line 302.
+LaTeX Info: Redefining \nocite on input line 332.
+Package: cite 2015/02/27  v 5.5
+) (C:\Users\dagri\AppData\Local\Programs\MiKTeX\tex/latex/base\ifthen.sty
+Package: ifthen 2024/03/16 v1.1e Standard LaTeX ifthen package (DPC)
+) (C:\Users\dagri\AppData\Local\Programs\MiKTeX\tex/latex/base\latexsym.sty
+Package: latexsym 1998/08/17 v2.2e Standard LaTeX package (lasy symbols)
+\symlasy=\mathgroup4
+LaTeX Font Info:    Overwriting symbol font `lasy' in version `bold'
+(Font)                  U/lasy/m/n --> U/lasy/b/n on input line 52.
+) (C:\Users\dagri\AppData\Local\Programs\MiKTeX\tex/latex/geometry\geometry.sty
+Package: geometry 2020/01/02 v5.9 Page Geometry
+ (C:\Users\dagri\AppData\Local\Programs\MiKTeX\tex/generic/iftex\ifvtex.sty
+Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
+)
+\Gm@cnth=\count294
+\Gm@cntv=\count295
+\c@Gm@tempcnt=\count296
+\Gm@bindingoffset=\dimen153
+\Gm@wd@mp=\dimen154
+\Gm@odd@mp=\dimen155
+\Gm@even@mp=\dimen156
+\Gm@layoutwidth=\dimen157
+\Gm@layoutheight=\dimen158
+\Gm@layouthoffset=\dimen159
+\Gm@layoutvoffset=\dimen160
+\Gm@dimlist=\toks19
+ (C:\Users\dagri\AppData\Local\Programs\MiKTeX\tex/latex/geometry\geometry.cfg))
+\c@theocounter=\count297
+\c@lemcounter=\count298
+\c@remcounter=\count299
+\c@defcounter=\count300
+\c@examcounter=\count301
+\c@propcounter=\count302
+\c@corcounter=\count303
+ (C:\Users\dagri\AppData\Local\Programs\MiKTeX\tex/latex/caption\caption.sty
+Package: caption 2023/08/05 v3.6o Customizing captions (AR)
+ (C:\Users\dagri\AppData\Local\Programs\MiKTeX\tex/latex/caption\caption3.sty
+Package: caption3 2023/07/31 v2.4d caption3 kernel (AR)
+\caption@tempdima=\dimen161
+\captionmargin=\dimen162
+\caption@leftmargin=\dimen163
+\caption@rightmargin=\dimen164
+\caption@width=\dimen165
+\caption@indent=\dimen166
+\caption@parindent=\dimen167
+\caption@hangindent=\dimen168
+Package caption Info: Standard document class detected.
+)
+\c@caption@flags=\count304
+\c@continuedfloat=\count305
+Package caption Info: changepage package is loaded.
+\caption@adjustwidth@hsize=\dimen169
+\caption@adjustwidth@linewidth=\dimen170
+) (C:\Users\dagri\AppData\Local\Programs\MiKTeX\tex/latex/caption\subcaption.sty
+Package: subcaption 2023/07/28 v1.6b Sub-captions (AR)
+Package caption Info: New subtype `subfigure' on input line 238.
+\c@subfigure=\count306
+Package caption Info: New subtype `subtable' on input line 238.
+\c@subtable=\count307
+)
+\@tblbox=\box55
+) (C:\Users\dagri\AppData\Local\Programs\MiKTeX\tex/latex/base\fontenc.sty
+Package: fontenc 2024/12/21 v2.1c Standard LaTeX package
+ (C:\Users\dagri\AppData\Local\Programs\MiKTeX\tex/latex/cyrillic\t2aenc.def
 File: t2aenc.def 2023/11/07 v1.0k Cyrillic encoding definition file
 Now handling font encoding T2A ...
 ... processing UTF-8 mapping file for font encoding T2A
@@ -282,151 +406,6 @@ File: t2aenc.dfu 2022/06/07 v1.3c UTF-8 support
    defining Unicode char U+FB05 (decimal 64261)
    defining Unicode char U+FB06 (decimal 64262)
 ))
-Package babel Info: Making " an active character on input line 124.
-Package babel Info: Default for \cyrdash is provided on input line 163.
-)) (C:\Users\dagri\AppData\Local\Programs\MiKTeX\tex/latex/url\url.sty
-\Urlmuskip=\muskip17
-Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
-) (C:\Users\dagri\AppData\Local\Programs\MiKTeX\tex/latex/totcount\totcount.sty
-Package: totcount 2011/01/25 v1.2 package for gettingthe total value of LaTeX counters
- (C:\Users\dagri\AppData\Local\Programs\MiKTeX\tex/latex/graphics\keyval.sty
-Package: keyval 2022/05/29 v1.15 key=value parser (DPC)
-\KV@toks@=\toks17
-))
-\c@table@totc=\count285
-\c@figure@totc=\count286
- (C:\Users\dagri\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graphicx.sty
-Package: graphicx 2024/12/31 v1.2e Enhanced LaTeX Graphics (DPC,SPQR)
- (C:\Users\dagri\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graphics.sty
-Package: graphics 2024/08/06 v1.4g Standard LaTeX Graphics (DPC,SPQR)
- (C:\Users\dagri\AppData\Local\Programs\MiKTeX\tex/latex/graphics\trig.sty
-Package: trig 2023/12/02 v1.11 sin cos tan (DPC)
-) (C:\Users\dagri\AppData\Local\Programs\MiKTeX\tex/latex/graphics-cfg\graphics.cfg
-File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
-)
-Package graphics Info: Driver file: pdftex.def on input line 106.
- (C:\Users\dagri\AppData\Local\Programs\MiKTeX\tex/latex/graphics-def\pdftex.def
-File: pdftex.def 2024/04/13 v1.2c Graphics/color driver for pdftex
-))
-\Gin@req@height=\dimen150
-\Gin@req@width=\dimen151
-) (C:\Users\dagri\AppData\Local\Programs\MiKTeX\tex/latex/epstopdf-pkg\epstopdf.sty
-Package: epstopdf 2020-01-24 v2.11 Conversion with epstopdf on the fly (HO)
- (C:\Users\dagri\AppData\Local\Programs\MiKTeX\tex/generic/infwarerr\infwarerr.sty
-Package: infwarerr 2019/12/03 v1.5 Providing info/warning/error messages (HO)
-) (C:\Users\dagri\AppData\Local\Programs\MiKTeX\tex/latex/grfext\grfext.sty
-Package: grfext 2019/12/03 v1.3 Manage graphics extensions (HO)
- (C:\Users\dagri\AppData\Local\Programs\MiKTeX\tex/generic/kvdefinekeys\kvdefinekeys.sty
-Package: kvdefinekeys 2019-12-19 v1.6 Define keys (HO)
-)) (C:\Users\dagri\AppData\Local\Programs\MiKTeX\tex/latex/kvoptions\kvoptions.sty
-Package: kvoptions 2022-06-15 v3.15 Key value format for package options (HO)
- (C:\Users\dagri\AppData\Local\Programs\MiKTeX\tex/generic/ltxcmds\ltxcmds.sty
-Package: ltxcmds 2023-12-04 v1.26 LaTeX kernel commands for general use (HO)
-) (C:\Users\dagri\AppData\Local\Programs\MiKTeX\tex/latex/kvsetkeys\kvsetkeys.sty
-Package: kvsetkeys 2022-10-05 v1.19 Key value parser (HO)
-)) (C:\Users\dagri\AppData\Local\Programs\MiKTeX\tex/generic/pdftexcmds\pdftexcmds.sty
-Package: pdftexcmds 2020-06-27 v0.33 Utility functions of pdfTeX for LuaTeX (HO)
- (C:\Users\dagri\AppData\Local\Programs\MiKTeX\tex/generic/iftex\iftex.sty
-Package: iftex 2024/12/12 v1.0g TeX engine tests
-)
-Package pdftexcmds Info: \pdf@primitive is available.
-Package pdftexcmds Info: \pdf@ifprimitive is available.
-Package pdftexcmds Info: \pdfdraftmode found.
-) (C:\Users\dagri\AppData\Local\Programs\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-base.sty
-Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
-Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
-Package grfext Info: Graphics extension search list:
-(grfext)             [.pdf,.png,.jpg,.mps,.jpeg,.jbig2,.jb2,.PDF,.PNG,.JPG,.JPEG,.JBIG2,.JB2,.eps]
-(grfext)             \AppendGraphicsExtensions on input line 504.
- (C:\Users\dagri\AppData\Local\Programs\MiKTeX\tex/latex/00miktex\epstopdf-sys.cfg
-File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
-))) (C:\Users\dagri\AppData\Local\Programs\MiKTeX\tex/latex/tools\indentfirst.sty
-Package: indentfirst 2023/07/02 v1.03 Indent first paragraph (DPC)
-) (C:\Users\dagri\AppData\Local\Programs\MiKTeX\tex/latex/enumitem\enumitem.sty
-Package: enumitem 2025/02/06 v3.11 Customized lists
-\labelindent=\skip51
-\enit@outerparindent=\dimen152
-\enit@toks=\toks18
-\enit@inbox=\box53
-\enit@count@id=\count287
-\enitdp@description=\count288
-) (C:\Users\dagri\AppData\Local\Programs\MiKTeX\tex/latex/changepage\changepage.sty
-Package: changepage 2009/10/20 v1.0c check page and change page layout
-\c@cp@cntr=\count289
-\cp@tempcnt=\count290
-) (C:\Users\dagri\AppData\Local\Programs\MiKTeX\tex/latex/fancyvrb\fancyvrb.sty
-Package: fancyvrb 2025/07/28 4.6 verbatim text (tvz,hv)
-\FV@CodeLineNo=\count291
-\FV@InFile=\read3
-\FV@TabBox=\box54
-\c@FancyVerbLine=\count292
-\FV@StepNumber=\count293
-\FV@OutFile=\write3
-) (C:\Users\dagri\AppData\Local\Programs\MiKTeX\tex/latex/cite\cite.sty
-LaTeX Info: Redefining \cite on input line 302.
-LaTeX Info: Redefining \nocite on input line 332.
-Package: cite 2015/02/27  v 5.5
-) (C:\Users\dagri\AppData\Local\Programs\MiKTeX\tex/latex/base\ifthen.sty
-Package: ifthen 2024/03/16 v1.1e Standard LaTeX ifthen package (DPC)
-) (C:\Users\dagri\AppData\Local\Programs\MiKTeX\tex/latex/base\latexsym.sty
-Package: latexsym 1998/08/17 v2.2e Standard LaTeX package (lasy symbols)
-\symlasy=\mathgroup4
-LaTeX Font Info:    Overwriting symbol font `lasy' in version `bold'
-(Font)                  U/lasy/m/n --> U/lasy/b/n on input line 52.
-) (C:\Users\dagri\AppData\Local\Programs\MiKTeX\tex/latex/geometry\geometry.sty
-Package: geometry 2020/01/02 v5.9 Page Geometry
- (C:\Users\dagri\AppData\Local\Programs\MiKTeX\tex/generic/iftex\ifvtex.sty
-Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
-)
-\Gm@cnth=\count294
-\Gm@cntv=\count295
-\c@Gm@tempcnt=\count296
-\Gm@bindingoffset=\dimen153
-\Gm@wd@mp=\dimen154
-\Gm@odd@mp=\dimen155
-\Gm@even@mp=\dimen156
-\Gm@layoutwidth=\dimen157
-\Gm@layoutheight=\dimen158
-\Gm@layouthoffset=\dimen159
-\Gm@layoutvoffset=\dimen160
-\Gm@dimlist=\toks19
- (C:\Users\dagri\AppData\Local\Programs\MiKTeX\tex/latex/geometry\geometry.cfg))
-\c@theocounter=\count297
-\c@lemcounter=\count298
-\c@remcounter=\count299
-\c@defcounter=\count300
-\c@examcounter=\count301
-\c@propcounter=\count302
-\c@corcounter=\count303
- (C:\Users\dagri\AppData\Local\Programs\MiKTeX\tex/latex/caption\caption.sty
-Package: caption 2023/08/05 v3.6o Customizing captions (AR)
- (C:\Users\dagri\AppData\Local\Programs\MiKTeX\tex/latex/caption\caption3.sty
-Package: caption3 2023/07/31 v2.4d caption3 kernel (AR)
-\caption@tempdima=\dimen161
-\captionmargin=\dimen162
-\caption@leftmargin=\dimen163
-\caption@rightmargin=\dimen164
-\caption@width=\dimen165
-\caption@indent=\dimen166
-\caption@parindent=\dimen167
-\caption@hangindent=\dimen168
-Package caption Info: Standard document class detected.
-)
-\c@caption@flags=\count304
-\c@continuedfloat=\count305
-Package caption Info: changepage package is loaded.
-\caption@adjustwidth@hsize=\dimen169
-\caption@adjustwidth@linewidth=\dimen170
-) (C:\Users\dagri\AppData\Local\Programs\MiKTeX\tex/latex/caption\subcaption.sty
-Package: subcaption 2023/07/28 v1.6b Sub-captions (AR)
-Package caption Info: New subtype `subfigure' on input line 238.
-\c@subfigure=\count306
-Package caption Info: New subtype `subtable' on input line 238.
-\c@subtable=\count307
-)
-\@tblbox=\box55
-) (C:\Users\dagri\AppData\Local\Programs\MiKTeX\tex/latex/base\fontenc.sty
-Package: fontenc 2024/12/21 v2.1c Standard LaTeX package
 LaTeX Font Info:    Trying to load font information for T2A+cmr on input line 116.
  (C:\Users\dagri\AppData\Local\Programs\MiKTeX\tex/latex/cyrillic\t2acmr.fd
 File: t2acmr.fd 2001/08/11 v1.0a Computer Modern Cyrillic font definitions
@@ -671,7 +650,6 @@ File: puenc.def 2025-07-12 v7.01o Hyperref: PDF Unicode definition (HO)
 Now handling font encoding PU ...
 ... no UTF-8 mapping file for font encoding PU
 )
-Package hyperref Info: Option `unicode' set `true' on input line 3160.
 Package hyperref Info: Hyper figures OFF on input line 4195.
 Package hyperref Info: Link nesting OFF on input line 4200.
 Package hyperref Info: Hyper index ON on input line 4203.
@@ -715,43 +693,39 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 28
 )
 \Hy@SectionHShift=\skip66
 )
-LaTeX Font Info:    Trying to load font information for T2A+lmr on input line 20.
-LaTeX Font Info:    No file T2Almr.fd. on input line 20.
+LaTeX Font Info:    Trying to load font information for T2A+lmr on input line 19.
+LaTeX Font Info:    No file T2Almr.fd. on input line 19.
 
 
 LaTeX Font Warning: Font shape `T2A/lmr/m/n' undefined
-(Font)              using `T2A/cmr/m/n' instead on input line 20.
+(Font)              using `T2A/cmr/m/n' instead on input line 19.
 
 (C:\Users\dagri\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-pdftex.def
 File: l3backend-pdftex.def 2025-06-09 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count348
-) (main.aux
-Package babel Info: 'russian' activates 'russian' shorthands.
-(babel)             Reported on input line 11.
-)
+) (main.aux)
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for T2A/cmr/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Info: Redefining \th on input line 20.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for T2A/cmr/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
  (C:\Users\dagri\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count349
@@ -804,7 +778,7 @@ Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: float package is loaded.
 Package caption Info: hyperref package is loaded.
 Package caption Info: End \AtBeginDocument code.
-Package hyperref Info: Link coloring OFF on input line 20.
+Package hyperref Info: Link coloring OFF on input line 19.
 (main.out) (main.out)
 \@outlinefile=\write4
 \openout4 = `main.out'.
@@ -812,198 +786,159 @@ Package hyperref Info: Link coloring OFF on input line 20.
 
 
 LaTeX Font Warning: Font shape `T2A/lmr/bx/n' undefined
-(Font)              using `T2A/lmr/m/n' instead on input line 26.
+(Font)              using `T2A/lmr/m/n' instead on input line 25.
 
 
 LaTeX Font Warning: Font shape `T2A/lmr/bx/it' undefined
-(Font)              using `T2A/lmr/bx/n' instead on input line 26.
+(Font)              using `T2A/lmr/bx/n' instead on input line 25.
 
-LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 26.
+LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 25.
 (C:\Users\dagri\AppData\Local\Programs\MiKTeX\tex/latex/lm\ot1lmr.fd
 File: ot1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OML+lmm on input line 26.
+LaTeX Font Info:    Trying to load font information for OML+lmm on input line 25.
  (C:\Users\dagri\AppData\Local\Programs\MiKTeX\tex/latex/lm\omllmm.fd
 File: omllmm.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 26.
+LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 25.
  (C:\Users\dagri\AppData\Local\Programs\MiKTeX\tex/latex/lm\omslmsy.fd
 File: omslmsy.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 26.
+LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 25.
  (C:\Users\dagri\AppData\Local\Programs\MiKTeX\tex/latex/lm\omxlmex.fd
 File: omxlmex.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <12> on input line 26.
+(Font)              <12> on input line 25.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 26.
+(Font)              <8> on input line 25.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 26.
-LaTeX Font Info:    Trying to load font information for U+lasy on input line 26.
+(Font)              <6> on input line 25.
+LaTeX Font Info:    Trying to load font information for U+lasy on input line 25.
  (C:\Users\dagri\AppData\Local\Programs\MiKTeX\tex/latex/base\ulasy.fd
 File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
 )
-LaTeX Font Info:    Trying to load font information for U+msa on input line 26.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 25.
  (C:\Users\dagri\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 26.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 25.
  (C:\Users\dagri\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Trying to load font information for U+rsfs on input line 26.
+LaTeX Font Info:    Trying to load font information for U+rsfs on input line 25.
  (C:\Users\dagri\AppData\Local\Programs\MiKTeX\tex/latex/jknappen\ursfs.fd
 File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <9> on input line 26.
+(Font)              <9> on input line 25.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 26.
-LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 26.
+(Font)              <5> on input line 25.
+LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 25.
  (C:\Users\dagri\AppData\Local\Programs\MiKTeX\tex/latex/lm\ts1lmr.fd
 File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 
 LaTeX Font Warning: Font shape `T2A/lmr/m/it' undefined
-(Font)              using `T2A/lmr/m/n' instead on input line 37.
+(Font)              using `T2A/lmr/m/n' instead on input line 36.
 
 
 
 [1
 
 {C:/Users/dagri/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}{C:/Users/dagri/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-ts1.enc}]
-LaTeX Font Info:    Calculating math sizes for size <11> on input line 73.
+LaTeX Font Info:    Calculating math sizes for size <11> on input line 72.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <11> on input line 73.
+(Font)              <11> on input line 72.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7.69997> on input line 73.
+(Font)              <7.69997> on input line 72.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5.5> on input line 73.
+(Font)              <5.5> on input line 72.
 
 
 LaTeX Font Warning: Font shape `U/lasy/m/n' in size <5.5> not available
-(Font)              size <5> substituted on input line 73.
+(Font)              size <5> substituted on input line 72.
 
 
 LaTeX Font Warning: Font shape `U/rsfs/m/n' in size <5.5> not available
-(Font)              size <5> substituted on input line 73.
+(Font)              size <5> substituted on input line 72.
 
-LaTeX Font Info:    Trying to load font information for T2A+lmtt on input line 73.
-LaTeX Font Info:    No file T2Almtt.fd. on input line 73.
+LaTeX Font Info:    Trying to load font information for T2A+lmtt on input line 72.
+LaTeX Font Info:    No file T2Almtt.fd. on input line 72.
 
 LaTeX Font Warning: Font shape `T2A/lmtt/m/n' undefined
-(Font)              using `T2A/cmr/m/n' instead on input line 73.
-
-
-Underfull \vbox (badness 4726) has occurred while \output is active []
+(Font)              using `T2A/cmr/m/n' instead on input line 72.
 
 
 
 [2]
-<figures/genres_pie.png, id=103, 521.0667pt x 317.988pt>
+<figures/genres_pie.png, id=99, 521.0667pt x 317.988pt>
 File: figures/genres_pie.png Graphic file (type png)
 <use figures/genres_pie.png>
-Package pdftex.def Info: figures/genres_pie.png  used on input line 117.
+Package pdftex.def Info: figures/genres_pie.png  used on input line 116.
 (pdftex.def)             Requested size: 364.19667pt x 222.25528pt.
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
 
 
 [3 <./figures/genres_pie.png>]
-Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on input line 147.
-
-Underfull \hbox (badness 4013) in paragraph at lines 176--177
-[] \T2A/lmr/bx/n/10.95 Вы-чис-ля-ет-ся мак-си-маль-ное сход-
- []
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
+Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on input line 146.
 
 
 [4{C:/Users/dagri/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathit.enc}{C:/Users/dagri/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathsy.enc}{C:/Users/dagri/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-rm.enc}]
-Underfull \hbox (badness 10000) in paragraph at lines 226--227
-[] $\OML/lmm/m/it/11 S[] \OMS/lmsy/m/n/11  
- []
-
 
 LaTeX Font Warning: Font shape `T2A/lmr/m/n' in size <5.5> not available
-(Font)              size <5> substituted on input line 273.
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
+(Font)              size <5> substituted on input line 266.
 
 
 
-[5]
-
-[6{C:/Users/dagri/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathex.enc}]
-Underfull \hbox (badness 10000) in paragraph at lines 347--353
-[]\T2A/lmtt/m/n/10.95 В экс-пе-ри-мен-тах ис-поль-зо-ва-лись сле-ду-ю-щие боль-шие язы-ко-вые мо-де-ли:
- []
-
+[5{C:/Users/dagri/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathex.enc}]
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 406.
+(Font)              <10> on input line 389.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 406.
+(Font)              <7> on input line 389.
 
-Overfull \hbox (15.73163pt too wide) in paragraph at lines 406--406
+Overfull \hbox (6.29158pt too wide) in paragraph at lines 389--389
  [][] 
  []
 
 
-LaTeX Warning: `h' float specifier changed to `ht'.
 
-
+[6]
 
 [7]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
-
-[8]
-<figures/two_ref.png, id=194, 901.86937pt x 935.74594pt>
+<figures/two_ref.png, id=176, 901.86937pt x 935.74594pt>
 File: figures/two_ref.png Graphic file (type png)
 <use figures/two_ref.png>
-Package pdftex.def Info: figures/two_ref.png  used on input line 430.
+Package pdftex.def Info: figures/two_ref.png  used on input line 411.
 (pdftex.def)             Requested size: 409.71692pt x 425.10828pt.
-<figures/three_ref.png, id=195, 1571.8725pt x 559.33969pt>
+<figures/three_ref.png, id=177, 1571.8725pt x 559.33969pt>
 File: figures/three_ref.png Graphic file (type png)
 <use figures/three_ref.png>
-Package pdftex.def Info: figures/three_ref.png  used on input line 437.
+Package pdftex.def Info: figures/three_ref.png  used on input line 418.
 (pdftex.def)             Requested size: 409.71692pt x 145.79189pt.
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
 
+[8 <./figures/two_ref.png>]
 
-
-[9 <./figures/two_ref.png>]
-Overfull \hbox (14.46153pt too wide) in paragraph at lines 472--472
- [][] 
- []
-
-
-Underfull \vbox (badness 5460) has occurred while \output is active []
-
-
-
-[10 <./figures/three_ref.png>]
-
-[11]
-Underfull \hbox (badness 10000) in paragraph at lines 553--554
-\T2A/lmr/m/it/10.95 language-language-model-weight-category-of-7-8-billion-parameters/ (да-та об-ра-ще-ния:
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 556--557
-[]\T2A/lmr/m/it/10.95 YandexGPT 5 с ре-жи-мом рас-суж-де-ний // Ян-декс URL:
+[9 <./figures/three_ref.png>]
+Underfull \hbox (badness 2865) in paragraph at lines 496--499
+[]\T2A/lmr/m/it/10.95 Народный Брифли. Электронная библиотека кратких пересказов литературных
  []
 
 
 
-[12] (main.aux)
+[10]
+Underfull \hbox (badness 10000) in paragraph at lines 533--534
+\T2A/lmr/m/it/10.95 language-language-model-weight-category-of-7-8-billion-parameters/ (дата обращения:
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 536--537
+[]\T2A/lmr/m/it/10.95 YandexGPT 5 с режимом рассуждений // Яндекс URL:
+ []
+
+
+
+[11] (main.aux)
  ***********
 LaTeX2e <2025-06-01> patch level 1
 L3 programming layer <2025-07-19>
@@ -1017,20 +952,20 @@ LaTeX Font Warning: Size substitutions with differences
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: E9C8E64C1597DE89E511670F5BD2A7C9;3590.
+(rerunfilecheck)             Checksum: 9CAD427C892FC6FAB7992B026B93A8A3;2346.
  ) 
 Here is how much of TeX's memory you used:
- 16496 strings out of 468148
- 261836 string characters out of 5431061
- 713358 words of memory out of 5000000
- 44725 multiletter control sequences out of 15000+600000
+ 16524 strings out of 468148
+ 264804 string characters out of 5431061
+ 707606 words of memory out of 5000000
+ 44765 multiletter control sequences out of 15000+600000
  695203 words of font info for 126 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 72i,17n,79p,613b,570s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 72i,17n,79p,607b,566s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\dagri\AppData\Local\MiKTeX\fonts/pk/ljfour/lh/lh-t2a/dpi600\larm1000.pk> <C:\Users\dagri\AppData\Local\MiKTeX\fonts/pk/ljfour/lh/lh-t2a/dpi600\larm0600.pk> <C:\Users\dagri\AppData\Local\MiKTeX\fonts/pk/ljfour/lh/lh-t2a/dpi600\larm1095.pk> <C:\Users\dagri\AppData\Local\MiKTeX\fonts/pk/ljfour/lh/lh-t2a/dpi600\larm0900.pk> <C:\Users\dagri\AppData\Local\MiKTeX\fonts/pk/ljfour/lh/lh-t2a/dpi600\larm0800.pk> <C:\Users\dagri\AppData\Local\MiKTeX\fonts/pk/ljfour/lh/lh-t2a/dpi600\larm1200.pk> <C:\Users\dagri\AppData\Local\MiKTeX\fonts/pk/ljfour/lh/lh-t2a/dpi600\larm1440.pk><C:/Users/dagri/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx10.pfb><C:/Users/dagri/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx12.pfb><C:/Users/dagri/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmex10.pfb><C:/Users/dagri/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi12.pfb><C:/Users/dagri/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi6.pfb><C:/Users/dagri/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi8.pfb><C:/Users/dagri/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr10.pfb><C:/Users/dagri/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr12.pfb><C:/Users/dagri/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr8.pfb><C:/Users/dagri/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr9.pfb><C:/Users/dagri/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy10.pfb><C:/Users/dagri/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy8.pfb>
-Output written on main.pdf (12 pages, 977454 bytes).
+Output written on main.pdf (11 pages, 938593 bytes).
 PDF statistics:
- 755 PDF objects out of 1000 (max. 8388607)
- 68 named destinations out of 1000 (max. 500000)
- 128 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 649 PDF objects out of 1000 (max. 8388607)
+ 67 named destinations out of 1000 (max. 500000)
+ 120 words of extra memory for PDF output out of 10000 (max. 10000000)
 

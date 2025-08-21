@@ -1,6 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1755614693.96466 "d:/MSU/year_4/semester_8/RCC/Articles/BoookSum/sfi/RuBookSum--sfi/main.tex" "main.pdf" "main" 1755614696.30973 0
-  "C:/Users/dagri/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1755530123 80909 eab91d9745dd2edfd62a31d53cd5fe15 ""
+["pdflatex"] 1755779331.90796 "d:/MSU/year_4/semester_8/RCC/Articles/BoookSum/sfi/RuBookSum--sfi/main.tex" "main.pdf" "main" 1755779334.2104 0
+  "C:/Users/dagri/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1755628160 80909 eab91d9745dd2edfd62a31d53cd5fe15 ""
   "C:/Users/dagri/AppData/Local/MiKTeX/fonts/pk/ljfour/lh/lh-t2a/dpi600/larm0600.pk" 1752060776 14008 390bf663fe3ef81b374be37129a0a40e ""
   "C:/Users/dagri/AppData/Local/MiKTeX/fonts/pk/ljfour/lh/lh-t2a/dpi600/larm0800.pk" 1752060791 18244 3249a7c50ab7088bf55f184f09f4d5b0 ""
   "C:/Users/dagri/AppData/Local/MiKTeX/fonts/pk/ljfour/lh/lh-t2a/dpi600/larm0900.pk" 1752060784 20196 e8ef6d9f64247f9bcd382a02006d4271 ""
@@ -85,8 +85,6 @@
   "C:/Users/dagri/AppData/Local/Programs/MiKTeX/tex/generic/babel/babel.sty" 1752402964 146364 5ab54c751ac749ee673fa3bdd4fa8b19 ""
   "C:/Users/dagri/AppData/Local/Programs/MiKTeX/tex/generic/babel/locale/en/babel-en.ini" 1752402966 3966 caeee5a9e5771d4446aa1ca9015ba1b2 ""
   "C:/Users/dagri/AppData/Local/Programs/MiKTeX/tex/generic/babel/locale/en/babel-english.tex" 1752402966 374 a9c05f002d9437e6de45ac1cc23d56c2 ""
-  "C:/Users/dagri/AppData/Local/Programs/MiKTeX/tex/generic/babel/locale/ru/babel-ru.ini" 1752402967 7236 d2ba37d6c6c398ec011cd9ab143215bb ""
-  "C:/Users/dagri/AppData/Local/Programs/MiKTeX/tex/generic/babel/locale/ru/babel-russian.tex" 1752402967 375 890d45b6ae655ad4a1647c297de51e56 ""
   "C:/Users/dagri/AppData/Local/Programs/MiKTeX/tex/generic/babel/txtbabel.def" 1752402964 5231 82bb24bf20af7e4d760717f2cadb5170 ""
   "C:/Users/dagri/AppData/Local/Programs/MiKTeX/tex/generic/bigintcalc/bigintcalc.sty" 1576433602 40635 c40361e206be584d448876bba8a64a3b ""
   "C:/Users/dagri/AppData/Local/Programs/MiKTeX/tex/generic/bitset/bitset.sty" 1575926576 33961 6b5c75130e435b2bfdb9f480a09a39f9 ""
@@ -117,7 +115,6 @@
   "C:/Users/dagri/AppData/Local/Programs/MiKTeX/tex/latex/amsmath/amstext.sty" 1750428995 2444 9983e1d0683f102e3b190c64a49313aa ""
   "C:/Users/dagri/AppData/Local/Programs/MiKTeX/tex/latex/arabi/bblopts.cfg" 1705750854 902 c30e5c373bc58bde21f8f63a3091626f ""
   "C:/Users/dagri/AppData/Local/Programs/MiKTeX/tex/latex/babel-english/english.ldf" 1623001666 7008 9ff5fdcc865b01beca2b0fe4a46231d4 ""
-  "C:/Users/dagri/AppData/Local/Programs/MiKTeX/tex/latex/babel-russian/russianb.ldf" 1610366732 27193 cd3440b122aaa8e30416378ef38b3173 ""
   "C:/Users/dagri/AppData/Local/Programs/MiKTeX/tex/latex/base/article.cls" 1749467999 20144 b966087dda3b194755eb460d32e2ef75 ""
   "C:/Users/dagri/AppData/Local/Programs/MiKTeX/tex/latex/base/fontenc.sty" 1749467999 5275 2f50a1b91fdc3c2c6ff41843a6854061 ""
   "C:/Users/dagri/AppData/Local/Programs/MiKTeX/tex/latex/base/ifthen.sty" 1749467999 5525 1593ca62a2554dd7423fc8a4e5a82125 ""
@@ -175,13 +172,13 @@
   "C:/Users/dagri/AppData/Local/Programs/MiKTeX/tex/latex/totcount/totcount.sty" 1296125748 6013 486f8b9b567dcfc1437aed4344eff39b ""
   "C:/Users/dagri/AppData/Local/Programs/MiKTeX/tex/latex/ulem/ulem.sty" 1578651445 15682 94f55b803e160cf7fb6e4d77d07cfe1d ""
   "C:/Users/dagri/AppData/Local/Programs/MiKTeX/tex/latex/url/url.sty" 1388490452 12796 8edb7d69a20b857904dd0ea757c14ec9 ""
-  "d:/MSU/year_4/semester_8/RCC/Articles/BoookSum/sfi/RuBookSum--sfi/main.tex" 1755614690 46876 c429705c27920d43e07b17b175209113 ""
+  "d:/MSU/year_4/semester_8/RCC/Articles/BoookSum/sfi/RuBookSum--sfi/main.tex" 1755779331 32489 ed22762b32bfd99698b1e4410a8b55f6 ""
   "figures/genres_pie.png" 1755011922 110074 6e31a9fd7c1ff1baed6274bca82bf315 ""
   "figures/three_ref.png" 1755181200 262231 54ac1f63dd07d41e1d20df188c264596 ""
   "figures/two_ref.png" 1755177905 404570 6a3170c1850c52a9c693b47eb3bd6bd4 ""
-  "main.aux" 1755614695 6908 12e44c5482faba347319a18412b215be "pdflatex"
-  "main.out" 1755614695 3590 e9c8e64c1597de89e511670f5bd2a7c9 "pdflatex"
-  "main.tex" 1755614690 46876 c429705c27920d43e07b17b175209113 ""
+  "main.aux" 1755779333 5305 52b098be5fcbeab5549e92b8fc9481ab "pdflatex"
+  "main.out" 1755779333 2346 9cad427c892fc6fab7992b026b93a8a3 "pdflatex"
+  "main.tex" 1755779331 32489 ed22762b32bfd99698b1e4410a8b55f6 ""
   "superfri.cls" 1721976366 10107 c25378b18403232a0bc3b5f030091290 ""
   (generated)
   "main.aux"
