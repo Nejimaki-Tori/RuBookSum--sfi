@@ -1,6 +1,6 @@
 \documentclass{superfri}
-\usepackage[T2A]{fontenc}
 \usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{amsthm}
@@ -14,6 +14,7 @@
 \usepackage[normalem]{ulem}
 \usepackage{graphicx}
 \usepackage{lmodern}
+\usepackage{xurl} 
 \usepackage[hidelinks]{hyperref}
 
 \begin{document}
@@ -25,8 +26,8 @@
 \maketitle{}
 
 \begin{abstract}
-The work is dedicated to automatic summarization of Russian literary fiction.
-An open corpus RuBookSum (600+ "book-summary" pairs) was compiled based on texts from LibRuSec and user-generated summaries from <<Народный Брифли>>.
+This work is dedicated to automatic summarization of Russian literary fiction.
+An open corpus RuBookSum (600+ "book-summary" pairs) was compiled based on texts from LibRuSec and user-generated summaries from "Narodny Briefly".
 Four approaches to summarization are examined: the baseline hierarchical method and the "blueprint" (Text-Blueprint) approach, 
 which builds an outline in the form of question-answer pairs, as well as two new methods proposed in this work: 
 a hierarchical method with node filtering based on cosine similarity of embeddings, 
@@ -69,7 +70,7 @@ The goal of this work is to provide such tools, thus, following is proposed:
   \item New summarization methods that offer alternatives to existing ones and substantially reduce the time required to produce a short synopsis of a book.
 \end{enumerate}
 
-Code and data are publicly available\footnote{\label{git}\url{https://github.com/Nejimaki-Tori/BookSum}}.
+Code and data are publicly available\footnote{\label{git}\url{https://github.com/Nejimaki-Tori/BoookSum}}.
 
 % ================= НАБОР ДАННЫХ =================
 
@@ -123,13 +124,13 @@ Figure \ref{fig:genres} shows the genre distribution in the collection. Table \t
 \section{Methodology}
 \subsection{Baseline and modified strategies.}
 
-\subsubsection{Hierarchical method (Algorithm 1).}
+\subsubsection{Hierarchical method (Algorithm 1)}
 This method \cite{hierarchical} splits the text into fragments (chunks) and
 generates a local summary for each chunk.
 These fragments are then grouped, and summaries are merged into higher-level synopses.
 The last level yields the final book-level summary.
 
-\subsubsection{Hierarchical method with node filtering (Algorithm 2).}
+\subsubsection{Hierarchical method with node filtering (Algorithm 2)}
 The classical hierarchical method constructs the final summary through a multi-layered combination of intermediate obtained derived from individual text segments.
 However, literary works often contain segments that have little impact on plot development and include numerous redundant repetitions and minor details. 
 During the generation of the final summary, these segments can reduce its informativeness and, in some cases, even interfere with the model at the stage of summarizing individual fragments.
@@ -189,14 +190,14 @@ This modification aims to accelerate generation by removing potentially superflu
 \end{minipage}
 
 \vspace{0.4em}
-\subsubsection{Text-Blueprint (Algorithm 3).}
+\subsubsection{Text-Blueprint (Algorithm 3)}
 This method \cite{blueprint} is essentially a modification of the hierarchical approach and focuses on building an intermediate plan before text generation.
 The outline is formed as a set of question-answer pairs, which enhances the controllability of the generation process and ensures the structured nature of the result.
 First the model creates a list of questions reflecting key events, themes, and characters. Then short answers are automatically generated for each question.
 This structure serves as a blueprint used to produce the final synopsis.
 
 
-\subsubsection{Blueprint method with question clustering (Algorithm 4).}
+\subsubsection{Blueprint method with question clustering (Algorithm 4)}
 The baseline blueprint implementation generates a question-answer plan for each fragment and at each aggregation level. 
 With fiction, however, questions produced for different chunks may overlap and yield conflicting answers, which in turn confuses aggregation, making the synopsis less structured and complete. 
 Moreover, generating a plan at every step slows the method and consumes extra LLM time.
@@ -317,7 +318,7 @@ This choice of threshold provides a compromise between preserving meaningful inf
 
 In the \textbf{blueprint method} with question clustering, the number of clusters for KMeans is chosen using a heuristically derived rule:
 \begin{equation}
-n_{\text{clusters}} = \max!\left(2,; \left\lceil \sqrt{N_{\text{questions}}} \right\rceil\right)
+  n_{\text{clusters}} = \max\!\left(2,\; \left\lceil \sqrt{N_{\text{questions}}} \right\rceil\right)
 \end{equation}
 where $N_{\text{questions}}$ is the total number of questions generated across all chunks before clustering.
 
@@ -326,7 +327,7 @@ Processing times were measured as the average value (in seconds) of the generati
 
 \section{Results}
 
-\subsection*{Models used.}
+\subsection{Models used}
 The following LLMs were used:
 RuadaptQwen2.5-7B-Lite-Beta \cite{ruadapt},
 RuadaptQwen3-32BInstruct-v2 \cite{ruadapt},
@@ -334,7 +335,7 @@ DeepSeek V3 \cite{deepseek},
 Qwen3-235B-A22B \cite{qwen3},
 tpro \cite{tpro} and yagpt5lite \cite{yagpt}.
 
-\tab{tab:results_models}{Результаты по методам и моделям}{
+\tab{tab:results_models}{Results by methods and models}{
 \centering
 \small
 \setlength{\tabcolsep}{4pt}
@@ -388,14 +389,14 @@ Model & Metrics &
 \end{tabular}
 }
 
-\subsection{Findings.}
+\subsection{Findings}
 Table \tabref{tab:results_models} reports comparative metrics of automatic book summarization across models and methods. 
 The best overall performance was achieved by Qwen3-235B-A22B: it delivered the highest coverage and answer similarity.
 At the same time, among methods the hierarchical approach with node filtering offered the best quality–time trade-off. It significantly sped up processing (e.g., almost 2× faster for DeepSeek V3), and compared to
 the blueprint method-which on average achieved the best metrics-it lagged only slightly. The exception was Qwen3-235B-A22B, which achieved its top results with the baseline blueprint.
 Experiments show that the hierarchical method with filtering provides the best compromise between speed and quality.
 
-\subsection{Analysis and comparison.}
+\subsection{Analysis and comparison}
 
 The spread of QA metrics can be illustrated using the same model (DeepSeek V3) within the hierarchical method.
 Two summaries were chosen for the analysis: "A Sound of Thunder" and "Kastrjuk".
@@ -432,7 +433,7 @@ the hierarchical method with Qwen3-235B-A22B misclassified "Zhulka" as a horse r
 of key events and main characters, rather than a flowing synopsis, whereas Qwen3-235B-A22B writes plain text.
 Thus, the unmodified blueprint method delivered the best results when using the strongest available model - Qwen3-235B-A22B.
 
-\subsection{Time measurements.}
+\subsection{Time measurements}
 The results in seconds (average of three runs) are in Table \tabref{tab:timing}.
 They confirm that modifications speed up generation.
 
@@ -493,25 +494,25 @@ Echoes from Alexandria: A Large Resource for Multilingual Book Summarization / A
 FABLES: Evaluating faithfulness and content selection in book-length summarization \\/ Yekyung Kim, Yapei Chang, Marzena Karpinska et al. // First Conference on Language Modeling. - 2024. https://openreview.net/forum?id=YfHxQSoaWU.
 
 \bibitem{Briefly}
-\textit{Народный Брифли.}  
-Электронная библиотека кратких пересказов литературных произведений.  
-\url{https://wiki.briefly.ru/} (дата обращения: 30.07.2025).
+\textit{"Narodny Briefly".}  
+Electronic library of short summaries of literary works.
+\url{https://wiki.briefly.ru/} (accessed: 30.07.2025).
 
 \bibitem{librusec}
-Библиотека художественных произведений.  
-\url{https://librusec.org//} (дата обращения: 30.07.2025).
+Library of works of art.
+\url{https://librusec.org//} (accessed: 30.07.2025).
 
 \bibitem{hierarchical} 
-Wu J. et al. Recursively Summarizing Books with Human Feedback //arXiv e-prints. - 2021. - С. arXiv: 2109.10862.
+Wu, Jeff, et al. "Recursively summarizing books with human feedback." arXiv preprint arXiv:2109.10862 (2021).
 
 \bibitem{blueprint} 
-Text-Blueprint: An Interactive Platform for Plan-based Conditional Generation / \\Fantine Huot, Joshua Maynez, Shashi Narayan et al. // Proceedings of the 17th Conference of the European Chapter of the Association for Computational Linguistics:
+Text-Blueprint: An Interactive Platform for Plan-based Conditional Generation / Fantine Huot, Joshua Maynez, Shashi Narayan et al. // Proceedings of the 17th Conference of the European Chapter of the Association for Computational Linguistics:
 System Demonstrations / Ed. by Danilo Croce, Luca Soldaini. - Dubrovnik, Croatia: Association for Computational Linguistics, 2023. - . - Pp. 105-116. https:
 //aclanthology.org/2023.eacl-demo.13/.
 
 \bibitem{rouge}
 \textit{ROUGE.}
-Lin C. Y. Rouge: A package for automatic evaluation of summaries //Text summarization branches out. - 2004. - С. 74-81.
+Lin, Chin-Yew. "Rouge: A package for automatic evaluation of summaries." Text summarization branches out. 2004.
 
 \bibitem{bertscore}
 \textit{BERTScore.}
@@ -523,17 +524,16 @@ Yang A. et al. Qwen3 technical report //arXiv preprint arXiv:2505.09388. - 2025.
 
 \bibitem{ruadapt}
 \textit{RuadaptQwen.}
-Tikhomirov M., Chernyshev D. Facilitating large language model russian adaptation with learned embedding propagation //Journal of Language and Education. - 2024. - Т. 10. - №. 4 (40). - С. 130-145.
-
+Tikhomirov, Mikhail, and Daniil Chernyshev. "Facilitating large language model russian adaptation with learned embedding propagation." Journal of Language and Education 10.4 (40) (2024): 130-145.
 \bibitem{deepseek}
 \textit{DeepSeek V3.}
 Liu A. et al. DeepSeek-V3 Technical Report //CoRR. - 2024.
 
 \bibitem{tpro}
-Т-Банк открыл доступ к собственной русскоязычной языковой модели в весовой категории 7-8 млрд параметров\\ Т-Банк URL: https://www.tbank.ru/about/news/20072024-t-bank-opened-access-its-own-russian-\\language-language-model-weight-category-of-7-8-billion-parameters/ (дата обращения: 10.05.2025).
+T-Bank has opened access to its own Russian-language language model in the weight category of 7-8 billion parameters / T-Bank URL: \url{https://www.tbank.ru/about/news/20072024-t-bank-opened-access-its-own-russian-language-language-model-weight-category-of-7-8-billion-parameters/} (accessed: 10.05.2025).
 
 \bibitem{yagpt}
-YandexGPT 5 с режимом рассуждений // Яндекс URL: https://ya.ru/ai/gpt?ysclid=mal9jrssc8906806775 (дата обращения: 30.07.2025).
+YandexGPT 5 with reasoning mode // Yandex URL: https://ya.ru/ai/gpt (accessed: 30.07.2025).
 
 \end{thebibliography}
 
