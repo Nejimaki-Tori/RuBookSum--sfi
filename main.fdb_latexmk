@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1756129509.5183 "d:/MSU/year_4/semester_8/RCC/Articles/BoookSum/sfi/RuBookSum--sfi/main.tex" "main.pdf" "main" 1756129511.65952 0
+["pdflatex"] 1756132227.66513 "d:/MSU/year_4/semester_8/RCC/Articles/BoookSum/sfi/RuBookSum--sfi/main.tex" "main.pdf" "main" 1756132229.17506 0
   "C:/Users/dagri/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1756129507 89842 1f990f6fe0cb7373cc4286c81531a445 ""
   "C:/Users/dagri/AppData/Local/MiKTeX/miktex/data/le/pdftex/pdflatex.fmt" 1753797438 13254354 43b71b833b32492885bfd28422881394 ""
   "C:/Users/dagri/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-ec.enc" 1256929440 2375 baa924870cfb487815765f9094cf3728 ""
@@ -175,13 +175,11 @@
   "C:/Users/dagri/AppData/Local/Programs/MiKTeX/tex/latex/url/url.sty" 1388490452 12796 8edb7d69a20b857904dd0ea757c14ec9 ""
   "C:/Users/dagri/AppData/Local/Programs/MiKTeX/tex/latex/xkeyval/xkeyval.sty" 1656236919 4937 4ce600ce9bd4ec84d0250eb6892fcf4f ""
   "C:/Users/dagri/AppData/Local/Programs/MiKTeX/tex/latex/xurl/xurl.sty" 1641733940 4675 e4b8c405820368c2dfb03526e16d725a ""
-  "d:/MSU/year_4/semester_8/RCC/Articles/BoookSum/sfi/RuBookSum--sfi/main.tex" 1756129502 32123 b55c20afc70531a5bf64c06854c18a90 ""
+  "d:/MSU/year_4/semester_8/RCC/Articles/BoookSum/sfi/RuBookSum--sfi/main.tex" 1756132226 36479 ef4845ff31cf6e2b705fd4f108042853 ""
   "figures/genres_pie.png" 1756127481 48450 1f3f521f5e1d5a9c8534032758244456 ""
-  "figures/three_ref.png" 1755181200 262231 54ac1f63dd07d41e1d20df188c264596 ""
-  "figures/two_ref.png" 1755177905 404570 6a3170c1850c52a9c693b47eb3bd6bd4 ""
-  "main.aux" 1756129511 5358 eadfe4d33a16d29f66380e6581cb37ee "pdflatex"
-  "main.out" 1756129511 2427 4a4b00a9fab67ed36bdd503dcd20ebe1 "pdflatex"
-  "main.tex" 1756129502 32123 b55c20afc70531a5bf64c06854c18a90 ""
+  "main.aux" 1756132228 5400 11478b7a92714ef00f85330f5674968d "pdflatex"
+  "main.out" 1756132228 2427 4a4b00a9fab67ed36bdd503dcd20ebe1 "pdflatex"
+  "main.tex" 1756132226 36479 ef4845ff31cf6e2b705fd4f108042853 ""
   "superfri.cls" 1721976366 10107 c25378b18403232a0bc3b5f030091290 ""
   (generated)
   "main.aux"

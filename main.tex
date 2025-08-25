@@ -113,7 +113,8 @@ Then LibRuSec was searched and a collection of "book text – synopsis" pairs wa
   \item 40+ different genres;
   \item source works from the LibRuSec electronic library \cite{librusec}.
 \end{itemize}
-\begin{figure}[!htbp]
+
+\begin{figure}[ht]
     \centering
     \includegraphics[width=0.8\linewidth]{figures/genres_pie.png}
     \caption{Distribution of texts by genres (top 10 genres)}
@@ -252,7 +253,7 @@ To reduce model calls and improve structure, we added clustering of questions us
             \State $S_0 \gets \{SumWithBp(p_\theta, b_i, c_i)\}$\
           \EndFor
         \EndFor
-        \State \textbf{Merge summaries} as in the Blueprint method, except the blueprint here is the single global plan $Q$.
+        \State Merge summaries as in the Blueprint method, except the blueprint here is the single global plan $Q$.
       \end{algorithmic}
   \end{algorithm}
 \end{minipage}
@@ -306,11 +307,10 @@ Here $\mathrm{sim}$ is cosine similarity of embeddings computed with USER-bge-m3
 
 \section{Experimental setup}
 
-All measurements were performed on the test portion of the dataset, selecting sources such that input texts did not exceed 800{,}000 characters.
+All measurements were performed on the test portion of the dataset, selecting sources such that input texts did not exceed 800,000 characters.
 For all methods the summaries were limited to 500 words maximum.
-
-The input text was split into fixed-size chunks of 2{,}000 tokens.
-Tokenization used \texttt{AutoTokenizer} from \texttt{DeepPavlov/rubert-base-cased} with default settings.
+The input text was split into fixed-\allowbreak size chunks of 2,000 tokens.
+Tokenization used \texttt{AutoTokenizer} from \texttt{DeepPavlov/rubert-\allowbreak base-\allowbreak cased} with default settings.
 To ensure reproducibility the random seed is fixed ($random\_seed = 42$).
 
 In the \textbf{hierarchical method with node filtering}, a matrix of cosine similarities between the embeddings of the intermediate summaries is computed at each level to assess their redundancy.
@@ -329,7 +329,7 @@ Processing times were measured as the average value (in seconds) of the generati
 \section{Results}
 
 \subsection{Models used}
-The following LLMs were used:
+The following LLMs were used: \\
 RuadaptQwen2.5-7B-Lite-Beta \cite{ruadapt},
 RuadaptQwen3-32BInstruct-v2 \cite{ruadapt},
 DeepSeek V3 \cite{deepseek},
@@ -339,55 +339,55 @@ tpro \cite{tpro} and yagpt5lite \cite{yagpt}.
 \tab{tab:results_models}{Results by methods and models}{
 \centering
 \small
-\setlength{\tabcolsep}{4pt}
-\begin{tabular}{ll|c|c|c|c}
-\toprule
-Model & Metrics &
-\makecell{Hierarchical} &
-\makecell{Blueprint} &
-\makecell{Hierarchical \\ with filtering} &
-\makecell{Blueprint \\ with clustering} \\
-\hline
-\multirow{5}{*}{DeepSeek V3}
- & bertscore  & \uline{60.0 ± 3.1} & 58.0 ± 4.0 & 60.0 ± 2.9 & 58.4 ± 3.6 \\
- & rouge-l    & 13.7 ± 3.9 & 12.6 ± 4.6 & 13.5 ± 3.7 & 11.2 ± 3.9 \\
- & coverage   & \uline{\textbf{53.57 ± 21.66}} & 40.19 ± 23.68 & \uline{\textbf{45.00 ± 23.03}} & \uline{\textbf{34.68 ± 23.77}} \\
- & similarity & \uline{42.38 ± 17.73} & 32.31 ± 19.33 & 35.64 ± 18.88 & \uline{27.76 ± 19.75} \\
- & time       & 196.77 ± 187.85 & 315.67 ± 321.89 & 147.21 ± 146.4 & 132.60 ± 197.25 \\
-\multirow{5}{*}{Qwen3-235B-A22B}
- & bertscore  & 61.2 ± 3.0 & \uline{61.6 ± 3.3} & \uline{60.9 ± 2.7} & \uline{59.3 ± 3.4} \\
- & rouge-l    & \uline{14.9 ± 4.0} & \uline{15.8 ± 4.5} & \uline{14.8 ± 3.7} & \uline{12.2 ± 3.6} \\
- & coverage   & 52.48 ± 20.79 & \uline{\textbf{54.78 ± 21.16}} & 44.54 ± 23.03 & 30.19 ± 21.96 \\
- & similarity & 41.68 ± 17.18 & \uline{43.99 ± 17.54} & \uline{35.67 ± 18.87} & 24.10 ± 17.62 \\
- & time       & 103.49 ± 97.30 & 230.35 ± 271.03 & 83.06 ± 102.05 & 158.30 ± 196.35 \\
- \hline
-\multirow{5}{*}{\makecell{RuadaptQwen3-32B\\Instruct-v2}}
- & bertscore  & 57.3 ± 2.9 & 58.9 ± 3.6 & 57.7 ± 3.3 & 55.3 ± 3.3 \\
- & rouge-l    & 11.0 ± 2.4 & 10.6 ± 3.2 & 10.7 ± 2.4 & 7.8 ± 2.1 \\
- & coverage   & 33.12 ± 21.50 & 33.18 ± 22.83 & 32.19 ± 22.52 & 17.72 ± 15.23 \\
- & similarity & 25.25 ± 16.94 & 26.21 ± 18.22 & 24.82 ± 17.74 & 13.97 ± 12.39 \\
- & time       & 218.30 ± 195.16 & 379.24 ± 500.40 & 166.79 ± 164.61 & 286.35 ± 395.97 \\
-\multirow{5}{*}{tpro}
- & bertscore  & \uline{59.4 ± 3.0} & \uline{59.0 ± 4.9} & \uline{59.5 ± 3.3} & \uline{58.2 ± 3.7} \\
- & rouge-l    & \uline{13.8 ± 3.1} & \uline{14.7 ± 4.9} & \uline{13.5 ± 3.0} & \uline{11.8 ± 3.9} \\
- & coverage   & \uline{40.27 ± 20.23} & \uline{40.83 ± 22.42} & \uline{37.13 ± 20.72} & \uline{26.03 ± 18.44} \\
- & similarity & \uline{31.77 ± 16.63} & \uline{32.60 ± 18.57} & \uline{29.44 ± 16.83} & \uline{20.83 ± 15.26} \\
- & time       & 367.32 ± 324.49 & 592.39 ± 772.19 & 267.73 ± 253.34 & 247.59 ± 361.20 \\
- \hline
-\multirow{5}{*}{\makecell{RuadaptQwen2.5-7B\\Lite-Beta}}
- & bertscore  & 55.4 ± 2.9 & 56.1 ± 4.9 & 55.8 ± 2.9 & 54.0 ± 4.0 \\
- & rouge-l    & 8.6 ± 2.5 & 10.1 ± 3.9 & 8.7 ± 2.5 & 7.7 ± 2.8 \\
- & coverage   & 19.66 ± 17.77 & 24.94 ± 21.08 & 20.31 ± 17.95 & 15.51 ± 14.83 \\
- & similarity & 15.16 ± 14.11 & 20.03 ± 17.50 & 15.94 ± 14.39 & 12.23 ± 12.30 \\
- & time       & 68.86 ± 64.85 & 126.84 ± 145.74 & 53.59 ± 47.28 & 76.66 ± 91.78 \\
-\multirow{5}{*}{yagpt5lite}
- & bertscore  & \uline{62.5 ± 3.5} & \uline{61.1 ± 3.8} & \uline{62.1 ± 3.2} & \uline{61.5 ± 3.3} \\
- & rouge-l    & \uline{16.9 ± 5.1} & \uline{15.8 ± 5.1} & \uline{16.4 ± 4.7} & \uline{14.3 ± 4.4} \\
- & coverage   & \uline{36.85 ± 19.40} & \uline{33.17 ± 21.58} & \uline{31.75 ± 20.06} & \uline{24.28 ± 16.95} \\
- & similarity & \uline{29.69 ± 16.43} & \uline{26.58 ± 18.13} & \uline{25.60 ± 16.85} & \uline{19.70 ± 14.29} \\
- & time       & 31.02 ± 28.51 & 113.34 ± 123.78 & 27.39 ± 28.05 & 42.15 ± 56.50 \\
-\bottomrule
-\end{tabular}
+\setlength{\tabcolsep}{3pt}
+  \begin{tabular}{ll|c|c|c|c}
+    \hline
+    Model & Metrics &
+    \makecell{Hierarchical} &
+    \makecell{Blueprint} &
+    \makecell{Hierarchical \\ with filtering} &
+    \makecell{Blueprint \\ with clustering} \\
+    \hline
+    \multirow{5}{*}{DeepSeek V3}
+    & bertscore  & \uline{60.0 ± 3.1} & 58.0 ± 4.0 & 60.0 ± 2.9 & 58.4 ± 3.6 \\
+    & rouge-l    & 13.7 ± 3.9 & 12.6 ± 4.6 & 13.5 ± 3.7 & 11.2 ± 3.9 \\
+    & coverage   & \uline{\textbf{53.57 ± 21.66}} & 40.19 ± 23.68 & \uline{\textbf{45.00 ± 23.03}} & \uline{\textbf{34.68 ± 23.77}} \\
+    & similarity & \uline{42.38 ± 17.73} & 32.31 ± 19.33 & 35.64 ± 18.88 & \uline{27.76 ± 19.75} \\
+    & time       & 196.77 ± 187.85 & 315.67 ± 321.89 & 147.21 ± 146.4 & 132.60 ± 197.25 \\
+    \multirow{5}{*}{Qwen3-235B-A22B}
+    & bertscore  & 61.2 ± 3.0 & \uline{61.6 ± 3.3} & \uline{60.9 ± 2.7} & \uline{59.3 ± 3.4} \\
+    & rouge-l    & \uline{14.9 ± 4.0} & \uline{15.8 ± 4.5} & \uline{14.8 ± 3.7} & \uline{12.2 ± 3.6} \\
+    & coverage   & 52.48 ± 20.79 & \uline{\textbf{54.78 ± 21.16}} & 44.54 ± 23.03 & 30.19 ± 21.96 \\
+    & similarity & 41.68 ± 17.18 & \uline{43.99 ± 17.54} & \uline{35.67 ± 18.87} & 24.10 ± 17.62 \\
+    & time       & 103.49 ± 97.30 & 230.35 ± 271.03 & 83.06 ± 102.05 & 158.30 ± 196.35 \\
+    \hline
+    \multirow{5}{*}{\makecell{RuadaptQwen3-32B\\Instruct-v2}}
+    & bertscore  & 57.3 ± 2.9 & 58.9 ± 3.6 & 57.7 ± 3.3 & 55.3 ± 3.3 \\
+    & rouge-l    & 11.0 ± 2.4 & 10.6 ± 3.2 & 10.7 ± 2.4 & 7.8 ± 2.1 \\
+    & coverage   & 33.12 ± 21.50 & 33.18 ± 22.83 & 32.19 ± 22.52 & 17.72 ± 15.23 \\
+    & similarity & 25.25 ± 16.94 & 26.21 ± 18.22 & 24.82 ± 17.74 & 13.97 ± 12.39 \\
+    & time       & 218.30 ± 195.16 & 379.24 ± 500.40 & 166.79 ± 164.61 & 286.35 ± 395.97 \\
+    \multirow{5}{*}{tpro}
+    & bertscore  & \uline{59.4 ± 3.0} & \uline{59.0 ± 4.9} & \uline{59.5 ± 3.3} & \uline{58.2 ± 3.7} \\
+    & rouge-l    & \uline{13.8 ± 3.1} & \uline{14.7 ± 4.9} & \uline{13.5 ± 3.0} & \uline{11.8 ± 3.9} \\
+    & coverage   & \uline{40.27 ± 20.23} & \uline{40.83 ± 22.42} & \uline{37.13 ± 20.72} & \uline{26.03 ± 18.44} \\
+    & similarity & \uline{31.77 ± 16.63} & \uline{32.60 ± 18.57} & \uline{29.44 ± 16.83} & \uline{20.83 ± 15.26} \\
+    & time       & 367.32 ± 324.49 & 592.39 ± 772.19 & 267.73 ± 253.34 & 247.59 ± 361.20 \\
+    \hline
+    \multirow{5}{*}{\makecell{RuadaptQwen2.5-7B\\Lite-Beta}}
+    & bertscore  & 55.4 ± 2.9 & 56.1 ± 4.9 & 55.8 ± 2.9 & 54.0 ± 4.0 \\
+    & rouge-l    & 8.6 ± 2.5 & 10.1 ± 3.9 & 8.7 ± 2.5 & 7.7 ± 2.8 \\
+    & coverage   & 19.66 ± 17.77 & 24.94 ± 21.08 & 20.31 ± 17.95 & 15.51 ± 14.83 \\
+    & similarity & 15.16 ± 14.11 & 20.03 ± 17.50 & 15.94 ± 14.39 & 12.23 ± 12.30 \\
+    & time       & 68.86 ± 64.85 & 126.84 ± 145.74 & 53.59 ± 47.28 & 76.66 ± 91.78 \\
+    \multirow{5}{*}{yagpt5lite}
+    & bertscore  & \uline{62.5 ± 3.5} & \uline{61.1 ± 3.8} & \uline{62.1 ± 3.2} & \uline{61.5 ± 3.3} \\
+    & rouge-l    & \uline{16.9 ± 5.1} & \uline{15.8 ± 5.1} & \uline{16.4 ± 4.7} & \uline{14.3 ± 4.4} \\
+    & coverage   & \uline{36.85 ± 19.40} & \uline{33.17 ± 21.58} & \uline{31.75 ± 20.06} & \uline{24.28 ± 16.95} \\
+    & similarity & \uline{29.69 ± 16.43} & \uline{26.58 ± 18.13} & \uline{25.60 ± 16.85} & \uline{19.70 ± 14.29} \\
+    & time       & 31.02 ± 28.51 & 113.34 ± 123.78 & 27.39 ± 28.05 & 42.15 ± 56.50 \\
+    \hline
+  \end{tabular}
 }
 
 \subsection{Findings}
@@ -399,32 +399,80 @@ Experiments show that the hierarchical method with filtering provides the best c
 
 \subsection{Analysis and comparison}
 
+\tab{tab:refs}{Comparison of the best and worst generated summaries}{
+  \centering
+  \small
+  \begin{tabular}{|p{0.15\linewidth}|p{0.75\linewidth}|}
+    \hline
+    \makecell{\textbf{Title}} & \makecell{\textbf{Text}} \\ \hline
+
+    \makecell{\textbf{A Sound} \\ \textbf{of Thunder}} & \dots
+    \textbf{The main character, Eckels}, a thrill-seeking and overconfident hunter, \textbf{pays} a huge sum of money \textbf{for the chance to travel 60 million years back in time to kill a Tyrannosaurus rex}. 
+    Before the journey, the guide Travis strictly warns him about the rules: \textbf{under no circumstances should anyone step off the anti-gravity Path} or interfere with the natural course of events, 
+    as even the slightest violation could catastrophically change the future.\dots Travis explains \textbf{the fragility of the temporal balance: 
+    even the death of a single mouse could wipe out entire species}, and thus alter human history. \textbf{The group tracks down a Tyrannosaurus}, marked with red paint — a sign 
+    that \textbf{its death will not affect the future}. However, at the sight of the giant predator \textbf{Eckels panics, steps off the Path, and accidentally crushes a butterfly}\dots 
+    Upon returning to 2055 \dots \textbf{the world has changed beyond recognition: the language is coarse, the atmosphere oppressive, and instead of the moderate President Keith, a cruel dictator, Deutscher, is in power.} 
+    Eckels realizes that \textbf{his carelessness triggered the “butterfly effect”} — the crushed insect set off a chain of events that distorted history. 
+    In despair, he begs to undo the mistake, but \textbf{Travis, understanding the irreversibility of the consequences, raises his rifle.} \dots
+    \\ \hline
+
+    \textbf{Kastrjuk} & \dots \uline{The story takes place in a Russian village in early spring, 
+    where nature awakens, but people’s lives remain harsh and monotonous.} \textbf{The main character — an old man named Semyon, nicknamed Kastrjuk}, 
+    is spending his final days in loneliness, \textbf{tormented by memories of his former strength} and regrets over his present frailty. \textbf{Once he was known as the best worker in the district}, 
+    \uline{but now, frail and forgotten, he is forced to stand aside while his fellow villagers work in the fields}. His only joy is his granddaughter Dashka, a kind and impressionable girl, 
+    \uline{who runs to him frightened by the young lords from the neighboring Zalesnoe estate. Kastrjuk comforts her, and together they walk beyond the village, where the old man, admiring the spring scenery, 
+    tries to distract himself from his gloomy thoughts}. \dots
+    \textbf{Only in the evening, persuading his son to let him go to the night watch (to herd horses), does Kastrjuk find brief happiness}. \uline{Out in the open, among the children and under the starry sky, he feels almost young again. 
+    By the pond, a mare drinks water reflecting the sunset,} while the \textbf{old man, looking at the Milky Way, whispers a prayer — as if he is reconnecting with the world and regaining lost harmony}. 
+    \uline{But it is only a fleeting solace: tomorrow he will again face hopeless loneliness and the realization of his own uselessness.} \dots
+    \\ \hline
+
+  \end{tabular}
+}
+
 The spread of QA metrics can be illustrated using the same model (DeepSeek V3) within the hierarchical method.
 Two summaries were chosen for the analysis: "A Sound of Thunder" and "Kastrjuk".
 In the first case the model scored high, answering all but one question; in the second
 the synopsis contained answers to only two out of eleven, leading to a low score. 
-Figure \ref{fig:refs} shows the two synopses. For brevity we highlighted only the main points that affected the final metric.
+\tabref{tab:refs} shows the two synopses. For brevity we highlighted only the main points that affected the final metric.
 The "Kastrjuk" synopsis contains many lyrical digressions and stylistic details, making it hard to capture the essence, so the model gets distracted from key facts, 
 whereas in "A Sound of Thunder" events are presented sequentially and clearly, with core plot elements explicitly listed, simplifying retrieval of important information.
 In the texts, bold marks plot-relevant fragments, while underlines indicate content that could be omitted.
 
-\begin{figure}[ht!]
-  \centering
-  \includegraphics[width=0.9\textwidth]{figures/two_ref.png}
-  \caption{Comparison of the best and worst generated synopses}
-  \label{fig:refs}
-\end{figure}
 
-\begin{figure}[ht!]
+
+
+\tab{tab:bl_ref}{Comparison of models in summary generation using the outline method}{
   \centering
-  \includegraphics[width=0.9\textwidth]{figures/three_ref.png}
-  \caption{Model comparison for blueprint-based synopses}
-  \label{fig:bl_ref}
-\end{figure}
+  \small
+  \begin{tabular}{|p{0.15\linewidth}|p{0.75\linewidth}|}
+    \hline
+    \makecell{\textbf{Model}} & \makecell{\textbf{Text}} \\ 
+    \hline
+
+    \makecell{RuadaptQwen3} & "The company *Time Safari* organizes paid excursions into the past for dinosaur hunting, 
+    using time machines capable of moving between eras.  
+    Clients are required to follow strict rules: to stay on the metal Path \dots
+    \\ \hline
+
+    \makecell{tpro} & "In the text, the main character, Eckels, goes on a time safari in order to kill a Tyrannosaurus rex. 
+    The company that organizes the safari guarantees only dinosaurs and strictly forbids hunters from stepping 
+    off the Path \dots
+    Mr. Travis, the safari guide, explains that even the destruction of a single mouse could lead to the extinction of all its descendants \dots
+    \\ \hline
+
+    \makecell{DeepSeek V3} & "**Summary by outline:** 1. **Eckels** — the hunter \dots
+    2. **The company ‘Time Safari’** organizes hunting in the past \dots
+    3. **Travis** — the guide supervising the expedition. \dots
+      \\ \hline
+  \end{tabular}
+}
+
 
 Comparing models, DeepSeek V3 generally outperforms smaller models; however, within the blueprint method, in 30\% of cases
 RuadaptQwen3-32B-Instruct-v2 performs best, and tpro in 43\%. For reference, consider the synopsis for "A Sound of Thunder" generated with the blueprint method,
-with small excerpts shown in Figure \ref{fig:bl_ref}.
+with small excerpts shown in \tabref{tab:bl_ref}.
 While the DeepSeek V3 synopsis resembles a numbered list of main events,
 the outputs from RuadaptQwen3-32B-Instruct-v2 and tpro are cohesive narratives that cover the key plot points.
 
