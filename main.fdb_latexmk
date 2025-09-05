@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1756385751.134 "d:/MSU/year_4/semester_8/RCC/Articles/BoookSum/sfi/RuBookSum--sfi/main.tex" "main.pdf" "main" 1756385752.55583 0
+["pdflatex"] 1757108474.21771 "d:/MSU/year_4/semester_8/RCC/Articles/BoookSum/sfi/RuBookSum--sfi/main.tex" "main.pdf" "main" 1757108475.82709 0
   "C:/Users/dagri/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1756129507 89842 1f990f6fe0cb7373cc4286c81531a445 ""
   "C:/Users/dagri/AppData/Local/MiKTeX/miktex/data/le/pdftex/pdflatex.fmt" 1753797438 13254354 43b71b833b32492885bfd28422881394 ""
   "C:/Users/dagri/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-ec.enc" 1256929440 2375 baa924870cfb487815765f9094cf3728 ""
@@ -176,11 +176,11 @@
   "C:/Users/dagri/AppData/Local/Programs/MiKTeX/tex/latex/url/url.sty" 1388490452 12796 8edb7d69a20b857904dd0ea757c14ec9 ""
   "C:/Users/dagri/AppData/Local/Programs/MiKTeX/tex/latex/xkeyval/xkeyval.sty" 1656236919 4937 4ce600ce9bd4ec84d0250eb6892fcf4f ""
   "C:/Users/dagri/AppData/Local/Programs/MiKTeX/tex/latex/xurl/xurl.sty" 1641733940 4675 e4b8c405820368c2dfb03526e16d725a ""
-  "d:/MSU/year_4/semester_8/RCC/Articles/BoookSum/sfi/RuBookSum--sfi/main.tex" 1756385748 35950 76cd898a6d76498e130ab3b86dbb35b1 ""
-  "figures/genres_pie.png" 1756127481 48450 1f3f521f5e1d5a9c8534032758244456 ""
-  "main.aux" 1756385752 5316 93b9c196cbcec369aecea41a9e48b686 "pdflatex"
-  "main.out" 1756385752 2155 78825d7b5ce82d33228a2e3f8e2d22aa "pdflatex"
-  "main.tex" 1756385748 35950 76cd898a6d76498e130ab3b86dbb35b1 ""
+  "d:/MSU/year_4/semester_8/RCC/Articles/BoookSum/sfi/RuBookSum--sfi/main.tex" 1757108473 37487 bc6f95dae4acab6b0a9e25487052fc8f ""
+  "figures/genres_pie.png" 1757076330 48570 15b47c9197403f101970d3c6189176f5 ""
+  "main.aux" 1757108475 5813 e77ba57f9f8932404629a71cfe56a46f "pdflatex"
+  "main.out" 1757108475 2020 ab153bde130994edd819bb9312ac2583 "pdflatex"
+  "main.tex" 1757108473 37487 bc6f95dae4acab6b0a9e25487052fc8f ""
   "superfri.cls" 1721976366 10107 c25378b18403232a0bc3b5f030091290 ""
   (generated)
   "main.aux"

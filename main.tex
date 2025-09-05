@@ -18,23 +18,24 @@
 \usepackage[hidelinks]{hyperref}
 \usepackage{type1cm}
 
+\renewcommand{\algorithmicrequire}{\textbf{Input:}}
+
 \begin{document}
 \raggedbottom
 \author{D.\,A.~Grigoriev\footnote{\label{msu}Lomonosov Moscow State University, Moscow Center for Fundamental and Applied Mathematics, \\ Moscow, Russian Federation}\footnote{E-mail: dagrig14@yandex.ru} \and D.\,V.~Khudiakov\footnoteref{msu}\footnote{E-mail: hydikovv17914@gmail.com} \and D.\,I.~Chernyshev\footnoteref{msu}\footnote{E-mail: chdanorbis@yandex.ru}}
 
-\title{Literature summarization with large language models}
+\title{RuBookSum: a dataset for Russian literature abstractive summarization}
 
 \maketitle{}
 
 \begin{abstract}
-This work is dedicated to automatic summarization of Russian literary fiction.
-An open dataset RuBookSum (600+ "book-synopsis" pairs) was compiled based on texts from LibRuSec and user-generated summaries from "Narodny Briefly".
-Four approaches to summarization are examined: the baseline hierarchical and the "blueprint" (Text-Blueprint) methods, 
-which builds an outline in the form of question-answer pairs, as well as two new methods proposed in this work: 
-a hierarchical method with node filtering based on cosine similarity of embeddings, 
-and a modification of the blueprint method with question clustering using the KMeans algorithm.
-The best quality is achieved by Qwen3-235B-A22B in the blueprint method, 
-while the hierarchical method with node filtering provides the best balance between generation time and quality.
+The majority of existing Russian document summarization datasets focus on short-form source documents which doesn't require complex causal analysis or 
+coreference resolutions. Furthermore, processing longer multi-page texts pose a serious challenge to current generation of language models as the 
+limited context window complicates response generation by demanding additional task partitioning. 
+To lay the groundwork for future research of the problem we introduce RuBookSum, an abstractive summarization dataset for Russian long-form narrative summarization. 
+Our dataset covers documents from various literature domains, including fiction, classic, children books and popular science, and include high-quality human-written 
+summaries. To establish a baseline we evaluate popular open-source large language models and provide comprehensive analysis on their performance. Additionally, 
+we propose an optimized algorithms for long-document summarization which enable up to 300\% summary generation speed up without significant drops in quality.
 
 \keywords{LLM, summarization, literature, books, brief retelling}
 \end{abstract}
@@ -48,9 +49,9 @@ Automatic text summarization is one of the key tasks in natural language process
 In recent years, with the advent of large language models (LLMs), interest in automating summarization has increased across many genres, including fiction.
 Unlike scientific, news, or technical texts, fiction is characterized by high stylistic and semantic complexity.
 Non-linear storytelling, imagery, metaphor, and stylistic devices make synopsis writing especially challenging.
-The limited context window of modern models further complicates processing long texts.
+The limited context window of modern models further complicates processing long texts as it imposes additional text generation constraints and demands additional task partitioning.
 
-At present moment there are not many datasets focusing specifically on summarizing fiction, and the key open datasets concentrate on non-Russian material.
+At present moment there are not many datasets focusing specifically on summarizing fiction, and available collections focus on non-Russian material.
 BookSum \cite{BookSum} is one of the first and best-known English-language datasets for abstractive summarization of narrative works. 
 It contains books, plays, and short stories paired with summaries of varying granularity (paragraph level, chapter level, book level).
 Echoes from Alexandria \cite{alexandria} is a multilingual corpus of fiction, including five languages: English, German, French, Italian, and Spanish.
@@ -61,42 +62,36 @@ According to FABLES, even advanced models (e.g., Claude) commit 20–30\% factua
 causal relations, incorrect characterization of protagonists, and overemphasis on minor details,
 judged by three criteria: agreement with original events, logical correctness, and absence of distortions.
 
-In theory, automatic summarization can be performed in two main ways: extractive (selecting key text fragments) and abstractive (generating new text based on the source).
-For prose, abstractive summarization is typically chosen:
-key meanings and plot links are distributed throughout the text, so extractive sentence selection yields a fragmented,
-stylistically uneven result and does not reconstruct the plot, therefore abstractive approach was chosen.
-
-The topic is motivated by the growing need for tools capable of automatically producing concise, informative, and stylistically appropriate synopses for works of fiction.
-The goal of this work is to provide such tools, thus, following is proposed:
-\begin{enumerate}
-  \item New Russian-language dataset that includes literary works and their synopses;
-  \item New summarization methods that offer alternatives to existing ones and substantially reduce the time required to produce a synopsis of a book.
-\end{enumerate}
+To study the specifics of  Russian long-narrative automatic summarization we introduce RuBookSum, a dataset for Russian literature abstractive summarization. 
+Our dataset contains high-quality human-written summaries for document of different domains including fiction, popular science, children books and classical literature.
+To demonstrate the issues of multi-page text summarization we conduct an extensive evaluation of popular open-source large language models. 
+Our analysis finds that only largest models exceeding 100 billion parameters are able to fully comprehend long-range causal relations while smaller models 
+only capture general semantics. Additionally, to adapt the models for the task we propose new abstractive summarization algorithms optimized for long-document processing. 
+Compared to existing approaches new methods achieve up to 300\% summary generation speed up while retaining the same level of quality.
 
 Code and data are publicly available\footnote{\label{git}\url{https://github.com/Nejimaki-Tori/BoookSum}}.
 
 % ================= DATASET =================
 
 \section{Dataset}
-At the start of the study, there were no open and representative corpora designed specifically for summarizing fiction in Russian.
-To run experiments and evaluate different methods a new dataset was created, using "Narodny Briefly" platform \cite{Briefly} where users publish synopses of literary works.
-
-The synopses are texts created by users based on the original works. They vary in length-from a few sentences to several paragraphs-and in style: some reproduce key phrases verbatim, 
-while others use freer narration. Some cover the whole work, others split content by chapter.
+At the moment of the study, there were no publicly available corpora designed specifically for Russian literature summarization.
+To address the lack of resources new dataset was created, using "Narodny Briefly" platform \cite{Briefly} where users publish summaries for popular books.
+The summaries vary in length-from a few sentences to several paragraphs-and in style: some reproduce key phrases verbatim, 
+while others use free-form narration. Some cover the whole work, others split content by chapter.
 Usually they contain the main facts and conclusions from the source text, but may include the author’s commentary.
 
-The book texts were selected from the LibRuSec digital library \cite{librusec}, one of the largest Russian-language fiction resources.
-Works were selected for which a synopsis existed on chosen source\cite{Briefly}. Each text underwent automatic preprocessing: meta-information (e.g., titles, chapter descriptions, technical inserts) was removed,
+To collect the respective summary sources we leveraged LibRuSec digital library \cite{librusec}, one of the largest Russian-language online book collections.
+Each text underwent automatic preprocessing: meta-information (e.g., titles, chapter descriptions, technical inserts) were removed,
 then the text was formatted into a unified, standardized form suitable for use with models.
 
-To better link books with their synopses, cosine similarity was used: the author name text from Briefly \cite{Briefly} and from LibRuSec \cite{librusec} was embedded via SentenceTransformers
+To better link books with their summaries, cosine similarity was used: the author name text from Briefly \cite{Briefly} and from LibRuSec \cite{librusec} was embedded via SentenceTransformers
 with the model\footnote{\label{encoder}\url{https://huggingface.co/deepvk/USER-bge-m3}}
 and compared using cosine similarity.
-The synopses were automatically cleaned of HTML tags, comments, and service markers using LLM Meta-\allowbreak Llama 3-\allowbreak 70B-\allowbreak Instruct.
-Then LibRuSec was searched and a collection of "book text – synopsis" pairs was formed.
+The summaries were automatically cleaned of HTML tags, comments, and service markers using LLM Meta-\allowbreak Llama 3-\allowbreak 70B-\allowbreak Instruct.
+Then LibRuSec was searched and a collection of "book text – summary" pairs was formed.
 \\The resulting dataset includes:
 \begin{itemize}
-  \item 600+ cleaned user synopses from "Narodny Briefly" \cite{Briefly};
+  \item 600+ cleaned user summaries from "Narodny Briefly" \cite{Briefly};
   \item 40+ different genres;
   \item source works from the LibRuSec digital library \cite{librusec}.
 \end{itemize}
@@ -104,7 +99,7 @@ Then LibRuSec was searched and a collection of "book text – synopsis" pairs wa
 \tab{tab:dataset_info}{Dataset overview}{
 \begin{tabular}{l|cccc}
 \hline
-\textbf{Dataset} & \makecell{Number of \\ documents} & \makecell{Avg. document \\ length \\ (\# words)} & \makecell{Avg. synopsis \\ length \\ (\# words)} & \makecell{Compression ratio \\ (synopsis length \\/ text length)} \\
+\textbf{Dataset} & \makecell{Number of \\ documents} & \makecell{Avg. document \\ length \\ (\# words)} & \makecell{Avg. summary \\ length \\ (\# words)} & \makecell{Compression ratio \\ (summary length \\/ text length)} \\
 \hline
 \textbf{RuBookSum}  & 634 & 35052.64 & 700.77 & 8.43\% \\
 \hline
@@ -121,32 +116,31 @@ Gazeta     & 60964 & 632.77 & 41.94 & 6.99\% \\
 % ================= METHODOLOGY =================
 \section{Methodology}
 \subsection{Hierarchical method (Algorithm 1)}
-This method \cite{hierarchical} splits the text into chunks and
-generates a local synopsis for each chunk.
-These chunks are then grouped, and summaries are merged into higher-level synopses.
-The last level yields the final book-level synopsis.
+Most common method for long-document summarization \cite{hierarchical} splits the text into chunks and
+generates a local summary for each chunk.
+These chunks are then grouped, and summaries are merged into higher-level summaries.
+Thus a summary hierarchy is created the last level of which (tree root) yields the final book-level summary.
 
-\subsection{Hierarchical method with node filtering (Algorithm 2)}
-The classical hierarchical method constructs the final synopsis through a multi-layered combination of intermediate obtained derived from individual text chunk.
-However, literary works often contain chunks that have little impact on plot development and include numerous redundant repetitions and minor details. 
-During the generation of the final synopsis, these chunks can reduce its informativeness and, in some cases, even interfere with the model at the stage of summarizing individual chunks.
+\subsection{Node filtering optimization (Algorithm 2)}
+The classical hierarchical method constructs the final summary through a multi-layered combination of intermediate summaries derived from individual text chunks.
+However, literature often contain chunks that have little impact on plot development or contain redundant information without any additional details. 
+During the generation of the final summary, these chunks can shift the narrative towards repetitive content thus reducing the overall informativeness.
 
-To address this issue, a node filtering mechanism based on cosine similarity was implemented into the method.
-To eliminate low-informative or redundant chunks, a global check of cosine similarity between all intermediate summaries is performed at each hierarchy level.
-Chunks that are close in cosine similarity to previous ones are considered redundant and are not used for compiling the synopsis at the current level.
-Embeddings are obtained using SentenceTransformers (the USER-bge-m3 model), and processing is performed at high speed on a GPU.
-This modification aims to accelerate generation by removing potentially superfluous parts of information, thereby increasing the density of useful information in the final summaries.
+To address this issue, a node filtering mechanism based on cosine similarity was implemented.
+To eliminate low-informative or redundant chunks, we evaluate cosine similarity between all intermediate summaries at each hierarchy level.
+Chunks that are close in cosine similarity to previous ones are considered redundant are excluded from compilation of the summary at the current level.
+This modification aims to accelerate generation by removing potentially superfluous parts of information, 
+thereby increasing the salient detail density in the final summaries.
 
 \noindent
 \begin{minipage}[t]{0.49\textwidth}
   \begin{algorithm}[H]
-  \caption{Hierarchical method}
+  \caption{Hierarchical method}\label{alg:h}
     \begin{algorithmic}
       \Require $W$ - model context window, $D$ - input text of length $L \gg W$, $p_\theta$ - model, $C$ - chunk length
       \State Split $D$ into chunks $c_1\dots c_{\lceil \frac{L}{C} \rceil}$
-      \For{$c_i=c_1\dots c_{\lceil \frac{L}{C} \rceil}$}
-        \State $S_0 \gets SummarizeChunk(p_\theta, c_i)$\
-      \EndFor
+      \State $\ell \gets 0$
+      \State $S_\ell \gets \{c_1\dots c_{\lceil \frac{L}{C} \rceil}\}$
       \Repeat
         \State $Groups \gets GroupSummaries(S_l)$
         \State $\ell \gets \ell + 1$
@@ -154,17 +148,18 @@ This modification aims to accelerate generation by removing potentially superflu
           \State $S_l \gets \{MergeGroup(p_\theta,g)\}$
         \EndFor
       \Until{$|S_l|=1$}
-      \State \Return $S_l[1]$
+      \State \Return $S_l[0]$
     \end{algorithmic}
   \end{algorithm}
 \end{minipage}\hfill
 \begin{minipage}[t]{0.49\textwidth}
   \begin{algorithm}[H]
-    \caption{Hierarchical method with node filtering}
+    \caption{Hierarchical method with node filtering}\label{alg:h_f}
     \begin{algorithmic}
       \Require $W$ - model context window, $D$ - input text of length $L \gg W$, $p_\theta$ - model, $\theta$ - similarity threshold, $C$ - chunk length
       \State Split $D$ into chunks $c_1\dots c_{\lceil \frac{L}{C} \rceil}$
-      \State $S_0 \gets \{c_1\dots c_{\lceil \frac{L}{C} \rceil}\}$
+      \State $\ell \gets 0$
+      \State $S_\ell \gets \{c_1\dots c_{\lceil \frac{L}{C} \rceil}\}$
       \Repeat
         \For{$s_i \in S_l$}
           \State $e_i \gets Encoder(s_i)$
@@ -180,74 +175,76 @@ This modification aims to accelerate generation by removing potentially superflu
           \State $S_l \gets \{MergeGroup(p_\theta,g)\}$
         \EndFor
       \Until{$|S_l|=1$}
-      \State \Return $S_l[1]$
+      \State \Return $S_l[0]$
     \end{algorithmic}
   \end{algorithm}
 \end{minipage}
 
 \vspace{0.4em}
 \subsection{Text-Blueprint (Algorithm 3)}
-This method \cite{blueprint} is essentially a modification of the hierarchical method and focuses on building an intermediate outline before text generation.
+This method \cite{blueprint} is essentially a modification of the hierarchical method that improves summary robustness by building an intermediate outline before text generation.
 The outline is formed as a set of question-answer pairs, which enhances the controllability of the generation process and ensures the structured nature of the result.
 First the model creates a list of questions reflecting key events, themes, and characters. Then short answers are automatically generated for each question.
-This structure serves as a blueprint used to produce the final synopsis.
+This structure serves as a blueprint used to produce the final summary.
 
 
-\subsection{Blueprint method with question clustering (Algorithm 4)}
+\subsection{Question clustering optimization (Algorithm 4)}
 The baseline blueprint implementation generates a question-answer outline for each chunk and at each merge level. 
-With fiction, however, questions produced for different chunks may overlap and yield conflicting answers, which in turn confuses merging, making the synopsis less structured and complete. 
-Moreover, generating an outline at every step slows the method and consumes extra LLM time.
-To reduce model calls and improve structure, we added clustering of questions using SentenceTransformers and KMeans.
+With fiction, however, questions produced for different chunks may overlap and yield conflicting answers, which in turn corrupts merging process, 
+making the summary less structured and complete. 
+Moreover, generating an outline at every step slows the method and consumes extra computational time.
+To address the issue we add additional question clustering step aimed at reducing merge level content overlap. 
+The obtained question clusters are generalized using the same summary generation LLM to produce universal question-answer outline.
 
 \noindent
 \begin{minipage}[t]{0.49\textwidth}
   \begin{algorithm}[H]
-    \caption{Blueprint method}
+    \caption{Blueprint method}\label{alg:bl}
     \begin{algorithmic}
       \Require $W$ - model context window, $D$ - input text of length $L \gg W$, $p_\theta$ - model, $C$ - chunk length, $R$ - length limit
       \State Split $D$ into chunks $c_1\dots c_{\lceil \frac{L}{C} \rceil}$
-      \For{$c_i=c_1\dots c_{\lceil \frac{L}{C} \rceil}$}
-        \State $b_i \gets GenerateBlueprint(p_\theta, c_i)$\
-        \State $S_0 \gets \{SumWithBp(p_\theta, b_i, c_i)\}$\
-      \EndFor
+      \State $\ell \gets 0$
+      \State $S_\ell \gets \{c_1\dots c_{\lceil \frac{L}{C} \rceil}\}$
       \Repeat \Comment{Merging summaries}
         \State $Groups \gets GroupSummaries(S_l)$
         \State $\ell \gets \ell + 1$
         \For{$g \in Groups$}
           \If{$Length(g) > R$}
             \State $b_i \gets GenerateBlueprint(p_\theta, g)$\
-            \State $S_l \gets \{SumWithBp(p_\theta, b_i, g)\}$\
+            \State $S_\ell \gets S_\ell \cup \{SumWithBp(p_\theta, b_i, g)\}$\
           \Else
             \State $S_l \gets \{g\}$\
           \EndIf
         \EndFor
       \Until{$|S_l|=1$}
-      \State \Return $S_l[1]$
+      \State \Return $S_l[0]$
     \end{algorithmic}
   \end{algorithm}
 \end{minipage}\hfill
 \begin{minipage}[t]{0.49\textwidth}
   \begin{algorithm}[H]
-  \caption{Blueprint method with clustering}
+  \caption{Blueprint method with clustering}\label{alg:bl_cl}
       \begin{algorithmic}
         \Require $W$ - model context window, $D$ - input text of length $L \gg W$, $p_\theta$ - model, $C$ - chunk length, $R$ - length limit
         \State Split $D$ into chunks $c_1\dots c_{\lceil \frac{L}{C} \rceil}$
-        \For{$c_i=c_1\dots c_{\lceil \frac{L}{C} \rceil}$}
-          \State $b_i \gets GenerateBlueprint(p_\theta, c_i)$
-          \State $Q \gets \{ExtractQuestions(p_\theta, b_i)\}$
+        \State $\ell \gets 0$
+        \State $S_\ell \gets \{c_1\dots c_{\lceil \frac{L}{C} \rceil}\}$
+        \For{$c \in S_\ell$}
+          \State $b \gets GenerateBlueprint(p_\theta, c)$
+          \State $Q' \gets \{ExtractQuestions(p_\theta, b)\}$
         \EndFor
-        \For{$q_i \in Q$}
-          \State $E \gets \{Encoder(q_i)\}$
-        \EndFor
-        \State $K \gets KMeans(E)$
+        \State $K \gets Clusterize(Q')$
         \For{$k_i \in K$}
-          \State $q_i \gets Generalize(p_\theta, k_i)$
-          \State $Q \gets \{q_i\}$ \Comment{Build a global outline}
+          \State $Q  \gets Q \cup \{Generalize(p_\theta, k_i)\}$
         \EndFor
-        \For{$c_i=c_1\dots c_{\lceil \frac{L}{C} \rceil}$}
-          \State $S_0 \gets \{SumWithBp(p_\theta, b_i, c_i)\}$\
+        \Repeat \Comment{Merging summaries}
+        \State $Groups \gets GroupSummaries(S_\ell)$
+        \State $\ell \gets \ell + 1$
+        \For{$g \in Groups$}
+          \State $S_\ell  \gets S_\ell \cup \{SumWithBp(p_\theta, Q, g)\}$\
         \EndFor
-        \State Summaries merge as in the Blueprint method, except the blueprint here is the single global outline $Q$.
+      \Until{$|S_l|=1$}
+      \State \Return $S_l[0]$
       \end{algorithmic}
   \end{algorithm}
 \end{minipage}
@@ -256,9 +253,9 @@ To reduce model calls and improve structure, we added clustering of questions us
 
 \section{Metrics}
 
-For an objective comparison of the described methods and models in the task of summarizing literary texts, four groups of metrics were used.
+For an objective comparison of the described methods and models in the task of literature summarization, four metrics were considered.
 
-\textbf{ROUGE-L} \cite{rouge} - based on the length of the longest common subsequence (LCS) between the generated synopsis $S$ and the reference $R$.
+\textbf{ROUGE-L} \cite{rouge} - based on the length of the longest common subsequence (LCS) between the generated summary $S$ and the reference $R$.
 \begin{equation}
   \text{Precision} = \frac{\mathrm{LCS}(S,R)}{|S|},
 \end{equation}
@@ -269,7 +266,7 @@ For an objective comparison of the described methods and models in the task of s
   \text{ROUGE-L} = \frac{2\;\text{Precision}\;\cdot\;\text{Recall}}{\text{Precision} + \text{Recall}},
 \end{equation}
 
-\textbf{BERTScore} \cite{bertscore}. For every token pair from prediction and reference we compute cosine similarity of their embeddings in USER-bge-m3. Then:
+\textbf{BERTScore} \cite{bertscore}. For every token pair from prediction and reference we compute cosine similarity of their embeddings in. Then:
 \begin{equation}
 P = \frac{1}{|S|}\sum_{t\in S}\max_{u\in R}\!\mathrm{sim}(e_t, e_u),
 \end{equation}
@@ -282,36 +279,35 @@ R = \frac{1}{|R|}\sum_{u\in R}\max_{t\in S}\!\mathrm{sim}(e_u, e_t),
 \text{BERTScore} = \frac{2\,P\,R}{P+R},
 \end{equation}
 
-where \(S\) is the reference text and \(R\) is the generated one; each sentence is encoded by USER-bge-m3,
-followed by cosine similarity.
+where \(S\) is the reference text and \(R\) is the generated one.
 
-\textbf{Coverage of key questions (Coverage)} - the proportion of pre-generated questions (from the reference) using Qwen3-235B-A22B \cite{qwen3}
-to which the model "answers" in its synopsis:
+\textbf{Key question coverage (Coverage)} - the proportion of questions that are answered in reference that are covered in generated summary:
 \begin{equation}
   \text{Coverage} = \frac{\#\{q_i\colon P(\text{yes}\mid q_i,S)\!>\!0.75\}}{N},
 \end{equation}
 where $N$ is the total number of questions and $P(\text{yes}\mid q_i,S)$ is the probability that the answer to $q_i$ is present in $S$,
-obtained with an LLM (Qwen3-235B-A22B \cite{qwen3}).
+obtained with an LLM.
 
-\textbf{Answer similarity} - the average cosine similarity between generated answers $a_i^{\text{pred}}$ and reference answers $a_i^{\text{ref}}$ to the same key questions:
+\textbf{Factual agreement (Agreement)} - the average cosine similarity between answers $a_i^{\text{pred}}$ generated based on predicted summary and answers $a_i^{\text{ref}}$ obtained from reference summary to the same questions from Coverage metric:
 \begin{equation}
-  \text{AnswerSimilarity} = \frac{1}{N}\sum_{i=1}^N \mathrm{sim}\bigl(a_i^{\text{pred}},\,a_i^{\text{ref}}\bigr),
+  \text{Agreement} = \frac{1}{N}\sum_{i=1}^N \mathrm{sim}\bigl(a_i^{\text{pred}},\,a_i^{\text{ref}}\bigr),
 \end{equation}
-where \texttt{sim} is cosine similarity of embeddings computed with USER-bge-m3.
+where \texttt{sim} is cosine similarity of embeddings.
+
+% ================= EXPERIMENTAL SETUP =================
 
 \section{Experimental setup}
 
-All measurements were performed on the test portion of the dataset, selecting sources that did not exceed 800,000 characters.
+All measurements were performed on the test split of the dataset.
 For all methods the summaries were limited to 500 words maximum.
-The input text was split into fixed-\allowbreak size chunks of 2,000 tokens.
-Tokenization used \texttt{AutoTokenizer} from \texttt{DeepPavlov/rubert-\allowbreak base-\allowbreak cased} \footnote{\label{pavlov}\url{https://huggingface.co/DeepPavlov/rubert-base-cased}} with default settings.
-To ensure reproducibility the random seed is fixed ($random\_seed = 42$).
+The input text was split into fixed-\allowbreak size chunks of 2,000 tokens which were obtained by \texttt{AutoTokenizer} from \texttt{DeepPavlov/rubert-\allowbreak base-\allowbreak cased} \footnote{\label{pavlov}\url{https://huggingface.co/DeepPavlov/rubert-base-cased}} with default settings.
+To ensure reproducibility the random seed is fixed ($random\_seed = 42$). 
+To obtain embeddings we used USER-bge-m3 model\footnoteref{encoder}. To generate questions and answers for Coverage and Agreement metrics we use Qwen3-235B-A22B \cite{qwen3} model. 
 
-In the \textbf{hierarchical method with node filtering}, a matrix of cosine similarities between the embeddings of the intermediate synopses is computed at each level to assess their redundancy.
-A similarity threshold is set at $\theta=0.85$: if for a synopsis $S_j$ there existed a previous synopsis $S_i$ with a cosine similarity above this threshold, then $S_j$ is discarded as redundant. 
+In the \textbf{hierarchical method with node filtering}, cosine similarity threshold is set at $\theta=0.85$: if for a summary $S_j$ there existed a previous summary $S_i$ with a cosine similarity above this threshold, then $S_j$ is discarded as redundant. 
 This choice of threshold provides a compromise between preserving meaningful information and eliminating duplication, which empirically led to a noticeable reduction in the volume of intermediate representations without significant degradation in quality.
 
-In the \textbf{blueprint method} with question clustering, the number of clusters for KMeans is chosen using a heuristically derived rule:
+In the \textbf{blueprint method} with question clustering, we utilize KMeans clustering algorithm. The number of clusters is chosen using a heuristically derived rule:
 \begin{equation}
   n_{\text{clusters}} = \max\!\left(2,\; \left\lceil \sqrt{N_{\text{questions}}} \right\rceil\right)
 \end{equation}
@@ -330,13 +326,13 @@ RuadaptQwen3-32BInstruct-v2 \cite{ruadapt},
 DeepSeek V3 \cite{deepseek},
 Qwen3-235B-A22B \cite{qwen3},
 tpro \cite{tpro} and yagpt5lite \cite{yagpt}.
-In all tables, models are ordered by size, and the best results within each parameter group are highlighted.
+In all tables, models are grouped by size, and the best results within each parameter group are highlighted.
 
 \tab{tab:results_models}{Results by methods and models}{
 \centering
 \small
 \setlength{\tabcolsep}{2pt}
-  \begin{tabular}{ll|c|c|c|c}
+  \begin{tabular}{l|l|c|c|c|c}
     \hline
     Model & Metrics &
     \makecell{Hierarchical} &
@@ -348,39 +344,42 @@ In all tables, models are ordered by size, and the best results within each para
     & bertscore  & \uline{60.0 ± 3.1} & 58.0 ± 4.0 & 60.0 ± 2.9 & 58.4 ± 3.6 \\
     & rouge-l    & 13.7 ± 3.9 & 12.6 ± 4.6 & 13.5 ± 3.7 & 11.2 ± 3.9 \\
     & coverage   & \uline{\textbf{53.57 ± 21.66}} & 40.19 ± 23.68 & \uline{\textbf{45.00 ± 23.03}} & \uline{\textbf{34.68 ± 23.77}} \\
-    & similarity & \uline{42.38 ± 17.73} & 32.31 ± 19.33 & 35.64 ± 18.88 & \uline{27.76 ± 19.75} \\
+    & agreement & \uline{42.38 ± 17.73} & 32.31 ± 19.33 & 35.64 ± 18.88 & \uline{27.76 ± 19.75} \\
     & time       & 196.77 ± 187.85 & 315.67 ± 321.89 & 147.21 ± 146.4 & 132.60 ± 197.25 \\
+    \cline{2-6}
     \multirow{5}{*}{Qwen3-235B-A22B}
     & bertscore  & 61.2 ± 3.0 & \uline{61.6 ± 3.3} & \uline{60.9 ± 2.7} & \uline{59.3 ± 3.4} \\
     & rouge-l    & \uline{14.9 ± 4.0} & \uline{15.8 ± 4.5} & \uline{14.8 ± 3.7} & \uline{12.2 ± 3.6} \\
     & coverage   & 52.48 ± 20.79 & \uline{\textbf{54.78 ± 21.16}} & 44.54 ± 23.03 & 30.19 ± 21.96 \\
-    & similarity & 41.68 ± 17.18 & \uline{43.99 ± 17.54} & \uline{35.67 ± 18.87} & 24.10 ± 17.62 \\
+    & agreement & 41.68 ± 17.18 & \uline{43.99 ± 17.54} & \uline{35.67 ± 18.87} & 24.10 ± 17.62 \\
     & time       & 103.49 ± 97.30 & 230.35 ± 271.03 & 83.06 ± 102.05 & 158.30 ± 196.35 \\
     \hline
     \multirow{5}{*}{\makecell{RuadaptQwen3-32B\\Instruct-v2}}
     & bertscore  & 57.3 ± 2.9 & 58.9 ± 3.6 & 57.7 ± 3.3 & 55.3 ± 3.3 \\
     & rouge-l    & 11.0 ± 2.4 & 10.6 ± 3.2 & 10.7 ± 2.4 & 7.8 ± 2.1 \\
     & coverage   & 33.12 ± 21.50 & 33.18 ± 22.83 & 32.19 ± 22.52 & 17.72 ± 15.23 \\
-    & similarity & 25.25 ± 16.94 & 26.21 ± 18.22 & 24.82 ± 17.74 & 13.97 ± 12.39 \\
+    & agreement & 25.25 ± 16.94 & 26.21 ± 18.22 & 24.82 ± 17.74 & 13.97 ± 12.39 \\
     & time       & 218.30 ± 195.16 & 379.24 ± 500.40 & 166.79 ± 164.61 & 286.35 ± 395.97 \\
+    \cline{2-6}
     \multirow{5}{*}{tpro}
     & bertscore  & \uline{59.4 ± 3.0} & \uline{59.0 ± 4.9} & \uline{59.5 ± 3.3} & \uline{58.2 ± 3.7} \\
     & rouge-l    & \uline{13.8 ± 3.1} & \uline{14.7 ± 4.9} & \uline{13.5 ± 3.0} & \uline{11.8 ± 3.9} \\
     & coverage   & \uline{40.27 ± 20.23} & \uline{40.83 ± 22.42} & \uline{37.13 ± 20.72} & \uline{26.03 ± 18.44} \\
-    & similarity & \uline{31.77 ± 16.63} & \uline{32.60 ± 18.57} & \uline{29.44 ± 16.83} & \uline{20.83 ± 15.26} \\
+    & agreement & \uline{31.77 ± 16.63} & \uline{32.60 ± 18.57} & \uline{29.44 ± 16.83} & \uline{20.83 ± 15.26} \\
     & time       & 367.32 ± 324.49 & 592.39 ± 772.19 & 267.73 ± 253.34 & 247.59 ± 361.20 \\
     \hline
     \multirow{5}{*}{\makecell{RuadaptQwen2.5-7B\\Lite-Beta}}
     & bertscore  & 55.4 ± 2.9 & 56.1 ± 4.9 & 55.8 ± 2.9 & 54.0 ± 4.0 \\
     & rouge-l    & 8.6 ± 2.5 & 10.1 ± 3.9 & 8.7 ± 2.5 & 7.7 ± 2.8 \\
     & coverage   & 19.66 ± 17.77 & 24.94 ± 21.08 & 20.31 ± 17.95 & 15.51 ± 14.83 \\
-    & similarity & 15.16 ± 14.11 & 20.03 ± 17.50 & 15.94 ± 14.39 & 12.23 ± 12.30 \\
+    & agreement & 15.16 ± 14.11 & 20.03 ± 17.50 & 15.94 ± 14.39 & 12.23 ± 12.30 \\
     & time       & 68.86 ± 64.85 & 126.84 ± 145.74 & 53.59 ± 47.28 & 76.66 ± 91.78 \\
+    \cline{2-6}
     \multirow{5}{*}{yagpt5lite}
     & bertscore  & \uline{62.5 ± 3.5} & \uline{61.1 ± 3.8} & \uline{62.1 ± 3.2} & \uline{61.5 ± 3.3} \\
     & rouge-l    & \uline{16.9 ± 5.1} & \uline{15.8 ± 5.1} & \uline{16.4 ± 4.7} & \uline{14.3 ± 4.4} \\
     & coverage   & \uline{36.85 ± 19.40} & \uline{33.17 ± 21.58} & \uline{31.75 ± 20.06} & \uline{24.28 ± 16.95} \\
-    & similarity & \uline{29.69 ± 16.43} & \uline{26.58 ± 18.13} & \uline{25.60 ± 16.85} & \uline{19.70 ± 14.29} \\
+    & agreement & \uline{29.69 ± 16.43} & \uline{26.58 ± 18.13} & \uline{25.60 ± 16.85} & \uline{19.70 ± 14.29} \\
     & time       & 31.02 ± 28.51 & 113.34 ± 123.78 & 27.39 ± 28.05 & 42.15 ± 56.50 \\
     \hline
   \end{tabular}
@@ -388,14 +387,15 @@ In all tables, models are ordered by size, and the best results within each para
 
 \subsection{Findings}
 \tabref{tab:results_models} shows metrics of automatic book summarization across models and methods. 
-The best overall performance was achieved by Qwen3-235B-A22B: it delivered the highest coverage and answer similarity.
-At the same time, the hierarchical method with node filtering offered the best quality–time trade-off. It significantly sped up processing (e.g., almost 2× faster for DeepSeek V3), and compared to
-the blueprint method-which on average achieved the best metrics-it lagged only slightly. The exception was Qwen3-235B-A22B, which achieved its top results with the baseline blueprint.
+The best overall performance was achieved by Qwen3-235B-A22B: it delivered the highest coverage and answer agreement.
+At the same time, the hierarchical method with node filtering offered the best quality–time trade-off. It significantly sped up processing 
+(e.g., almost 2× faster for DeepSeek V3), with comparable quality to
+the blueprint method which on average achieved the best metrics. The exception was Qwen3-235B-A22B, which achieved its top results with the baseline blueprint.
 Experiments show that the hierarchical method with node filtering provides the best compromise between speed and quality.
 
-\subsection{Analysis and comparison}
+\subsection{Qualitative analysis}
 
-\tab{tab:refs}{Comparison of the best and worst generated summaries}{
+\tab{tab:refs}{Comparison of the best and worst english-translated generated summaries}{
   \centering
   \small
   \begin{tabular}{|p{0.15\linewidth}|p{0.75\linewidth}|}
@@ -425,18 +425,18 @@ Experiments show that the hierarchical method with node filtering provides the b
   \end{tabular}
 }
 
-The spread of QA metrics can be illustrated using the same model (DeepSeek V3) within the hierarchical method.
+The deviation question-based metrics can be illustrated by results of hierarchical method obtained by DeepSeek V3
 Two summaries were chosen for the analysis: "A Sound of Thunder" and "Kastrjuk".
-In the first case the model scored high, answering all but one question, but in the second case the synopsis contained answers to only two out of eleven, leading to a low score. 
-\tabref{tab:refs}\footnote{\label{trans}Translated} shows the two synopses. For brevity only the main points that affected the final metric were highlighted.
-The "Kastrjuk" synopsis contains many lyrical digressions and stylistic details, making it hard to capture the essence, so the model gets distracted from key facts, 
+In the first case the model scored high, answering all but one question, but in the other the summary contained answers to only two out of eleven, leading to a low score. 
+\tabref{tab:refs} shows the two summaries. For brevity only the main points that affected the final metric were highlighted.
+The "Kastrjuk" summary contains many lyrical digressions and stylistic details, making it hard to capture the essence, so the model gets distracted from key facts, 
 whereas in "A Sound of Thunder" events are presented sequentially and clearly, with core plot elements explicitly listed, simplifying retrieval of important information.
 In the texts, bold marks plot-relevant fragments, while underlines indicate content that could be omitted.
 
 
 
 
-\tab{tab:bl_ref}{Comparison of models in synopsis generation using the "Blueprint" method}{
+\tab{tab:bl_ref}{Comparison of models in summary generation using the "Blueprint" method (english-translated)}{
   \centering
   \small
   \begin{tabular}{|p{0.15\linewidth}|p{0.75\linewidth}|}
@@ -463,21 +463,47 @@ In the texts, bold marks plot-relevant fragments, while underlines indicate cont
 }
 
 
-Comparing models, DeepSeek V3 generally outperforms smaller models; however, within the blueprint method, in 30\% of cases
-RuadaptQwen3-32B-Instruct-v2 performs best, and tpro in 43\%. For reference, consider the synopsis for "A Sound of Thunder" generated with the blueprint method,
-with small excerpts shown in \tabref{tab:bl_ref}\footnoteref{trans}.
-While the DeepSeek V3 synopsis resembles a numbered list of main events,
+Comparing model behavior, DeepSeek V3 generally outperforms smaller models; however, within the blueprint method, in 30\% of cases
+RuadaptQwen3-32B-Instruct-v2 performs best, and tpro in 43\%. For reference, consider the summary for "A Sound of Thunder" generated with the blueprint method,
+with small excerpts shown in \tabref{tab:bl_ref}.
+While the DeepSeek V3 summary resembles a numbered list of main events,
 the outputs from RuadaptQwen3-32B-Instruct-v2 and tpro are cohesive narratives that cover the key plot points.
+
+\tab{tab:z}{Comparison of hierarchical and blueprint methods}{
+  \centering
+  \small
+  \begin{tabular}{|p{0.15\linewidth}|p{0.75\linewidth}|}
+    \hline
+    \makecell{\textbf{Method}} & \makecell{\textbf{Text}} \\ \hline
+
+    \textbf{Hierarchical} & \dots Zhulka is a graceful, well-groomed \textbf{horse} that lives on the estate \dots
+    \\ \hline
+
+    \textbf{Blueprint} & \dots Zhulka was a small black \textbf{dog} with yellow markings \dots
+    \\ \hline
+
+  \end{tabular}
+}
 
 Note that the best result overall was achieved by the blueprint method with the large model Qwen3-235B-A22B,
 as shown in \tabref{tab:results_models}. For comparison, on the story "Barbos and Zhulka",
-the hierarchical method with Qwen3-235B-A22B misclassified "Zhulka" as a horse rather than a dog. Also, DeepSeek V3 tends to strictly follow the blueprint template and produces a numbered list
-of key events and main characters, rather than a flowing synopsis, whereas Qwen3-235B-A22B writes plain text.
+the hierarchical method with Qwen3-235B-A22B misclassified "Zhulka" as a horse rather than a dog as shown in \tabref{tab:z}. 
+Also, DeepSeek V3 tends to strictly follow the blueprint template and produces a numbered list
+of key events and main characters, rather than a coherent summary, whereas Qwen3-235B-A22B writes plain text.
 Thus, the unmodified blueprint method delivered the best results when using the strongest available model - Qwen3-235B-A22B.
 
 \subsection{Time measurements}
+
 The results in seconds (average of three runs) are in \tabref{tab:timing}.
 They confirm that modifications speed up generation.
+To confirm the efficiency of proposed algorithm modifications and measure the actual speed up we conducted an isolated test using text "1408". 
+The average results of three runs are provided in \tabref{tab:timing}. 
+Interestingly, larger models such as Qwen3-235B-A22B and DeepSeek V3 showed higher speed
+than some 32B models achieving almost a 300\% speed up.
+A key reason is the Mixture-of-Experts (MoE) architecture:
+during generation only a subset of parameters is active (e.g., $\approx30B$ out of $\approx600B$),
+thus maintaining throughput of smaller models while having substantially higher level of knowledge and task solving skills.
+Moreover, the two 32B models generate at least 1.5x more tokens, which noticeably increases the overall runtime.
 
 \tab{tab:timing}{Runtime (seconds) for a text of 81{,}049 characters (11 chunks).}{
   \small
@@ -487,33 +513,29 @@ They confirm that modifications speed up generation.
 DeepSeek V3                  & 237.83 & 72.42 & 292.80 & 268.75 \\
 Qwen3-235B-A22B              & 113.24 & 39.45 & 215.63 & 145.20 \\
 \hline
-RuadaptQwen3-32BInstruct-v2  & 218.23 & 72.54 & 420.95 & 470.4 \\
-tpro                         & 472.23 & 127.38 & 421.65 & 185.94 \\
+RuadaptQwen3-32BInstruct-v2  & 218.23 & 72.54 & 227.7 & 203.30 \\
+tpro                         & 472.23 & 127.38 & 391.29 & 185.94 \\
 \hline
 RuadaptQwen2.5-7B-Lite-Beta  & 84.64 & 25.70 & 103.66 & 78.99 \\
 yagpt5lite                   & 34.17 & 14.08 & 99.70 & 27.26 \\
 \end{tabular}
 }
 
-Interestingly, ultra-large models such as Qwen3-235B-A22B and DeepSeek V3 showed higher speed
-than some 32B models.
-A key reason is the Mixture-of-Experts (MoE) architecture:
-during generation only a subset of parameters is active (e.g., ~30B out of ~600B),
-and such models are typically optimized further for throughput.
-
 % ================= CONCLUSION =================
 
 \section*{Conclusion}
-We presented the first open dataset that pairs book texts with their synopses from the “Narodny Briefly” resource \cite{Briefly}.
-We proposed two improved LLM-based approaches to summarizing fiction: hierarchical with node filtering and blueprint method with clustering.
-The hierarchical method with node filtering speeds up generation with minimal quality loss,
-making it suitable for long works under limited model context.
+In this work we introduced RuBookSum, first open dataset for Russian long-narrative summarization.
+To address high computational costs of LLM-based summary generation we proposed two optimizations to existing approaches: 
+hierarchical with node filtering and blueprint method with clustering.
+The hierarchical method with node filtering achieves up to 300\% speed up with minimal quality loss,
+making it a perfect choice for long-document summarization under tight context window limits.
 
-Our comparative analysis shows that large models such as DeepSeek V3 and Qwen3-235B-A22B generally deliver higher QA coverage and
-more complete synopses than compact models, especially with hierarchical and blueprint methods.
-However, for certain text types and methods (e.g., baseline blueprint), more compact models such as RuadaptQwen3-32B-Instruct-v2
-can be competitive at lower compute cost.
-Thus, model choice should balance available resources, quality requirements, and the nature of the processed texts.
+Our comparative analysis shows that larger models such as DeepSeek V3 and Qwen3-235B-A22B generally deliver higher key question coverage and factual agreement
+while having more complete summaries than smaller models, especially with hierarchical and blueprint methods.
+However, for certain text types and methods (e.g., baseline blueprint), compact models such as RuadaptQwen3-32B-Instruct-v2 can be competitive cost-efficient alternative.
+Qualitative analysis shows, that models are better at retelling linear texts with simple descriptions of events, while books with an abundance of lyrical digressions 
+lead to models omitting key facts. In addition, the blueprint method gives significantly better retelling using the strong Qwen3-235B-A22B model, 
+but some summaries can turn out to be similar to a list of key events, rather than a coherent unified text.
 
 % ================= ACKNOWLEDGEMENTS =================
 
