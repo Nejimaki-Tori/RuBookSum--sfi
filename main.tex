@@ -504,7 +504,7 @@ than some 32B models achieving almost a 300\% speed up.
 A key reason is the Mixture-of-Experts (MoE) architecture:
 during generation only a subset of parameters is active (e.g., $\approx30B$ out of $\approx600B$),
 thus maintaining throughput of smaller models while having substantially higher level of knowledge and task solving skills.
-Moreover, the two 32B models generate at least 1.5x more tokens, which noticeably increases the overall runtime.
+Moreover, both RuadaptQwen3-32BInstruct-v2 and tpro generate at least 1.5x more tokens, which noticeably increases the overall runtime.
 
 \tab{tab:timing}{Runtime (seconds) for a text of 81{,}049 characters (11 chunks).}{
   \small
