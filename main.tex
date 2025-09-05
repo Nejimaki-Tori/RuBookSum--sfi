@@ -115,18 +115,18 @@ Gazeta     & 60964 & 632.77 & 41.94 & 6.99\% \\
 
 % ================= METHODOLOGY =================
 \section{Methodology}
-\subsection{Hierarchical method (Algorithm 1)}
-Most common method for long-document summarization \cite{hierarchical} splits the text into chunks and
+\subsection{Hierarchical method}
+Most common method (Algorithm \ref{alg:h}) for long-document summarization \cite{hierarchical} splits the text into chunks and
 generates a local summary for each chunk.
 These chunks are then grouped, and summaries are merged into higher-level summaries.
 Thus a summary hierarchy is created the last level of which (tree root) yields the final book-level summary.
 
-\subsection{Node filtering optimization (Algorithm 2)}
+\subsection{Node filtering optimization}
 The classical hierarchical method constructs the final summary through a multi-layered combination of intermediate summaries derived from individual text chunks.
 However, literature often contain chunks that have little impact on plot development or contain redundant information without any additional details. 
 During the generation of the final summary, these chunks can shift the narrative towards repetitive content thus reducing the overall informativeness.
 
-To address this issue, a node filtering mechanism based on cosine similarity was implemented.
+To address this issue, a node filtering mechanism based on cosine similarity was implemented (Algorithm \ref{alg:h_f}).
 To eliminate low-informative or redundant chunks, we evaluate cosine similarity between all intermediate summaries at each hierarchy level.
 Chunks that are close in cosine similarity to previous ones are considered redundant are excluded from compilation of the summary at the current level.
 This modification aims to accelerate generation by removing potentially superfluous parts of information, 
@@ -181,19 +181,20 @@ thereby increasing the salient detail density in the final summaries.
 \end{minipage}
 
 \vspace{0.4em}
-\subsection{Text-Blueprint (Algorithm 3)}
-This method \cite{blueprint} is essentially a modification of the hierarchical method that improves summary robustness by building an intermediate outline before text generation.
+\subsection{Text-Blueprint}
+This method \cite{blueprint} is essentially a modification of the hierarchical method 
+that improves summary robustness by building an intermediate outline before text generation  (Algorithm \ref{alg:bl}).
 The outline is formed as a set of question-answer pairs, which enhances the controllability of the generation process and ensures the structured nature of the result.
 First the model creates a list of questions reflecting key events, themes, and characters. Then short answers are automatically generated for each question.
 This structure serves as a blueprint used to produce the final summary.
 
 
-\subsection{Question clustering optimization (Algorithm 4)}
+\subsection{Question clustering optimization}
 The baseline blueprint implementation generates a question-answer outline for each chunk and at each merge level. 
 With fiction, however, questions produced for different chunks may overlap and yield conflicting answers, which in turn corrupts merging process, 
 making the summary less structured and complete. 
 Moreover, generating an outline at every step slows the method and consumes extra computational time.
-To address the issue we add additional question clustering step aimed at reducing merge level content overlap. 
+To address the issue we add additional question clustering step aimed at reducing merge level content overlap  (Algorithm \ref{alg:bl_cl}). 
 The obtained question clusters are generalized using the same summary generation LLM to produce universal question-answer outline.
 
 \noindent
