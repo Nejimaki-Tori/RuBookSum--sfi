@@ -33,7 +33,7 @@ The majority of existing Russian document summarization datasets focus on short-
 coreference resolutions. Furthermore, processing longer multi-page texts pose a serious challenge to current generation of language models as the 
 limited context window complicates response generation by demanding additional task partitioning. 
 To lay the groundwork for future research of the problem we introduce RuBookSum, an abstractive summarization dataset for Russian long-form narrative summarization. 
-Our dataset covers documents from various literature domains, including fiction, classic, children books and popular science, and include high-quality human-written 
+Our dataset covers documents from various literature domains, including fiction, classic, children books and popular science, and includes high-quality human-written 
 summaries. To establish a baseline we evaluate popular open-source large language models and provide comprehensive analysis on their performance. Additionally, 
 we propose an optimized algorithms for long-document summarization which enable up to 300\% summary generation speed up without significant drops in quality.
 
@@ -216,9 +216,9 @@ The obtained question clusters are generalized using the same summary generation
         \For{$g \in Groups$}
           \If{$Length(g) > R$}
             \State $b_i \gets GenerateBlueprint(p_\theta, g)$\
-            \State $S_\ell \gets S_\ell \cup \{SumWithBp(p_\theta, b_i, g)\}$\
+            \State $S_\ell \gets S_\ell \cup \{SumWithBp(p_\theta, b_i, g)\}$
           \Else
-            \State $S_\ell \gets \{g\}$\
+            \State $S_\ell \gets S_\ell \cup \{g\}$
           \EndIf
         \EndFor
       \Until{$|S_\ell|=1$}
@@ -246,7 +246,7 @@ The obtained question clusters are generalized using the same summary generation
         \State $Groups \gets GroupSummaries(S_\ell)$
         \State $\ell \gets \ell + 1$
         \For{$g \in Groups$}
-          \State $S_\ell  \gets S_\ell \cup \{SumWithBp(p_\theta, Q, g)\}$\
+          \State $S_\ell  \gets S_\ell \cup \{SumWithBp(p_\theta, Q, g)\}$
         \EndFor
       \Until{$|S_\ell|=1$}
       \State \Return $S_\ell[0]$
@@ -430,7 +430,7 @@ Experiments show that the hierarchical method with node filtering provides the b
   \end{tabular}
 }
 
-The deviation question-based metrics can be illustrated by results of hierarchical method obtained by DeepSeek V3
+The deviation of question-based metrics can be illustrated by results of hierarchical method obtained by DeepSeek V3
 Two summaries were chosen for the analysis: "A Sound of Thunder" and "Kastrjuk".
 In the first case the model scored high, answering all but one question, but in the other the summary contained answers to only two out of eleven, leading to a low score. 
 \tabref{tab:refs} shows the two summaries. For brevity only the main points that affected the final metric were highlighted.
