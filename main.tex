@@ -80,20 +80,20 @@ The summaries vary in length-from a few sentences to several paragraphs-and in s
 while others use free-form narration. Some cover the whole work, others split content by chapter.
 Usually they contain the main facts and conclusions from the source text, but may include the author’s commentary.
 
-To collect the respective summary sources we leveraged LibRuSec digital library \cite{librusec}, one of the largest Russian-language online book collections.
+To collect the respective summary sources we leveraged Librusec digital library \cite{librusec}, one of the largest Russian-language online book collections.
 Each text underwent automatic preprocessing: meta-information (e.g., titles, chapter descriptions, technical inserts) were removed,
 then the text was formatted into a unified, standardized form suitable for use with models.
 
-To better link books with their summaries, cosine similarity was used: the author name text from Briefly \cite{Briefly} and from LibRuSec \cite{librusec} was embedded via SentenceTransformers
+To better link books with their summaries, cosine similarity was used: the author name text from Briefly \cite{Briefly} and from Librusec \cite{librusec} was embedded via SentenceTransformers
 with the model\footnote{\label{encoder}\url{https://huggingface.co/deepvk/USER-bge-m3}}
 and compared using cosine similarity.
 The summaries were automatically cleaned of HTML tags, comments, and service markers using LLM Meta-\allowbreak Llama 3-\allowbreak 70B-\allowbreak Instruct.
-Then LibRuSec was searched and a collection of "book text – summary" pairs was formed.
+Then Librusec was searched and a collection of "book text – summary" pairs was formed.
 \\The resulting dataset includes:
 \begin{itemize}
   \item 600+ cleaned user summaries from "Narodny Briefly" \cite{Briefly};
   \item 40+ different genres;
-  \item source works from the LibRuSec digital library \cite{librusec}.
+  \item source works from the Librusec digital library \cite{librusec}.
 \end{itemize}
 
 \tab{tab:dataset_info}{Dataset overview}{
