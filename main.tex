@@ -145,7 +145,7 @@ thereby increasing the salient detail density in the final summaries.
         \State $Groups \gets GroupSummaries(S_\ell)$
         \State $\ell \gets \ell + 1$
         \For{$g \in Groups$}
-          \State $S_\ell \gets \{MergeGroup(p_\theta,g)\}$
+          \State $S_\ell \gets S_\ell \cup \{MergeGroup(p_\theta,g)\}$
         \EndFor
       \Until{$|S_\ell|=1$}
       \State \Return $S_\ell[0]$
@@ -163,16 +163,20 @@ thereby increasing the salient detail density in the final summaries.
       \Repeat
         \For{$s_i \in S_\ell$}
           \State $e_i \gets Encoder(s_i)$
-          \State $M_{ij} \gets \dfrac{\mathbf{e}_i\cdot \mathbf{e}_j}{\|\mathbf{e}_i\|\,\|\mathbf{e}_j\|}$\Comment{Embedding matrix}
-          \State Compute the maximum similarity
-        \State with previous summaries.
-          \State $m_j=\max_{i<j} M_{ji}$
-          \State $S_\ell \gets \{s_i \mid m_i < \theta$ \textbf{ or } $i = 0 \}$
         \EndFor
+        \State $M_{ij} \gets \dfrac{\mathbf{e}_i\cdot \mathbf{e}_j}{\|\mathbf{e}_i\|\,\|\mathbf{e}_j\|}$\Comment{Embedding matrix}
+        \State $S_\ell' \gets \{\}$
+        \For{$i \in 0\dots|S_\ell|$}
+          \State $m_i=\max_{j<i} M_{ij}$
+          \If{$m_i < \theta$ \textbf{ or } $i = 0$}
+            \State $S_\ell' \gets S_\ell' \cup s_i$
+          \EndIf
+        \EndFor
+        \State $S_\ell \gets S_\ell'$
         \State $Groups \gets GroupSummaries(S_\ell)$
         \State $\ell \gets \ell + 1$
         \For{$g \in Groups$}
-          \State $S_\ell \gets \{MergeGroup(p_\theta,g)\}$
+          \State $S_\ell \gets S_\ell \cup \{MergeGroup(p_\theta,g)\}$
         \EndFor
       \Until{$|S_\ell|=1$}
       \State \Return $S_\ell[0]$
