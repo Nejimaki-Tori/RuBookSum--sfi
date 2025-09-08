@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.7.29)  8 SEP 2025 15:09
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.7.29)  8 SEP 2025 16:05
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -648,9 +648,9 @@ Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on inp
 
 [5{C:/Users/dagri/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathex.enc}]
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 384.
+(Font)              <10> on input line 382.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 384.
+(Font)              <7> on input line 382.
 
 
 [6]
@@ -679,10 +679,10 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: 1DB00C96785B18E011CD512B1E2AA828;1239.
  ) 
 Here is how much of TeX's memory you used:
- 16082 strings out of 468148
- 260224 string characters out of 5431061
+ 16084 strings out of 468148
+ 260278 string characters out of 5431061
  713712 words of memory out of 5000000
- 44321 multiletter control sequences out of 15000+600000
+ 44323 multiletter control sequences out of 15000+600000
  723176 words of font info for 125 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  72i,17n,79p,607b,571s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -690,7 +690,7 @@ Here is how much of TeX's memory you used:
 pdfTeX warning (dest): name{Hfootnote.4} has been referenced but does not exist, replaced by a fixed one
 
 <C:/Users/dagri/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx10.pfb><C:/Users/dagri/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx12.pfb><C:/Users/dagri/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbxi10.pfb><C:/Users/dagri/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmex10.pfb><C:/Users/dagri/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi12.pfb><C:/Users/dagri/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi6.pfb><C:/Users/dagri/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi8.pfb><C:/Users/dagri/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr10.pfb><C:/Users/dagri/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr12.pfb><C:/Users/dagri/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr6.pfb><C:/Users/dagri/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr8.pfb><C:/Users/dagri/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr9.pfb><C:/Users/dagri/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmri12.pfb><C:/Users/dagri/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmri9.pfb><C:/Users/dagri/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy10.pfb><C:/Users/dagri/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy8.pfb><C:/Users/dagri/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmtt12.pfb><C:/Users/dagri/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmtt9.pfb>
-Output written on main.pdf (12 pages, 482131 bytes).
+Output written on main.pdf (12 pages, 482161 bytes).
 PDF statistics:
  329 PDF objects out of 1000 (max. 8388607)
  64 named destinations out of 1000 (max. 500000)

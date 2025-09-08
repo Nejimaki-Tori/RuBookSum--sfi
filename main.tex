@@ -164,9 +164,7 @@ thereby increasing the salient detail density in the final summaries.
       \State $S_\ell \gets \{c_1\dots c_{\lceil \frac{L}{C} \rceil}\}$
       \Repeat
         \State $M \gets PairWiseSimilarity(S_\ell)$
-        \State $S_\ell' \gets S_\ell$
-        \State $S_\ell \gets \{s_i\mid s_i \in S_\ell'$ \textbf{and} $\max_{j<i} M_{ij} < \theta \}$
-        \State $S_\ell \gets S_\ell \cup s_0$
+        \State $\begin{array}{ll}S_\ell \gets \{s_i: & s_i\in S_\ell \wedge\\ & (\max_{j<i}M_{ij}<\theta \vee i=0) \}\end{array}$
         \State $Groups \gets GroupSummaries(S_\ell)$
         \State $\ell \gets \ell + 1$
         \For{$g \in Groups$}
@@ -542,69 +540,5 @@ The work was carried out using the supercomputer "MSU-270" of the Lomonosov Mosc
 \openaccess
 
 \bibliography{bitex}
-
-% \bibliographystyle{superfri}
-% \begin{thebibliography}{99}
-% \bibitem{BookSum}
-% Kryściński, W., Rajani, N., Agarwal, D., Xiong, C., Radev, D.:
-% BOOKSUM: A Collection of Datasets for Long-form Narrative Summarization.
-% In: Goldberg, Y., Kozareva, Z., Zhang, Y. (eds.) Findings of the Association for Computational Linguistics: EMNLP 2022,
-% pp. 6536--6558. Association for Computational Linguistics, Abu Dhabi (2022).
-% \url{https://doi.org/10.18653/v1/2022.findings-emnlp.488}
-% 
-% \bibitem{alexandria}
-% Scir\`e, A., Conia, S., Ciciliano, S., Navigli, R.:
-% Echoes from Alexandria: A Large Resource for Multilingual Book Summarization.
-% In: Rogers, A., Boyd-Graber, J., Okazaki, N. (eds.) Findings of the Association for Computational Linguistics: ACL 2023,
-% pp. 853--867. Association for Computational Linguistics, Toronto (2023).
-% \url{https://doi.org/10.18653/v1/2023.findings-acl.54}
-% 
-% \bibitem{fables}
-% FABLES: Evaluating faithfulness and content selection in book-length summarization \\/ Yekyung Kim, Yapei Chang, Marzena Karpinska et al. // First Conference on Language Modeling. - 2024. https://openreview.net/forum?id=YfHxQSoaWU.
-% 
-% \bibitem{Briefly}
-% \textit{"Narodny Briefly".}  
-% Digital library of short summaries of literary works.
-% \url{https://wiki.briefly.ru/} (accessed: 30.07.2025).
-% 
-% \bibitem{librusec}
-% Library of works of art.
-% \url{https://librusec.org//} (accessed: 30.07.2025).
-% 
-% \bibitem{hierarchical} 
-% Wu, Jeff, et al. "Recursively summarizing books with human feedback." arXiv preprint arXiv:2109.10862 (2021).
-% 
-% \bibitem{blueprint} 
-% Text-Blueprint: An Interactive Platform for Plan-based Conditional Generation / Fantine Huot, Joshua Maynez, Shashi Narayan et al. // Proceedings of the 17th Conference of the European Chapter of the Association for Computational Linguistics:
-% System Demonstrations / Ed. by Danilo Croce, Luca Soldaini. - Dubrovnik, Croatia: Association for Computational Linguistics, 2023. - . - Pp. 105-116. https:
-% //aclanthology.org/2023.eacl-demo.13/.
-% 
-% \bibitem{rouge}
-% \textit{ROUGE.}
-% Lin, Chin-Yew. "Rouge: A package for automatic evaluation of summaries." Text summarization branches out. 2004.
-% 
-% \bibitem{bertscore}
-% \textit{BERTScore.}
-% BUCKLEY C. Evaluating Evaluation Measure Stability //ACM SIGIR 2000 Proceedings. - 2000.
-% 
-% \bibitem{qwen3}
-% \textit{Qwen3-235B.}
-% Yang A. et al. Qwen3 technical report //arXiv preprint arXiv:2505.09388. - 2025.
-% 
-% \bibitem{ruadapt}
-% \textit{RuadaptQwen.}
-% Tikhomirov, Mikhail, and Daniil Chernyshev. "Facilitating large language model russian adaptation with learned embedding propagation." Journal of Language and Education 10.4 (40) (2024): 130-145.
-% 
-% \bibitem{deepseek}
-% \textit{DeepSeek V3.}
-% Liu A. et al. DeepSeek-V3 Technical Report //CoRR. - 2024.
-% 
-% \bibitem{tpro}
-% T-Bank has opened access to its own Russian-language language model in the weight category of 7-8 billion parameters / T-Bank URL: \url{https://www.tbank.ru/about/news/20072024-t-bank-opened-access-its-own-russian-language-language-model-weight-category-of-7-8-billion-parameters/} (accessed: 10.05.2025).
-% 
-% \bibitem{yagpt}
-% YandexGPT 5 with reasoning mode // Yandex URL: https://ya.ru/ai/gpt (accessed: 30.07.2025).
-% 
-% \end{thebibliography}
 
 \end{document}
