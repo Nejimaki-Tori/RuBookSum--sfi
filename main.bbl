@@ -1,0 +1,89 @@
+\begin{thebibliography}{10}
+\providecommand{\url}[1]{\texttt{#1}}
+\providecommand{\urlprefix}{URL }
+\providecommand{\doi}[1]{https://doi.org/#1}
+
+\bibitem{blueprint}
+Huot, F., Maynez, J., Narayan, S., Amplayo, R.K., Ganchev, K., Louis, A.P.,
+  Sandholm, A., Das, D., Lapata, M.: Text-blueprint: An interactive platform
+  for plan-based conditional generation. In: Croce, D., Soldaini, L. (eds.)
+  Proceedings of the 17th Conference of the European Chapter of the Association
+  for Computational Linguistics: System Demonstrations. pp. 105--116.
+  Association for Computational Linguistics, Dubrovnik, Croatia (May 2023).
+  \doi{10.18653/v1/2023.eacl-demo.13},
+  \url{https://aclanthology.org/2023.eacl-demo.13/}
+
+\bibitem{fables}
+Kim, Y., Chang, Y., Karpinska, M., Garimella, A., Manjunatha, V., Lo, K.,
+  Goyal, T., Iyyer, M.: {FABLES}: Evaluating faithfulness and content selection
+  in book-length summarization. In: The First Conference on Language Modeling
+  (COLM 2024) (2024), \url{https://openreview.net/forum?id=YfHxQSoaWU},
+  openReview, Accessed: 2025-07-30
+
+\bibitem{BookSum}
+Kryscinski, W., Rajani, N., Agarwal, D., Xiong, C., Radev, D.: {BOOKSUM}: A
+  collection of datasets for long-form narrative summarization. In: Goldberg,
+  Y., Kozareva, Z., Zhang, Y. (eds.) Findings of the Association for
+  Computational Linguistics: EMNLP 2022. pp. 6536--6558. Association for
+  Computational Linguistics, Abu Dhabi, United Arab Emirates (Dec 2022).
+  \doi{10.18653/v1/2022.findings-emnlp.488},
+  \url{https://aclanthology.org/2022.findings-emnlp.488/}
+
+\bibitem{librusec}
+{LibRusEc}: Library of works of art. \url{https://librusec.org/} (2025),
+  accessed: 2025-07-30
+
+\bibitem{rouge}
+Lin, C.Y.: {ROUGE}: A package for automatic evaluation of summaries. In: Text
+  Summarization Branches Out. pp. 74--81. Association for Computational
+  Linguistics, Barcelona, Spain (Jul 2004),
+  \url{https://aclanthology.org/W04-1013/}
+
+\bibitem{deepseek}
+Liu, A., et~al.: Deepseek{-}v3 technical report. CoRR  (2024)
+
+\bibitem{Briefly}
+{Narodny Briefly}: Digital library of short summaries of literary works.
+  \url{https://wiki.briefly.ru/} (2025), accessed: 2025-07-30
+
+\bibitem{alexandria}
+Scir{\`e}, A., Conia, S., Ciciliano, S., Navigli, R.: Echoes from alexandria: A
+  large resource for multilingual book summarization. In: Rogers, A.,
+  Boyd-Graber, J., Okazaki, N. (eds.) Findings of the Association for
+  Computational Linguistics: ACL 2023. pp. 853--867. Association for
+  Computational Linguistics, Toronto, Canada (Jul 2023).
+  \doi{10.18653/v1/2023.findings-acl.54},
+  \url{https://aclanthology.org/2023.findings-acl.54/}
+
+\bibitem{tpro}
+{T{-}Bank}: T{-}bank has opened access to its own russian{-}language language
+  model in the 7--8 billion parameter weight category.
+  \url{https://www.tbank.ru/about/news/20072024-t-bank-opened-access-its-own-russian-language-language-model-weight-category-of-7-8-billion-parameters/}
+  (2024), accessed: 2025-08-21
+
+\bibitem{ruadapt}
+Tikhomirov, M., Chernyshov, D.: Facilitating large language model russian
+  adaptation with learned embedding propagation. Journal of Language and
+  Education  \textbf{10}(4),  130--145 (Dec 2024).
+  \doi{10.17323/jle.2024.22224}, \url{https://jle.hse.ru/article/view/22224}
+
+\bibitem{hierarchical}
+Wu, J., Ouyang, L., Ziegler, D.M., Stiennon, N., Lowe, R., Leike, J.,
+  Christiano, P.: Recursively summarizing books with human feedback (2021),
+  \url{https://arxiv.org/abs/2109.10862}
+
+\bibitem{yagpt}
+{Yandex}: Yandexgpt 5 with reasoning mode. \url{https://ya.ru/ai/gpt} (2025),
+  accessed: 2025-07-30
+
+\bibitem{qwen3}
+Yang, A., et~al.: Qwen3 technical report (2025),
+  \url{https://arxiv.org/abs/2505.09388}
+
+\bibitem{bertscore}
+Zhang, T., Kishore, V., Wu, F., Weinberger, K.Q., Artzi, Y.: {BERTScore}:
+  Evaluating text generation with {BERT}. In: International Conference on
+  Learning Representations (ICLR) (2020),
+  \url{https://openreview.net/forum?id=SkeHuCVFDr}
+
+\end{thebibliography}
