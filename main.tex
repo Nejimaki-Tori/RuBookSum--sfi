@@ -24,9 +24,9 @@
 
 \begin{document}
 \raggedbottom
-\author{D.\,A.~Grigoriev\footnote{\label{msu}Lomonosov Moscow State University, Moscow Center for Fundamental and Applied Mathematics, \\ Moscow, Russian Federation}\footnote{E-mail: dagrig14@yandex.ru} \and D.\,V.~Khudiakov\footnoteref{msu}\footnote{E-mail: hydikovv17914@gmail.com} \and D.\,I.~Chernyshev\footnoteref{msu}\footnote{E-mail: chdanorbis@yandex.ru}}
+\author{Denis\,A.~Grigoriev\footnote{\label{msu}Lomonosov Moscow State University, Moscow Center for Fundamental and Applied Mathematics, \\ Moscow, Russian Federation} \and Daniil\,V.~Khudiakov\footnoteref{msu} \and Daniil\,I.~Chernyshev\footnoteref{msu}}
 
-\title{RuBookSum: dataset for Russian literature abstractive summarization}
+\title{RuBookSum: Dataset for Russian Literature Abstractive Summarization}
 
 \maketitle{}
 
@@ -78,7 +78,7 @@ Code and data are publicly available\footnote{\label{git}\url{https://github.com
 \section{Dataset}
 At the moment of the study, there were no publicly available corpora designed specifically for Russian literature summarization.
 To address the lack of resources new dataset was created, using "Narodny Briefly" platform \cite{Briefly} where users publish summaries for popular books.
-The summaries vary in length-from a few sentences to several paragraphs-and in style: some reproduce key phrases verbatim, 
+The summaries vary in length --- from a few sentences to several paragraphs --- and in style: some reproduce key phrases verbatim, 
 while others use free-form narration. Some cover the whole work, others split content by chapter.
 Usually they contain the main facts and conclusions from the source text, but may include the author’s commentary.
 
@@ -120,7 +120,7 @@ Gazeta     & 60964 & 632.77 & 41.94 & 6.99\% \\
 \subsection{Hierarchical method}
 Most common method (Algorithm \ref{alg:h}) for long-document summarization \cite{hierarchical} splits the text into chunks and
 generates a local summary for each chunk.
-These chunks are then grouped, and summaries are merged into higher-level summaries.
+These chunks are then grouped (shown as GroupSummaries in Algorithm \ref{alg:h}), and summaries are merged into higher-level summaries (MergeGroup in Algorithm \ref{alg:h}).
 Thus a summary hierarchy is created the last level of which (tree root) yields the final book-level summary.
 
 \subsection{Node filtering optimization}
@@ -146,6 +146,7 @@ thereby increasing the salient detail density in the final summaries.
       \Repeat
         \State $Groups \gets GroupSummaries(S_\ell)$
         \State $\ell \gets \ell + 1$
+        \State $S_\ell \gets \{\}$
         \For{$g \in Groups$}
           \State $S_\ell \gets S_\ell \cup \{MergeGroup(p_\theta,g)\}$
         \EndFor
@@ -167,6 +168,7 @@ thereby increasing the salient detail density in the final summaries.
         \State $\begin{array}{ll}S_\ell \gets \{s_i: & s_i\in S_\ell \wedge\\ & (\max_{j<i}M_{ij}<\theta \vee i=0) \}\end{array}$
         \State $Groups \gets GroupSummaries(S_\ell)$
         \State $\ell \gets \ell + 1$
+        \State $S_\ell \gets \{\}$
         \For{$g \in Groups$}
           \State $S_\ell \gets S_\ell \cup \{MergeGroup(p_\theta,g)\}$
         \EndFor
