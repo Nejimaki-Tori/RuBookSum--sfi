@@ -18,13 +18,14 @@
 \usepackage[hidelinks]{hyperref}
 \usepackage{type1cm}
 
+
 \renewcommand{\algorithmicrequire}{\textbf{Input:}}
 
 \bibliographystyle{splncs04}
 
 \begin{document}
 \raggedbottom
-\author{Denis\,A.~Grigoriev\footnote{\label{msu}Lomonosov Moscow State University, Moscow Center for Fundamental and Applied Mathematics, \\ Moscow, Russian Federation} \and Daniil\,V.~Khudiakov\footnoteref{msu} \and Daniil\,I.~Chernyshev\footnoteref{msu}}
+\author{Denis\,A.~Grigoriev\footnote{\label{msu}Lomonosov Moscow State University, Moscow Center for Fundamental and Applied Mathematics, \\ Moscow, Russian Federation} \and Daniil\,V.~Khudiakov\footnoteref{msu} \and Daniil\,I.~Chernyshev\footnoteref{msu}\orcidID{0009-0001-6847-2122}}
 
 \title{RuBookSum: Dataset for Russian Literature Abstractive Summarization}
 
@@ -58,9 +59,9 @@ BookSum \cite{BookSum} is one of the first and best-known English-language datas
 It contains books, plays, and short stories paired with summaries of varying granularity (paragraph level, chapter level, book level).
 Echoes from Alexandria \cite{alexandria} is a multilingual corpus of fiction, including five languages: English, German, French, Italian, and Spanish.
 FABLES \cite{fables} is a hand-curated corpus designed to evaluate factual faithfulness of summaries for book-length fiction.
-It includes 3,158 claims extracted from LLM-generated summaries for 26 books.
+It includes 3\,158 claims extracted from LLM-generated summaries for 26 books.
 Each claim is evaluated across model outputs by experts.
-According to FABLES, even advanced models (e.g., Claude) commit 20–30\% factual errors, including distorted
+According to FABLES, even advanced models (e.g., Claude) commit 20--30\% factual errors, including distorted
 causal relations, incorrect characterization of protagonists, and overemphasis on minor details,
 judged by three criteria: agreement with original events, logical correctness, and absence of distortions.
 
@@ -70,6 +71,14 @@ To demonstrate the issues of multi-page text summarization we conduct an extensi
 Our analysis finds that only largest models exceeding 100 billion parameters are able to fully comprehend long-range causal relations while smaller models 
 only capture general semantics. Additionally, to adapt the models for the task we propose new abstractive summarization algorithms optimized for long-document processing. 
 Compared to existing approaches new methods achieve up to 300\% summary generation speed up while retaining the same level of quality.
+
+The article is organized as follows. 
+Section 1 describes the RuBookSum dataset. 
+In section 2 we present the summarization methods, including the hierarchical approach with node filtering and the blueprint-based approach with question clustering. 
+Section 3 defines the evaluation metrics.
+Section 4 contains the experimental setup.
+Section 5 reports and analyzes the results. 
+Conclusion summarizes the study and points directions for further work.
 
 Code and data are publicly available\footnote{\label{git}\url{https://github.com/Nejimaki-Tori/RuBookSum}}.
 
@@ -90,7 +99,7 @@ To better link books with their summaries, cosine similarity was used: the autho
 with the model\footnote{\label{encoder}\url{https://huggingface.co/deepvk/USER-bge-m3}}
 and compared using cosine similarity.
 The summaries were automatically cleaned of HTML tags, comments, and service markers using LLM Meta-\allowbreak Llama 3-\allowbreak 70B-\allowbreak Instruct.
-Then Librusec was searched and a collection of "book text – summary" pairs was formed.
+Then Librusec was searched and a collection of "book text --- summary" pairs was formed.
 \\The resulting dataset includes:
 \begin{itemize}
   \item 600+ cleaned user summaries from "Narodny Briefly" \cite{Briefly};
@@ -103,10 +112,10 @@ Then Librusec was searched and a collection of "book text – summary" pairs was
 \hline
 \textbf{Dataset} & \makecell{Number of \\ documents} & \makecell{Avg. document \\ length \\ (\# words)} & \makecell{Avg. summary \\ length \\ (\# words)} & \makecell{Compression ratio \\ (summary length \\/ text length)} \\
 \hline
-\textbf{RuBookSum}  & 634 & 35052.64 & 700.77 & 8.43\% \\
+\textbf{RuBookSum}  & 634 & 35\,052.64 & 700.77 & 8.43\% \\
 \hline
-BookSum    & 405 & 112885.15 & 1167.20 & 0.79\% \\
-Gazeta     & 60964 & 632.77 & 41.94 & 6.99\% \\
+BookSum    & 405 & 112\,885.15 & 1\,167.20 & 0.79\% \\
+Gazeta     & 60\,964 & 632.77 & 41.94 & 6.99\% \\
 \hline
 \end{tabular}
 }
@@ -299,7 +308,7 @@ where \texttt{sim} is cosine similarity of embeddings.
 
 All measurements were performed on the test split of the dataset.
 For all methods the summaries were limited to 500 words maximum.
-The input text was split into fixed-\allowbreak size chunks of 2,000 tokens which were obtained by \texttt{AutoTokenizer} from \texttt{DeepPavlov/rubert-\allowbreak base-\allowbreak cased} \footnote{\label{pavlov}\url{https://huggingface.co/DeepPavlov/rubert-base-cased}} with default settings.
+The input text was split into fixed-\allowbreak size chunks of 2\,000 tokens which were obtained by \texttt{AutoTokenizer} from \texttt{DeepPavlov/rubert-\allowbreak base-\allowbreak cased} \footnote{\label{pavlov}\url{https://huggingface.co/DeepPavlov/rubert-base-cased}} with default settings.
 To ensure reproducibility the random seed is fixed ($random\_seed = 42$). 
 To obtain embeddings we used USER-bge-m3 model\footnoteref{encoder}. To generate questions and answers for Coverage and Agreement metrics we use Qwen3-235B-A22B \cite{qwen3} model. 
 
@@ -392,7 +401,7 @@ Our question-based metrics (Coverage and Agreement) also confirm frequent summar
 they demonstrate a considerably wider value range at the same BERTScore levels.
 
 The best overall performance was achieved by Qwen3-235B-A22B: it delivered the highest coverage and answer agreement.
-At the same time, the hierarchical method with node filtering offered the best quality–time trade-off. It significantly sped up processing 
+At the same time, the hierarchical method with node filtering offered the best quality-time trade-off. It significantly sped up processing 
 (e.g., almost 2× faster for DeepSeek V3), with comparable quality to
 the blueprint method which on average achieved the best metrics. The exception was Qwen3-235B-A22B, which achieved its top results with the baseline blueprint.
 Experiments show that the hierarchical method with node filtering provides the best compromise between speed and quality.
@@ -499,7 +508,7 @@ during generation only a subset of parameters is active (e.g., $\approx30B$ out 
 thus maintaining throughput of smaller models while having substantially higher level of knowledge and task solving skills.
 Moreover, both RuadaptQwen3-32BInstruct-v2 and tpro generate at least 1.5x more tokens, which noticeably increases the overall runtime.
 
-\tab{tab:timing}{Runtime (seconds) for a text of 81{,}049 characters (11 chunks).}{
+\tab{tab:timing}{Runtime (seconds) for a text of 81\,049 characters (11 chunks).}{
   \small
 \begin{tabular}{lcccc}
 \textbf{Model} & \makecell{Hierarchical} & \makecell{Hierarchical\\with node filtering} & \makecell{Blueprint} & \makecell{Blueprint\\with clustering} \\
