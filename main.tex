@@ -25,7 +25,7 @@
 
 \begin{document}
 \raggedbottom
-\author{Denis\,A.~Grigoriev\footnote{\label{msu}Lomonosov Moscow State University, Moscow Center for Fundamental and Applied Mathematics, \\ Moscow, Russian Federation} \and Daniil\,V.~Khudiakov\footnoteref{msu} \and Daniil\,I.~Chernyshev\footnoteref{msu}\orcidID{0009-0001-6847-2122}}
+\author{Denis\,A.~Grigoriev\footnote{\label{msu}Lomonosov Moscow State University, Moscow Center for Fundamental and Applied Mathematics, \\ Moscow, Russian Federation}\orcidID{0009-0007-2675-001X} \and Daniil\,V.~Khudiakov\footnoteref{msu} \and Daniil\,I.~Chernyshev\footnoteref{msu}\orcidID{0009-0001-6847-2122}}
 
 \title{RuBookSum: Dataset for Russian Literature Abstractive Summarization}
 
@@ -42,8 +42,6 @@ we propose an optimized algorithms for long-document summarization which enable 
 
 \keywords{large language model, summarization, literature, books}
 \end{abstract}
-
-
 
 % ================= INTRODUCTION =================
 
@@ -120,13 +118,14 @@ Gazeta     & 60\,964 & 632.77 & 41.94 & 6.99\% \\
 \end{tabular}
 }
 
-\fig{width=0.8\linewidth}{figures/genres_pie.png}{Distribution of texts by genres (top 10 genres)}
+\fig{width=0.8\linewidth}{figures/genres_pie.png}{Distribution of texts by genres (top 10; "Other" aggregates all remaining genres)}
 
 \figref{figures/genres_pie.png} shows the genre distribution in the collection and \tabref{tab:dataset_info} gives dataset statistics versus analogs.
 
 % ================= METHODOLOGY =================
+
 \section{Methodology}
-\subsection{Hierarchical method}
+\subsection{Hierarchical Method}
 Most common method (Algorithm \ref{alg:h}) for long-document summarization \cite{hierarchical} splits the text into chunks and
 generates a local summary for each chunk.
 First, the document is split into chunks and each chunk is summarized, yielding the list $S_0$.
@@ -134,7 +133,7 @@ Then, at level $\ell$, \textsc{GroupSummaries} takes the current list $S_\ell$ a
 For each group, \textsc{MergeGroup} produces a single higher-level summary, forming $S_{\ell+1}$.
 Because at least some groups contain two or more elements, $|S_{\ell+1}|<|S_\ell|$, and the process terminates when a single root summary remains, which we report as the document-level summary.
 
-\subsection{Node filtering optimization}
+\subsection{Node Filtering Optimization}
 The classical hierarchical method constructs the final summary through a multi-layered combination of intermediate summaries derived from individual text chunks.
 However, literature often contain chunks that have little impact on plot development or contain redundant information without any additional details. 
 During the generation of the final summary, these chunks can shift the narrative towards repetitive content thus reducing the overall informativeness.
@@ -145,7 +144,6 @@ Chunks that are close in cosine similarity to previous ones are considered redun
 We compute a pairwise similarity matrix \textsc{PairWiseSimilarity}($S_\ell$) using cosine similarity of summary embeddings (the first element is always retained).
 This modification aims to accelerate generation by removing potentially superfluous parts of information, 
 thereby increasing the salient detail density in the final summaries.
-
 
 \noindent
 \begin{minipage}[t]{0.49\textwidth}
@@ -202,7 +200,7 @@ This structure serves as a blueprint used to produce the final summary.
 The function \textsc{SumWithBp} uses generated blueprint and given chunks to produce a higher-level summary.
 Full prompt templates and additional Q/A examples are provided in Appendix~\ref{app:blueprint-prompts}.
 
-\subsection{Question clustering optimization}
+\subsection{Question Clustering Optimization}
 The baseline blueprint implementation generates a question-answer outline for each chunk and at each merge level. 
 With fiction, however, questions produced for different chunks may overlap and yield conflicting answers, which in turn corrupts merging process, 
 making the summary less structured and complete. 
@@ -311,7 +309,7 @@ where \texttt{sim} is cosine similarity of embeddings.
 
 % ================= EXPERIMENTAL SETUP =================
 
-\section{Experimental setup}
+\section{Experimental Setup}
 
 All measurements were performed on the test split of the dataset, comprising one sixth (\(\approx 16.7\%\)) of the corpus.
 For all methods the summaries were limited to 500 words maximum.
@@ -344,12 +342,11 @@ This pairing by parameter scale lets us compare quality–speed trade-offs under
 while the RuAdapt, tpro and yagpt5lite were chosen specifically for their reported performance on Russian text.
 Availability on our compute infrastructure and reproducibility considerations also guided the final choice.
 
-
 % ================= RESULTS =================
 
-\section{Experimental results}
-In all tables, models are grouped by size, and the best results within each parameter group are highlighted.
-Best result within each weight group is underlined. Table reports mean $\pm$ SD across test documents.
+\section{Experimental Results}
+In all tables models are grouped by parameter count: within each size group, the best result is underlined, and the overall best is bold. 
+Values are mean $\pm$ SD across test documents.
 
 \tab{tab:results_models}{Main evaluation results}{
 \centering
@@ -558,6 +555,7 @@ some of generated summaries may turn out to be similar to a enumeration of key e
 This implies that future research should consider more advanced quality metrics that would account for stylistic deviations.
 
 % ================= LIMITATIONS =================
+
 \section*{Limitations}
 Larger-scale study is required to establish statistical significance for the reported metrics and to make defensible claims that one method truly outperforms another. 
 Outcomes can vary with many factors: the choice of models, the composition of the test set (which specific books, genres, and lengths are included), etc.
@@ -575,6 +573,7 @@ The study was supported by grant No. 25-11-00191 from the Russian Science Founda
 The work was carried out using the supercomputer "MSU-270" of the Lomonosov Moscow State University.
 
 % ================= REFERENCES =================
+
 \openaccess
 
 \bibliography{bitex}
