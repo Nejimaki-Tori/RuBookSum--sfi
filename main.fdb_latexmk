@@ -1,15 +1,15 @@
 # Fdb version 4
-["bibtex main"] 1762768100.06784 "main.aux" "main.bbl" "main" 1762772989.11875 0
-  "./bitex.bib" 1762760486 10770 ca64cf7d0d9741b06adfc008402696d1 ""
-  "./splncs04.bst" 1762760486 34578 b4877e9b49b318a6baf65106eecd3f3c ""
-  "main.aux" 1762772988 6464 2109005bb7152caaec11b9b950992fee "pdflatex"
+["bibtex main"] 0 "main.aux" "main.bbl" "main" 1762788985.84442 -1
+  "./bitex.bib" 1762786464 10802 fcdad9bd6a20ebc65fb132e40ada0e2e ""
+  "./splncs04.bst" 1623305688 32956 b4877e9b49b318a6baf65106eecd3f3c ""
+  "main.aux" 1762788984 6464 39d4ca00936e1fec39f64b7116855426 "pdflatex"
   (generated)
   "main.bbl"
   "main.blg"
   (rewritten before read)
-["pdflatex"] 1762772987.25021 "d:/Work/Articles/sfi/RuBookSum--sfi/main.tex" "main.pdf" "main" 1762772989.11921 0
-  "C:/Users/dagri/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1762762304 81092 3932f3aae7ae50059e99f35eb9339c30 ""
-  "C:/Users/dagri/AppData/Local/MiKTeX/miktex/data/le/pdftex/pdflatex.fmt" 1753706054 13254313 a1339e5607a39ac04453d8f13e4d3328 ""
+["pdflatex"] 1762788983.40392 "d:/MSU/year_4/semester_8/RCC/Articles/BoookSum/sfi/RuBookSum--sfi/main.tex" "main.pdf" "main" 1762788985.84503 0
+  "C:/Users/dagri/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1762515037 89842 1f990f6fe0cb7373cc4286c81531a445 ""
+  "C:/Users/dagri/AppData/Local/MiKTeX/miktex/data/le/pdftex/pdflatex.fmt" 1753797438 13254354 43b71b833b32492885bfd28422881394 ""
   "C:/Users/dagri/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-ec.enc" 1256929440 2375 baa924870cfb487815765f9094cf3728 ""
   "C:/Users/dagri/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathex.enc" 1256929440 3486 c7eadf5dcc57b3b2d11736679f6636ba ""
   "C:/Users/dagri/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathit.enc" 1256929440 2405 5dcf2c1b967ee25cc46c58cd52244aed ""
@@ -179,14 +179,14 @@
   "C:/Users/dagri/AppData/Local/Programs/MiKTeX/tex/latex/url/url.sty" 1388490452 12796 8edb7d69a20b857904dd0ea757c14ec9 ""
   "C:/Users/dagri/AppData/Local/Programs/MiKTeX/tex/latex/xkeyval/xkeyval.sty" 1656236919 4937 4ce600ce9bd4ec84d0250eb6892fcf4f ""
   "C:/Users/dagri/AppData/Local/Programs/MiKTeX/tex/latex/xurl/xurl.sty" 1641733940 4675 e4b8c405820368c2dfb03526e16d725a ""
-  "d:/Work/Articles/sfi/RuBookSum--sfi/main.tex" 1762772986 41017 c2b70ce90a9fdef094cd48e899a1f791 ""
-  "figures/genres_pie.png" 1762766938 198955 ba07e59b86bdb1b2baff8c7e5489f12e ""
-  "main.aux" 1762772988 6464 2109005bb7152caaec11b9b950992fee "pdflatex"
-  "main.bbl" 1762768100 3452 4fa3ebf95470123eb8e57c7443f2d0f8 "bibtex main"
-  "main.out" 1762772988 1790 b75bcf7934dbb15418c386f1261cc35e "pdflatex"
-  "main.tex" 1762772986 41017 c2b70ce90a9fdef094cd48e899a1f791 ""
-  "orcid.eps" 1762760486 137964 10bc4793cc2920a979fe433dc22d03aa ""
-  "superfri.cls" 1762760486 10507 c25378b18403232a0bc3b5f030091290 ""
+  "d:/MSU/year_4/semester_8/RCC/Articles/BoookSum/sfi/RuBookSum--sfi/main.tex" 1762788982 41496 c9d3ab0dec70b26ef84f7aac6fff8894 ""
+  "figures/genres_pie.png" 1762786179 198955 ba07e59b86bdb1b2baff8c7e5489f12e ""
+  "main.aux" 1762788984 6464 39d4ca00936e1fec39f64b7116855426 "pdflatex"
+  "main.bbl" 1762788544 3466 96573309ffdf702cf171efab90338f04 "bibtex main"
+  "main.out" 1762788984 1790 b75bcf7934dbb15418c386f1261cc35e "pdflatex"
+  "main.tex" 1762788982 41496 c9d3ab0dec70b26ef84f7aac6fff8894 ""
+  "orcid.eps" 1623311566 137964 10bc4793cc2920a979fe433dc22d03aa ""
+  "superfri.cls" 1721976366 10107 c25378b18403232a0bc3b5f030091290 ""
   (generated)
   "main.aux"
   "main.log"

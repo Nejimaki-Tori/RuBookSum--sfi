@@ -14,7 +14,7 @@ Huot, F., Maynez, J., Narayan, S., et~al.: Text-blueprint: An interactive
 \bibitem{fables}
 Kim, Y., Chang, Y., Karpinska, M., et~al.: Fables: Evaluating faithfulness and
   content selection in book-length summarization. In: First Conference on
-  Language Modeling
+  Language Modeling (2024)
 
 \bibitem{BookSum}
 Kryscinski, W., Rajani, N., Agarwal, D., et~al.: {BOOKSUM}: A collection of
@@ -74,6 +74,6 @@ Yang, A., et~al.: Qwen3 technical report (2025),
 
 \bibitem{bertscore}
 Zhang, T., Kishore, V., Wu, F., et~al.: Bertscore: Evaluating text generation
-  with bert. In: International Conference on Learning Representations
+  with bert. In: International Conference on Learning Representations (2025)
 
 \end{thebibliography}

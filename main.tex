@@ -209,7 +209,7 @@ making the summary less structured and complete.
 Moreover, generating an outline at every step slows the method and consumes extra computational time.
 To address the issue we add additional question clustering step aimed at reducing merge level content overlap  (Algorithm \ref{alg:bl_cl}). 
 The obtained question clusters are generalized using the same summary generation LLM to produce universal question-answer outline.
-We add the following functions, to modify blueprint method: \textsc{ExtractQuestions} builds $Q'$, \textsc{Clusterize} forms clusters from $Q'$ and \textsc{Generalize} maps each cluster to one generalized question.
+We add the following functions, to modify blueprint method: \textsc{ExtractQuestions} builds $Q'$, $\textsc{Clusterize}$ forms clusters from $Q'$ and \textsc{Generalize} maps each cluster to one generalized question.
 
 \noindent
 \begin{minipage}[t]{0.49\textwidth}
@@ -313,7 +313,7 @@ where \texttt{sim} is cosine similarity of embeddings.
 
 \section{Experimental setup}
 
-All measurements were performed on the test split of the dataset.
+All measurements were performed on the test split of the dataset, comprising one sixth (\(\approx 16.7\%\)) of the corpus.
 For all methods the summaries were limited to 500 words maximum.
 The input text was split into fixed-\allowbreak size chunks of 2\,000 tokens which were obtained by \texttt{AutoTokenizer} from \texttt{DeepPavlov/rubert-\allowbreak base-\allowbreak cased} \footnote{\label{pavlov}\url{https://huggingface.co/DeepPavlov/rubert-base-cased}} with default settings.
 To ensure reproducibility the random seed is fixed ($random\_seed = 42$). 
@@ -540,16 +540,6 @@ yagpt5lite                   & 34.17 & 14.08 & 99.70 & 27.26 \\
 \end{tabular}
 }
 
-% ================= LIMITATIONS =================
-\section*{Limitations}
-Significance testing, as well as small-scale human analysis, are deferred and are planned for the future work.
-
-We fixed the node-filtering threshold at $\theta=0.85$ as a pragmatic choice.
-If $\theta$ were too small, too many fragments would be filtered out, risking loss of useful content and
-if too large, most fragments would be kept, defeating the purpose of filtering.
-A full sensitivity study of $\theta$ is left for future work.
-
-
 % ================= CONCLUSION =================
 
 \section*{Conclusion}
@@ -566,6 +556,17 @@ Qualitative analysis shows, that models are better at summarizing linear texts w
 lead to models omitting key facts. In addition, while blueprint method in conjunction with strong model such as Qwen3-235B-A22B gives the best results, 
 some of generated summaries may turn out to be similar to a enumeration of key events, rather than a coherent text. 
 This implies that future research should consider more advanced quality metrics that would account for stylistic deviations.
+
+% ================= LIMITATIONS =================
+\section*{Limitations}
+Larger-scale study is required to establish statistical significance for the reported metrics and to make defensible claims that one method truly outperforms another. 
+Outcomes can vary with many factors: the choice of models, the composition of the test set (which specific books, genres, and lengths are included), etc.
+Accordingly, in this submission we limit ourselves to descriptive reporting and refrain from significance claims, a full inferential analysis  as well as small-scale human analysis is deferred to future work.
+
+We fixed the node-filtering threshold at $\theta=0.85$ as a pragmatic choice.
+If $\theta$ were too small, too many fragments would be filtered out, risking loss of useful content and
+if too large, most fragments would be kept, defeating the purpose of filtering.
+A full sensitivity study of $\theta$ is left for future work.
 
 % ================= ACKNOWLEDGEMENTS =================
 
