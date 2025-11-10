@@ -221,6 +221,7 @@ We add the following functions, to modify blueprint method: \textsc{ExtractQuest
       \Repeat \Comment{Merging summaries}
         \State $Groups \gets GroupSummaries(S_\ell)$
         \State $\ell \gets \ell + 1$
+        \State $S_\ell \gets \{\}$
         \For{$g \in Groups$}
           \If{$Length(g) > R$}
             \State $b_i \gets GenerateBlueprint(p_\theta, g)$\
@@ -253,6 +254,7 @@ We add the following functions, to modify blueprint method: \textsc{ExtractQuest
         \Repeat \Comment{Merging summaries}
         \State $Groups \gets GroupSummaries(S_\ell)$
         \State $\ell \gets \ell + 1$
+        \State $S_\ell \gets \{\}$
         \For{$g \in Groups$}
           \State $S_\ell  \gets S_\ell \cup \{SumWithBp(p_\theta, Q, g)\}$
         \EndFor
