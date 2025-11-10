@@ -129,8 +129,10 @@ Gazeta     & 60\,964 & 632.77 & 41.94 & 6.99\% \\
 \subsection{Hierarchical method}
 Most common method (Algorithm \ref{alg:h}) for long-document summarization \cite{hierarchical} splits the text into chunks and
 generates a local summary for each chunk.
-These chunks are then grouped (shown as GroupSummaries in Algorithm \ref{alg:h}), and summaries are merged into higher-level summaries (MergeGroup in Algorithm \ref{alg:h}).
-Thus a summary hierarchy is created the last level of which (tree root) yields the final book-level summary.
+First, the document is split into chunks and each chunk is summarized, yielding the list $S_0$.
+Then, at level $\ell$, \textsc{GroupSummaries} takes the current list $S_\ell$ and partitions it into non-overlapping groups.
+For each group, \textsc{MergeGroup} produces a single higher-level summary, forming $S_{\ell+1}$.
+Because at least some groups contain two or more elements, $|S_{\ell+1}|<|S_\ell|$, and the process terminates when a single root summary remains, which we report as the document-level summary.
 
 \subsection{Node filtering optimization}
 The classical hierarchical method constructs the final summary through a multi-layered combination of intermediate summaries derived from individual text chunks.
@@ -140,8 +142,10 @@ During the generation of the final summary, these chunks can shift the narrative
 To address this issue, a node filtering mechanism based on cosine similarity was implemented (Algorithm \ref{alg:h_f}).
 To eliminate low-informative or redundant chunks, we evaluate cosine similarity between all intermediate summaries at each hierarchy level.
 Chunks that are close in cosine similarity to previous ones are considered redundant are excluded from compilation of the summary at the current level.
+We compute a pairwise similarity matrix \textsc{PairWiseSimilarity}($S_\ell$) using cosine similarity of summary embeddings (the first element is always retained).
 This modification aims to accelerate generation by removing potentially superfluous parts of information, 
 thereby increasing the salient detail density in the final summaries.
+
 
 \noindent
 \begin{minipage}[t]{0.49\textwidth}
@@ -193,8 +197,10 @@ This method \cite{blueprint} is essentially a modification of the hierarchical m
 that improves summary robustness by building an intermediate outline before text generation  (Algorithm \ref{alg:bl}).
 The outline is formed as a set of question-answer pairs, which enhances the controllability of the generation process and ensures the structured nature of the result.
 First the model creates a list of questions reflecting key events, themes, and characters. Then short answers are automatically generated for each question.
+Given a group $g$ at merge level $\ell$, \textsc{GenerateBlueprint} produces a set of question--answer pairs. 
 This structure serves as a blueprint used to produce the final summary.
-
+The function \textsc{SumWithBp} uses generated blueprint and given chunks to produce a higher-level summary.
+Full prompt templates and additional Q/A examples are provided in Appendix~\ref{app:blueprint-prompts}.
 
 \subsection{Question clustering optimization}
 The baseline blueprint implementation generates a question-answer outline for each chunk and at each merge level. 
@@ -203,6 +209,7 @@ making the summary less structured and complete.
 Moreover, generating an outline at every step slows the method and consumes extra computational time.
 To address the issue we add additional question clustering step aimed at reducing merge level content overlap  (Algorithm \ref{alg:bl_cl}). 
 The obtained question clusters are generalized using the same summary generation LLM to produce universal question-answer outline.
+We add the following functions, to modify blueprint method: \textsc{ExtractQuestions} builds $Q'$, \textsc{Clusterize} forms clusters from $Q'$ and \textsc{Generalize} maps each cluster to one generalized question.
 
 \noindent
 \begin{minipage}[t]{0.49\textwidth}
@@ -329,11 +336,20 @@ RuadaptQwen3-32BInstruct-v2 \cite{ruadapt},
 DeepSeek V3 \cite{deepseek},
 Qwen3-235B-A22B \cite{qwen3},
 tpro \cite{tpro} and yagpt5lite \cite{yagpt}.
+We selected this models to cover three comparable size tiers and to ensure strong Russian capability. 
+At the large tier, DeepSeek V3 \cite{deepseek} and Qwen3-235B-A22B \cite{qwen3} serve as high-capacity baselines for long-document reasoning. 
+At the mid tier, RuadaptQwen3-32BInstruct-v2 \cite{ruadapt} and tpro \cite{tpro} represent instruction-tuned models with robust Russian coverage. 
+At the lightweight tier, RuadaptQwen2.5-7B-Lite-Beta \cite{ruadapt} and yagpt5lite \cite{yagpt} provide cost-efficient options suitable for constrained inference. 
+This pairing by parameter scale lets us compare quality–speed trade-offs under similar computational budgets, 
+while the RuAdapt, tpro and yagpt5lite were chosen specifically for their reported performance on Russian text.
+Availability on our compute infrastructure and reproducibility considerations also guided the final choice.
+
 
 % ================= RESULTS =================
 
 \section{Experimental results}
 In all tables, models are grouped by size, and the best results within each parameter group are highlighted.
+Best result within each weight group is underlined. Table reports mean $\pm$ SD across test documents.
 
 \tab{tab:results_models}{Main evaluation results}{
 \centering
@@ -400,12 +416,6 @@ While BERTScore also vulnerable to this kind of text perturbations comparing its
 Our question-based metrics (Coverage and Agreement) also confirm frequent summary content deviation. However, these metrics seem to be much more efficient at distinguishing real storytelling errors as 
 they demonstrate a considerably wider value range at the same BERTScore levels.
 
-The best overall performance was achieved by Qwen3-235B-A22B: it delivered the highest coverage and answer agreement.
-At the same time, the hierarchical method with node filtering offered the best quality-time trade-off. It significantly sped up processing 
-(e.g., almost 2× faster for DeepSeek V3), with comparable quality to
-the blueprint method which on average achieved the best metrics. The exception was Qwen3-235B-A22B, which achieved its top results with the baseline blueprint.
-Experiments show that the hierarchical method with node filtering provides the best compromise between speed and quality.
-
 \tab{tab:refs}{Comparison of the best and worst english-translated generated summaries}{
   \centering
   \small
@@ -435,6 +445,12 @@ Experiments show that the hierarchical method with node filtering provides the b
 
   \end{tabular}
 }
+
+The best overall performance was achieved by Qwen3-235B-A22B: it delivered the highest coverage and answer agreement.
+At the same time, the hierarchical method with node filtering offered the best quality-time trade-off. It significantly sped up processing 
+(e.g., almost 2× faster for DeepSeek V3), with comparable quality to
+the blueprint method which on average achieved the best metrics. The exception was Qwen3-235B-A22B, which achieved its top results with the baseline blueprint.
+Experiments show that the hierarchical method with node filtering provides the best compromise between speed and quality.
 
 The deviation of question-based metrics can be illustrated by results of hierarchical method obtained by DeepSeek V3
 Two summaries were chosen for the analysis: "A Sound of Thunder" and "Kastrjuk".
@@ -524,6 +540,16 @@ yagpt5lite                   & 34.17 & 14.08 & 99.70 & 27.26 \\
 \end{tabular}
 }
 
+% ================= LIMITATIONS =================
+\section*{Limitations}
+Significance testing, as well as small-scale human analysis, are deferred and are planned for the future work.
+
+We fixed the node-filtering threshold at $\theta=0.85$ as a pragmatic choice.
+If $\theta$ were too small, too many fragments would be filtered out, risking loss of useful content and
+if too large, most fragments would be kept, defeating the purpose of filtering.
+A full sensitivity study of $\theta$ is left for future work.
+
+
 % ================= CONCLUSION =================
 
 \section*{Conclusion}
@@ -551,5 +577,117 @@ The work was carried out using the supercomputer "MSU-270" of the Lomonosov Mosc
 \openaccess
 
 \bibliography{bitex}
+
+\appendix
+\section{Blueprinting Prompts and Examples}\label{app:blueprint-prompts}
+
+This appendix provides the full English translated prompt templates used in the blueprinting pipeline as well as illustrative English translations of the Q/A pairs.
+
+\subsection{Prompt Templates}
+
+\paragraph{Blueprint: Question Generation}
+\begin{verbatim}
+Create a plan for the following text as a list of key questions
+that help capture the text's main elements.
+
+Strictly follow the rules:
+- Questions must reveal the main events, characters, conflicts,
+  and important details.
+- Do not create more than 15 questions; choose only the most essential ones.
+- Avoid semantically duplicate questions.
+- Output questions only, each on a new line, without numbers
+  or any additional explanations.
+
+Text:
+---
+{chunk}
+---
+\end{verbatim}
+
+\paragraph{Blueprint: Answer Generation}
+\begin{verbatim}
+Answer the question using exclusively the information from the provided text.
+
+Strictly follow the rules:
+- Be as precise and concise as possible.
+- Do not add explanations, commentary, or analysis beyond the text.
+- Preserve the original terminology and proper names from the text.
+- Use only the information provided in the text.
+
+Text:
+---
+{chunk}
+---
+
+Question:
+**{question}**
+\end{verbatim}
+
+\paragraph{Question Generalization}
+\begin{verbatim}
+Formulate one generalized key question that:
+- Covers the common theme of all questions,
+- Preserves their semantic essence,
+- Eliminates redundancy and duplication.
+
+Source questions:
+---
+{questions}
+---
+
+Output only the final generalized question without additional comments.
+\end{verbatim}
+
+\paragraph{Summary from Blueprint (with Q/A)}
+\begin{verbatim}
+Using the following plan of questions and answers, create a concise
+summary of the text presented below. Ensure the summary is logically
+coherent and preserves the important elements of the original context.
+Do not add anything extraneous.
+
+Plan:
+---
+{blueprint}
+---
+
+Text:
+---
+{chunk}
+---
+\end{verbatim}
+
+\paragraph{Summary from Blueprint (questions only)}
+\begin{verbatim}
+Using the following plan of questions, create a concise summary of
+the text presented below. Ensure the summary is logically coherent
+and preserves the important elements of the original context.
+Do not add anything extraneous.
+
+Plan:
+---
+{blueprint}
+---
+
+Text:
+---
+{chunk}
+---
+\end{verbatim}
+
+\subsection{Illustrative Q/A Examples}
+
+The examples below are translated into English and reflect typical outputs produced by the blueprinting stage on two different stories.
+
+\begin{description}
+  \item[\textbf{Q1.} Who is Mike Enslin and what motivates him?]
+
+  \emph{A.} Mike Enslin is a writer who investigates alleged paranormal phenomena. He is driven by professional curiosity and the need to gather material for his book, despite his underlying skepticism.
+
+  \item[\textbf{Q2.} What happened to the tower after Maisie was lowered?]
+
+  \emph{A.} The Wolverden Tower was destroyed: a lightning bolt split it, and part of the structure collapsed. This occurred about an hour after Maisie was lowered.
+
+\end{description}
+
 
 \end{document}
