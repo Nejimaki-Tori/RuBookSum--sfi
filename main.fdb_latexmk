@@ -1,13 +1,13 @@
 # Fdb version 4
-["bibtex main"] 1762790018.40582 "main.aux" "main.bbl" "main" 1762790849.52785 0
+["bibtex main"] 1762790018.40582 "main.aux" "main.bbl" "main" 1762804148.95197 0
   "./bitex.bib" 1762786464 10802 fcdad9bd6a20ebc65fb132e40ada0e2e ""
   "./splncs04.bst" 1623305688 32956 b4877e9b49b318a6baf65106eecd3f3c ""
-  "main.aux" 1762790848 6532 140b32591432cd56c53b0ccd46d0abd3 "pdflatex"
+  "main.aux" 1762804148 6532 140b32591432cd56c53b0ccd46d0abd3 "pdflatex"
   (generated)
   "main.bbl"
   "main.blg"
   (rewritten before read)
-["pdflatex"] 1762790846.96999 "d:/MSU/year_4/semester_8/RCC/Articles/BoookSum/sfi/RuBookSum--sfi/main.tex" "main.pdf" "main" 1762790849.52844 0
+["pdflatex"] 1762804146.51353 "d:/MSU/year_4/semester_8/RCC/Articles/BoookSum/sfi/RuBookSum--sfi/main.tex" "main.pdf" "main" 1762804148.95255 0
   "C:/Users/dagri/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1762515037 89842 1f990f6fe0cb7373cc4286c81531a445 ""
   "C:/Users/dagri/AppData/Local/MiKTeX/miktex/data/le/pdftex/pdflatex.fmt" 1753797438 13254354 43b71b833b32492885bfd28422881394 ""
   "C:/Users/dagri/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-ec.enc" 1256929440 2375 baa924870cfb487815765f9094cf3728 ""
@@ -179,12 +179,12 @@
   "C:/Users/dagri/AppData/Local/Programs/MiKTeX/tex/latex/url/url.sty" 1388490452 12796 8edb7d69a20b857904dd0ea757c14ec9 ""
   "C:/Users/dagri/AppData/Local/Programs/MiKTeX/tex/latex/xkeyval/xkeyval.sty" 1656236919 4937 4ce600ce9bd4ec84d0250eb6892fcf4f ""
   "C:/Users/dagri/AppData/Local/Programs/MiKTeX/tex/latex/xurl/xurl.sty" 1641733940 4675 e4b8c405820368c2dfb03526e16d725a ""
-  "d:/MSU/year_4/semester_8/RCC/Articles/BoookSum/sfi/RuBookSum--sfi/main.tex" 1762790846 41532 98d6d06b9ce3dbedaa2d09954fb5e2c0 ""
+  "d:/MSU/year_4/semester_8/RCC/Articles/BoookSum/sfi/RuBookSum--sfi/main.tex" 1762804145 41548 e2c66f816a147db895c67072e541ec04 ""
   "figures/genres_pie.png" 1762786179 198955 ba07e59b86bdb1b2baff8c7e5489f12e ""
-  "main.aux" 1762790848 6532 140b32591432cd56c53b0ccd46d0abd3 "pdflatex"
+  "main.aux" 1762804148 6532 140b32591432cd56c53b0ccd46d0abd3 "pdflatex"
   "main.bbl" 1762790018 3466 96573309ffdf702cf171efab90338f04 "bibtex main"
-  "main.out" 1762790848 1790 1908fa5f82a0e15f06e63a035d4e059d "pdflatex"
-  "main.tex" 1762790846 41532 98d6d06b9ce3dbedaa2d09954fb5e2c0 ""
+  "main.out" 1762804148 1790 1908fa5f82a0e15f06e63a035d4e059d "pdflatex"
+  "main.tex" 1762804145 41548 e2c66f816a147db895c67072e541ec04 ""
   "orcid.eps" 1623311566 137964 10bc4793cc2920a979fe433dc22d03aa ""
   "superfri.cls" 1721976366 10107 c25378b18403232a0bc3b5f030091290 ""
   (generated)

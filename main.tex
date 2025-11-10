@@ -515,7 +515,7 @@ Thus, the unmodified blueprint method delivered the best results when using the 
 To confirm the efficiency of proposed algorithm modifications and measure the actual speed up we conducted an isolated test using text "1408" by Stephen King. 
 The average results of three runs are provided in \tabref{tab:timing}. 
 Interestingly, larger models such as Qwen3-235B-A22B and DeepSeek V3 showed higher speed
-than some 32B models achieving almost a 300\% speed up.
+than some 32B models achieving almost a 300\% speed up on some stories.
 A key reason is the Mixture-of-Experts (MoE) architecture:
 during generation only a subset of parameters is active (e.g., $\approx30B$ out of $\approx600B$),
 thus maintaining throughput of smaller models while having substantially higher level of knowledge and task solving skills.

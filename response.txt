@@ -1,0 +1,21 @@
+Response to reviewers: "RuBookSum: dataset for Russian literature abstractive summarization"
+
+Guided by the reviewers’ feedback, we have revised the manuscript to improve readability, methodological transparency, and replicability. A summary of the primary changes follows:
+
+In headings and article title, first letter of each word is now capitalized, all authors’ first names are written in full, ORCID iDs are now provided and footnotes containing authors’ emails were removed.
+Digit grouping now uses whitespace as the thousands separator throughout the paper, tables, and captions. Em dashes, en dashes and hyphens are now used correctly.
+The Introduction now ends with a brief paragraph outlining the structure of the paper.
+Fixed the bibliography for references with more than four authors: "et. al" was added. Also, several cited items are not preprints but official report-type works (such as Qwen3 technical report) for which no peer-reviewed versions exist, so they were kept.
+
+Figure 1 now uses the same font as in the article. The figure now reports the percentage and count for every genre, and the absolute size of the “other” category is labeled in the legend.
+Added prose explaining GroupSummaries and MergeGroup and corrected the pseudocode: the algorithm now converges, because number of the elements on each summary level is less than on previous one, thus condition of stop criteria is achievable.
+Added clearer explanation of highlighting, used in all Tables.
+
+Experimental Setup section was expanded with information about test split size and explaination why each language model was chosen. These models were chosen because of their strong performance on Russian language (pretraining or adaptating on RU data) and also to cover different tiers of models: from small 8B to large 600B.
+
+Added Limitations Section: this section was added to address the constraints of our work. Specifically, a more robust research is needed to show statistical significance of 
+aquired results. Also we explain the choice of hyperparameters, such as theta and acknowladge the need for small-scale human evaluation.
+
+Prompt templates and some generation examples were added in the added Appendix section to provide a better understanding of the algorithm flow.
+
+We thank the reviewers for their constructive comments which helped us improve the paper.
