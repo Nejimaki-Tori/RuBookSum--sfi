@@ -1,13 +1,13 @@
 # Fdb version 4
-["bibtex main"] 1765808819.32213 "main.aux" "main.bbl" "main" 1765808877.87942 0
+["bibtex main"] 1765808819.32213 "main.aux" "main.bbl" "main" 1765809191.92348 0
   "./bitex.bib" 1762786464 10802 fcdad9bd6a20ebc65fb132e40ada0e2e ""
   "./splncs04.bst" 1623305688 32956 b4877e9b49b318a6baf65106eecd3f3c ""
-  "main.aux" 1765808876 6532 7a5075eb77c66aa3a948d9a7a9fea98f "pdflatex"
+  "main.aux" 1765809191 6532 7a5075eb77c66aa3a948d9a7a9fea98f "pdflatex"
   (generated)
   "main.bbl"
   "main.blg"
   (rewritten before read)
-["pdflatex"] 1765808875.34161 "d:/MSU/year_4/semester_8/RCC/Articles/BoookSum/sfi/RuBookSum--sfi/main.tex" "main.pdf" "main" 1765808877.88004 0
+["pdflatex"] 1765809189.36727 "d:/MSU/year_4/semester_8/RCC/Articles/BoookSum/sfi/RuBookSum--sfi/main.tex" "main.pdf" "main" 1765809191.92413 0
   "C:/Users/dagri/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1765802647 89842 1f990f6fe0cb7373cc4286c81531a445 ""
   "C:/Users/dagri/AppData/Local/MiKTeX/miktex/data/le/pdftex/pdflatex.fmt" 1753797438 13254354 43b71b833b32492885bfd28422881394 ""
   "C:/Users/dagri/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-ec.enc" 1256929440 2375 baa924870cfb487815765f9094cf3728 ""
@@ -180,12 +180,12 @@
   "C:/Users/dagri/AppData/Local/Programs/MiKTeX/tex/latex/url/url.sty" 1388490452 12796 8edb7d69a20b857904dd0ea757c14ec9 ""
   "C:/Users/dagri/AppData/Local/Programs/MiKTeX/tex/latex/xkeyval/xkeyval.sty" 1656236919 4937 4ce600ce9bd4ec84d0250eb6892fcf4f ""
   "C:/Users/dagri/AppData/Local/Programs/MiKTeX/tex/latex/xurl/xurl.sty" 1641733940 4675 e4b8c405820368c2dfb03526e16d725a ""
-  "d:/MSU/year_4/semester_8/RCC/Articles/BoookSum/sfi/RuBookSum--sfi/main.tex" 1765808874 41752 91104f881183f04924a45ff5b54bfc06 ""
+  "d:/MSU/year_4/semester_8/RCC/Articles/BoookSum/sfi/RuBookSum--sfi/main.tex" 1765809188 41752 53da7bba389927b5a71ffd186478760c ""
   "figures/genres_pie.png" 1762786179 198955 ba07e59b86bdb1b2baff8c7e5489f12e ""
-  "main.aux" 1765808876 6532 7a5075eb77c66aa3a948d9a7a9fea98f "pdflatex"
+  "main.aux" 1765809191 6532 7a5075eb77c66aa3a948d9a7a9fea98f "pdflatex"
   "main.bbl" 1765808819 3466 96573309ffdf702cf171efab90338f04 "bibtex main"
-  "main.out" 1765808876 1790 1908fa5f82a0e15f06e63a035d4e059d "pdflatex"
-  "main.tex" 1765808874 41752 91104f881183f04924a45ff5b54bfc06 ""
+  "main.out" 1765809191 1790 1908fa5f82a0e15f06e63a035d4e059d "pdflatex"
+  "main.tex" 1765809188 41752 53da7bba389927b5a71ffd186478760c ""
   "orcid.eps" 1623311566 137964 10bc4793cc2920a979fe433dc22d03aa ""
   "superfri.cls" 1721976366 10107 c25378b18403232a0bc3b5f030091290 ""
   (generated)
